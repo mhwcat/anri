@@ -1,7 +1,7 @@
 #ifndef ANRI_EVENT_H
 #define ANRI_EVENT_H
 
-#include "EventType.h"
+#include <engine/event/EventType.h>
 
 struct Event
 {

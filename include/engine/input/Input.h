@@ -2,7 +2,7 @@
 #define ANRI_INPUT_H
 
 #include "SDL.h"
-#include "KeyEvent.h"
+#include <engine/input/KeyEvent.h>
 
 class Input 
 {

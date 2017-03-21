@@ -4,9 +4,10 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "../../game/objects/GameObject.h"
-#include "../../game/objects/MovableGameObject.h"
-#include "../SimpleTimer.h"
+
+#include <game/objects/GameObject.h>
+#include <game/objects/MovableGameObject.h>
+#include <engine/SimpleTimer.h>
 
 
 class Renderer 
@@ -17,11 +18,11 @@ class Renderer
 		virtual void render(const std::vector<std::unique_ptr<GameObject> > &objects,
 						const std::vector<std::shared_ptr<MovableGameObject> > &movables,
 						std::string debugText) = 0;
-	private:
-		std::unique_ptr<SimpleTimer> frameTimer;
+	protected:
+		SimpleTimer frameTimer;
 		float frameTimeMs;
-		void renderDebugText(std::string debugText);
-		void cleanup();
+		virtual void renderDebugText(std::string debugText) = 0;
+		virtual void cleanup() = 0;
 };
 
 #endif

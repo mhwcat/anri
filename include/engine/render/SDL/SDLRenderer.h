@@ -6,9 +6,11 @@
 #include <string>
 #include "SDL.h"
 #include "SDL_ttf.h"
-#include "../../../game/objects/GameObject.h"
-#include "../../../game/objects/MovableGameObject.h"
-#include "../../SimpleTimer.h"
+
+#include <game/objects/GameObject.h>
+#include <game/objects/MovableGameObject.h>
+#include <engine/render/Renderer.h>
+#include <engine/SimpleTimer.h>
 
 class SDLRenderer : public Renderer 
 {
@@ -24,10 +26,8 @@ class SDLRenderer : public Renderer
 		SDL_Renderer *renderer;
 		SDL_Window *window;
 		TTF_Font *debugFont;
-		SimpleTimer frameTimer;
-		float frameTimeMs;
-		void renderDebugText(std::string debugText);
-		void cleanup();
+		void renderDebugText(std::string debugText) override;
+		void cleanup() override;
 };
 
 #endif

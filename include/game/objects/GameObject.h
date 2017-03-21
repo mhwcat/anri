@@ -4,8 +4,8 @@
 #include <memory>
 
 #include <SDL_rect.h>
-#include "GameObjectType.h"
-#include "game/Color.h"
+#include <game/objects/GameObjectType.h>
+#include <game/Color.h>
 
 class GameObject
 {

@@ -1,8 +1,8 @@
 #ifndef ANRI_KEY_EVENT_H
 #define ANRI_KEY_EVENT_H
 
-#include "KeyEventType.h"
-#include "KeyValue.h"
+#include <engine/input/KeyEventType.h>
+#include <engine/input/KeyValue.h>
 
 struct KeyEvent
 {
