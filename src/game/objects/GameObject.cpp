@@ -9,67 +9,67 @@
 
 GameObject::GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName) 
 {
-    x = _x;
-    y = _y;
-    width = _width;
-    height = _height;
-    color = std::make_unique<Color>(_colorName);
+	x = _x;
+	y = _y;
+	width = _width;
+	height = _height;
+	color = std::make_unique<Color>(_colorName);
 
-    type = GameObjectType::GAME_OBJECT;
+	type = GameObjectType::GAME_OBJECT;
 }
 
 GameObject::~GameObject()
 {
-    ANRI_DE debugPrint("GameObject[%d] destructor fired.", id);
+	ANRI_DE debugPrint("GameObject[%d] destructor fired.", id);
 }
 
 uint32_t GameObject::getId() 
 {
-    return id;
+	return id;
 }
 
 void GameObject::setId(uint32_t _id) 
 {
-    id = _id;
+	id = _id;
 }
 
 float GameObject::getX() 
 {
-    return x;
+	return x;
 }
 
 float GameObject::getY()
 {
-    return y;
+	return y;
 }
 
 int GameObject::getWidth()
 {
-    return width;
+	return width;
 }
 
 int GameObject::getHeight() 
 {
-    return height;
+	return height;
 }
 
 std::unique_ptr<Color>& GameObject::getColor() 
 {
-    return color;
+	return color;
 }
 
 GameObjectType GameObject::getType() 
 {
-    return type;
+	return type;
 }
 
 SDL_Rect GameObject::getSDLRect()
 {
-    SDL_Rect rect;
+	SDL_Rect rect;
 	rect.w = width;
 	rect.h = height;
 	rect.x = (int) round(x);
 	rect.y = (int) round(y);
 
-    return rect;
+	return rect;
 }

@@ -12,7 +12,7 @@ int main(int argc, char* args[])
 	std::unique_ptr<Game> g = std::make_unique<Game>();
 	if(!g->init())
 	{
-        ANRI_DE debugPrint("Game init failed!");
+		ANRI_DE debugPrint("Game init failed!");
 
 		return EXIT_FAILURE;
 	}
@@ -24,7 +24,7 @@ int main(int argc, char* args[])
 
 	g->start();
 
-    ANRI_DE debugPrint("Exitting gracefully...");
+	ANRI_DE debugPrint("Exitting gracefully...");
 
 	return EXIT_SUCCESS;
 }

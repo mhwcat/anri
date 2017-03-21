@@ -9,28 +9,28 @@
 
 class GameObject
 {
-    protected:
-        uint32_t id;
-        float x;
-        float y;
-        int width;
-        int height;
-        GameObjectType type;
-        std::unique_ptr<Color> color;
+	protected:
+		uint32_t id;
+		float x;
+		float y;
+		int width;
+		int height;
+		GameObjectType type;
+		std::unique_ptr<Color> color;
 
-    public:
-        GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName);
-        virtual ~GameObject();
+	public:
+		GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName);
+		virtual ~GameObject();
 
-        uint32_t getId();
-        void setId(uint32_t _id);
-        float getX();
-        float getY();
-        int getWidth();
-        int getHeight();
-        std::unique_ptr<Color>& getColor();
-        GameObjectType getType();
-        SDL_Rect getSDLRect();
+		uint32_t getId();
+		void setId(uint32_t _id);
+		float getX();
+		float getY();
+		int getWidth();
+		int getHeight();
+		std::unique_ptr<Color>& getColor();
+		GameObjectType getType();
+		SDL_Rect getSDLRect();
 };
 
 #endif

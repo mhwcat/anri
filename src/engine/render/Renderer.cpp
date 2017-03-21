@@ -3,5 +3,5 @@
 
 Renderer::~Renderer()
 {
-    ANRI_DE debugPrint("Renderer destructor fired.");
+	ANRI_DE debugPrint("Renderer destructor fired.");
 }

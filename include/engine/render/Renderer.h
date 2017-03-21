@@ -11,17 +11,17 @@
 
 class Renderer 
 {
-    public:
-        virtual ~Renderer();
-        virtual bool init() = 0;
-        virtual void render(const std::vector<std::unique_ptr<GameObject> > &objects, 
-                        const std::vector<std::shared_ptr<MovableGameObject> > &movables,
-                        std::string debugText) = 0;
-    private:
-        std::unique_ptr<SimpleTimer> frameTimer;
-        float frameTimeMs;
-        void renderDebugText(std::string debugText);
-        void cleanup();
+	public:
+		virtual ~Renderer();
+		virtual bool init() = 0;
+		virtual void render(const std::vector<std::unique_ptr<GameObject> > &objects,
+						const std::vector<std::shared_ptr<MovableGameObject> > &movables,
+						std::string debugText) = 0;
+	private:
+		std::unique_ptr<SimpleTimer> frameTimer;
+		float frameTimeMs;
+		void renderDebugText(std::string debugText);
+		void cleanup();
 };
 
 #endif

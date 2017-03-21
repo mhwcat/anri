@@ -12,22 +12,22 @@
 
 class SDLRenderer : public Renderer 
 {
-    public:
-        SDLRenderer();
-        virtual ~SDLRenderer();
-        bool init() override;
-        void render(const std::vector<std::unique_ptr<GameObject> > &objects, 
-                        const std::vector<std::shared_ptr<MovableGameObject> > &movables,
-                        std::string debugText) override;
+	public:
+		SDLRenderer();
+		virtual ~SDLRenderer();
+		bool init() override;
+		void render(const std::vector<std::unique_ptr<GameObject> > &objects,
+						const std::vector<std::shared_ptr<MovableGameObject> > &movables,
+						std::string debugText) override;
 
-    private:
-        SDL_Renderer *renderer;
-        SDL_Window *window;
-        TTF_Font *debugFont;
-        SimpleTimer frameTimer;
-        float frameTimeMs;
-        void renderDebugText(std::string debugText);
-        void cleanup();
+	private:
+		SDL_Renderer *renderer;
+		SDL_Window *window;
+		TTF_Font *debugFont;
+		SimpleTimer frameTimer;
+		float frameTimeMs;
+		void renderDebugText(std::string debugText);
+		void cleanup();
 };
 
 #endif

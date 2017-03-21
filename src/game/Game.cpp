@@ -11,12 +11,12 @@ Game::Game()
 {
 	running = false;
 	eventHandler = std::make_unique<SDLEventHandler>();
-    renderer = std::make_unique<SDLRenderer>();
+	renderer = std::make_unique<SDLRenderer>();
 }
 
 Game::~Game()
 {
-    ANRI_DE debugPrint("Game destructor fired.");
+	ANRI_DE debugPrint("Game destructor fired.");
 }
 
 bool Game::init()
@@ -27,7 +27,7 @@ bool Game::init()
 void Game::start() 
 {
 	running = true;
-    mainLoop();
+	mainLoop();
 }
 
 void Game::stop()
@@ -37,7 +37,7 @@ void Game::stop()
 
 void Game::mainLoop()
 {
-    SimpleTimer updateTimer;
+	SimpleTimer updateTimer;
 
 	float deltaTime = 0.f;
 	while(running)
@@ -56,38 +56,38 @@ void Game::performEventHandling()
 {
 	eventHandler->processEvents();
 
-    // Handle engine events
+	// Handle engine events
 	while(!eventHandler->isEventsQueueEmpty())
 	{
 		Event event = eventHandler->getLastEventAndPop();
-        switch(event.type)
-        {
-            case EventType::QUIT:
-                running = false;
-                break;
-        }
+		switch(event.type)
+		{
+			case EventType::QUIT:
+				running = false;
+				break;
+		}
 	}
 
-    // Handle input events
-    while(!eventHandler->isKeyEventsQueueEmpty())
-    {
-        KeyEvent keyEvent = eventHandler->getLastKeyEventAndPop();
+	// Handle input events
+	while(!eventHandler->isKeyEventsQueueEmpty())
+	{
+		KeyEvent keyEvent = eventHandler->getLastKeyEventAndPop();
 
-        currentLevel->getPlayer()->handleInput(&keyEvent);
-    }
+		currentLevel->getPlayer()->handleInput(&keyEvent);
+	}
 }
 
 void Game::update(float deltaTime)
 {
 	for(auto const& movable : currentLevel->getMovables()) 
-    {
+	{
 		movable->move(deltaTime);
 	}
 }
 
 void Game::loadLevel(std::unique_ptr<GameLevel> level)
 {
-    currentLevel = std::move(level);
+	currentLevel = std::move(level);
 }
 
 std::string Game::prepareDebugText()
