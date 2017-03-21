@@ -1,0 +1,11 @@
+#ifndef ANRI_GAME_OBJECT_TYPE_H
+#define ANRI_GAME_OBJECT_TYPE_H
+
+enum GameObjectType
+{
+    GAME_OBJECT,
+    MOVABLE_GAME_OBJECT,
+    PLAYER_GAME_OBJECT
+};
+
+#endif
