@@ -55,14 +55,10 @@ void Config::load()
 
 int Config::getIntValueByKey(std::string key)
 {
-	std::map<std::string, std::string>::iterator p = configEntries.find(key);
-
-	return std::stoi(p->second);
+	return std::stoi(configEntries.find(key)->second);
 }
 
 std::string Config::getStringValueByKey(std::string key)
 {
-	std::map<std::string, std::string>::iterator p = configEntries.find(key);
-
-	return p->second;
+	return configEntries.find(key)->second;
 }
