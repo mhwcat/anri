@@ -40,8 +40,8 @@ set(SOURCE_FILES
 		include/game/objects/PlayerGameObject.h
 		include/game/Color.h
 		include/game/Game.h
-		include/game/Globals.h
-		include/engine/event/EventType.h
+        include/engine/event/EventType.h
+		include/engine/Config.h
 		include/engine/DebugPrint.h
 		src/engine/event/SDL/SDLEventHandler.cpp
 		src/engine/event/EventHandler.cpp
@@ -51,6 +51,7 @@ set(SOURCE_FILES
 		src/engine/render/Renderer.cpp
 		src/engine/MemoryUsage.cpp
 		src/engine/SimpleTimer.cpp
+		src/engine/Config.cpp
 		src/engine/DebugPrint.cpp
 		src/game/levels/GameLevel.cpp
 		src/game/objects/GameObject.cpp
@@ -70,3 +71,7 @@ set(TARGET_ASSETS_DIR ${TARGET_FILE_DIR}/assets)
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
 		${CMAKE_SOURCE_DIR}/engine_assets $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+#Copy config file
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy
+		${CMAKE_SOURCE_DIR}/anri.conf $<TARGET_FILE_DIR:${PROJECT_NAME}>)

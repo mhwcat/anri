@@ -16,6 +16,18 @@ void MovableGameObject::move(float deltaTime)
 {
 	x += xVelocity * deltaTime;
 	y += yVelocity * deltaTime;
+
+	/*if(x < 0.f || x > ANRI_WINDOW_WIDTH)
+	{
+		x -= xVelocity * deltaTime;
+		xVelocity = 0.f;
+	}
+
+	if(y < 0.f || y > ANRI_WINDOW_HEIGHT)
+	{
+		y -= yVelocity * deltaTime;
+		yVelocity = 0.f;
+	}*/
 }
 
 float MovableGameObject::getXVelocity()

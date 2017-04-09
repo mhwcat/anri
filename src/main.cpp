@@ -6,6 +6,7 @@
 #include <game/levels/GameLevel.h>
 #include <game/Game.h>
 #include <engine/DebugPrint.h>
+#include <engine/Config.h>
 
 int main(int argc, char* args[])
 {

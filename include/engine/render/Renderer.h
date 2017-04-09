@@ -13,6 +13,7 @@
 class Renderer 
 {
 	public:
+		Renderer();
 		virtual ~Renderer();
 		virtual bool init() = 0;
 		virtual void render(const std::vector<std::unique_ptr<GameObject> > &objects,
@@ -21,6 +22,9 @@ class Renderer
 	protected:
 		SimpleTimer frameTimer;
 		float frameTimeMs;
+		int desiredFramesPerSecond;
+		int windowWidth;
+		int windowHeight;
 		virtual void renderDebugText(std::string debugText) = 0;
 		virtual void cleanup() = 0;
 };

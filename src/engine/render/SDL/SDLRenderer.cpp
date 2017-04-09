@@ -8,7 +8,7 @@
 #include <engine/render/Renderer.h>
 #include <engine/render/SDL/SDLRenderer.h>
 #include <engine/DebugPrint.h>
-#include <game/Globals.h>
+#include <engine/Config.h>
 
 
 SDLRenderer::SDLRenderer() : Renderer()
@@ -21,9 +21,9 @@ SDLRenderer::~SDLRenderer()
 	cleanup();
 }
 
-void SDLRenderer::render(const std::vector<std::unique_ptr<GameObject> > &objects, 
-							const std::vector<std::shared_ptr<MovableGameObject> > &movables,
-							std::string debugText)
+void SDLRenderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
+						 const std::vector<std::shared_ptr<MovableGameObject> > &movables,
+						 std::string debugText)
 {
 	frameTimer.start();
 
@@ -57,13 +57,13 @@ void SDLRenderer::render(const std::vector<std::unique_ptr<GameObject> > &object
 
 	float frameTimeMicroseconds = (float) frameTimer.getMicrosecondsSinceStart();
 	// If frame was rendered faster than desired, wait
-	if((1000000.f / frameTimeMicroseconds) > ANRI_FRAMES_PER_SECOND)
+	if((1000000.f / frameTimeMicroseconds) > desiredFramesPerSecond)
 	{
-		std::this_thread::sleep_for(std::chrono::microseconds((long) round(((1000000.f / ANRI_FRAMES_PER_SECOND) - frameTimeMicroseconds))));
+		std::this_thread::sleep_for(std::chrono::microseconds((long) round(((1000000.f / desiredFramesPerSecond) - frameTimeMicroseconds))));
 	}
 
 	// Update frame time
-	frameTimeMs = (frameTimeMicroseconds / 1000.f) + (round(((1000000.f / ANRI_FRAMES_PER_SECOND) - frameTimeMicroseconds)) / 1000.f);
+	frameTimeMs = (frameTimeMicroseconds / 1000.f) + (round(((1000000.f / desiredFramesPerSecond) - frameTimeMicroseconds)) / 1000.f);
 }
 
 void SDLRenderer::renderDebugText(std::string debugText)
@@ -79,7 +79,7 @@ void SDLRenderer::renderDebugText(std::string debugText)
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 
 	SDL_Rect rect;
-	rect.x = ANRI_WINDOW_WIDTH - 200;
+	rect.x = windowWidth - 200;
 	rect.y = 5;
 
 	SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
@@ -106,7 +106,8 @@ bool SDLRenderer::init()
 	}
 
 	debugFont = NULL;
-	debugFont = TTF_OpenFont(ANRI_DEBUG_FONT_PATH, ANRI_DEBUG_FONT_SIZE);
+	debugFont = TTF_OpenFont(Config::getInstance().getStringValueByKey("debugOverlay.fontPath").c_str(),
+							 Config::getInstance().getIntValueByKey("debugOverlay.fontSize"));
 	if(debugFont == NULL)
 	{
 		ANRI_DE debugPrint("Could not load debug font! TTF_Error: %s", TTF_GetError());
@@ -115,7 +116,12 @@ bool SDLRenderer::init()
 
 	ANRI_DE debugPrint("Initializing window...");
 	window = NULL;
-	window = SDL_CreateWindow(ANRI_WINDOW_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ANRI_WINDOW_WIDTH, ANRI_WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow(Config::getInstance().getStringValueByKey("window.title").c_str(),
+							  SDL_WINDOWPOS_UNDEFINED,
+							  SDL_WINDOWPOS_UNDEFINED,
+							  Config::getInstance().getIntValueByKey("window.width"),
+							  Config::getInstance().getIntValueByKey("window.height"),
+							  SDL_WINDOW_SHOWN);
 	if(window == NULL)
 	{
 		ANRI_DE debugPrint("Window could not be created! SDL_Error: %s", SDL_GetError());
@@ -123,7 +129,10 @@ bool SDLRenderer::init()
 	}
 	else
 	{
-		ANRI_DE debugPrint("Initialized window with name \"%s\" and size %dx%d.", ANRI_WINDOW_NAME, ANRI_WINDOW_WIDTH, ANRI_WINDOW_HEIGHT);
+		ANRI_DE debugPrint("Initialized window with name \"%s\" and size %dx%d.",
+						   Config::getInstance().getStringValueByKey("window.title").c_str(),
+						   Config::getInstance().getIntValueByKey("window.width"),
+						   Config::getInstance().getIntValueByKey("window.height"));
 	}
 
 	ANRI_DE debugPrint("Initializing renderer...");
