@@ -1,5 +1,12 @@
 #include <chrono>
 #include <engine/SimpleTimer.h>
+#include <engine/DebugPrint.h>
+
+SimpleTimer::SimpleTimer()
+{
+	// Initialize begin value to prevent counting delta using undefined value
+	begin = std::chrono::steady_clock::now();
+}
 
 void SimpleTimer::start()
 {

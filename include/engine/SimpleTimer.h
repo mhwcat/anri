@@ -6,6 +6,7 @@
 class SimpleTimer
 {
 	public:
+		SimpleTimer();
 		void start();
 
 		long getMillisecondsSinceStart();
