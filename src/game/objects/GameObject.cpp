@@ -7,13 +7,15 @@
 #include "SDL.h"
 
 
-GameObject::GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName) 
+GameObject::GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled)
 {
 	x = _x;
 	y = _y;
 	width = _width;
 	height = _height;
 	color = std::make_unique<Color>(_colorName);
+	collisionEnabled = _collisionEnabled;
+	colliding = false;
 
 	type = GameObjectType::GAME_OBJECT;
 }
@@ -53,14 +55,42 @@ int GameObject::getHeight()
 	return height;
 }
 
+GameObjectType GameObject::getType()
+{
+	return type;
+}
+
 std::unique_ptr<Color>& GameObject::getColor() 
 {
 	return color;
 }
 
-GameObjectType GameObject::getType() 
+bool GameObject::hasCollisionEnabled()
 {
-	return type;
+	return collisionEnabled;
+}
+
+void GameObject::setCollisionEnabled(bool _collisionEnabled)
+{
+	collisionEnabled = _collisionEnabled;
+}
+
+bool GameObject::isColliding()
+{
+	return colliding;
+}
+
+void GameObject::setColliding(bool _colliding)
+{
+	colliding = _colliding;
+}
+
+bool GameObject::operator==(const GameObject &rhs) const {
+	return id == rhs.id;
+}
+
+bool GameObject::operator!=(const GameObject &rhs) const {
+	return !(rhs == *this);
 }
 
 SDL_Rect GameObject::getSDLRect()

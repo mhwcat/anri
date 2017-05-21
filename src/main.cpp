@@ -19,9 +19,9 @@ int main(int argc, char* args[])
 	}
 
 	std::unique_ptr<GameLevel> gl = std::make_unique<GameLevel>();
-	gl->addGameObject(std::make_unique<GameObject>(10, 10, 10, 10, Color::ColorName::RED));
-	gl->addMovableGameObject(std::make_shared<MovableGameObject>(10, 10, 15, 15, Color::ColorName::GREEN, 10.f, 10.f));
-	gl->setPlayer(std::make_shared<PlayerGameObject>(10, 10, 10, 10, Color::ColorName::BLUE, 0.f, 0.f));
+	gl->addGameObject(std::make_unique<GameObject>(50, 50, 10, 10, Color::ColorName::RED, true));
+	gl->addMovableGameObject(std::make_shared<MovableGameObject>(60, 60, 15, 15, Color::ColorName::GREEN, true, 0.f, 0.f));
+	gl->setPlayer(std::make_shared<PlayerGameObject>(10, 10, 10, 10, Color::ColorName::BLUE, true, 0.f, 0.f));
 	g->loadLevel(std::move(gl));
 
 	g->start();

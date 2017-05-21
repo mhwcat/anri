@@ -81,7 +81,38 @@ void Game::update(float deltaTime)
 {
 	for(auto const& movable : currentLevel->getMovables()) 
 	{
-		movable->move(deltaTime);
+		if(movable->hasCollisionEnabled())
+		{
+			bool collisionDetected = false;
+
+			for(auto const& checkedMovable : currentLevel->getMovables())
+			{
+				if(movable != checkedMovable)
+				{
+					collisionDetected = (movable->getX() < checkedMovable->getX() + checkedMovable->getWidth()) &&
+										(movable->getX() + movable->getWidth() > checkedMovable->getX()) &&
+										(movable->getY() < checkedMovable->getY() + checkedMovable->getHeight()) &&
+										(movable->getHeight() + movable->getY() > checkedMovable->getY());
+
+					if(collisionDetected && !movable->isColliding())
+					{
+						ANRI_DE debugPrint("%d entered collision with %d", movable->getId(), checkedMovable->getId());
+						movable->setColliding(true);
+						break;
+					} else if(!collisionDetected && movable->isColliding())
+					{
+						ANRI_DE debugPrint("%d exited collision", movable->getId());
+						movable->setColliding(false);
+					}
+				}
+			}
+
+//			if(!collisionDetected) {
+				movable->move(deltaTime);
+//			}
+		} else {
+			movable->move(deltaTime);
+		}
 	}
 }
 

@@ -2,8 +2,9 @@
 #include <game/Color.h>
 #include <game/objects/PlayerGameObject.h>
 
-PlayerGameObject::PlayerGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, float _xVelocity, float _yVelocity)
-	: MovableGameObject(_x, _y, _width, _height, _colorName, _xVelocity, _yVelocity)
+PlayerGameObject::PlayerGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName,
+								   bool _collisionEnabled, float _xVelocity, float _yVelocity)
+	: MovableGameObject(_x, _y, _width, _height, _colorName, _collisionEnabled, _xVelocity, _yVelocity)
 {
 	type = GameObjectType::PLAYER_GAME_OBJECT;
 }

@@ -11,7 +11,8 @@ class MovableGameObject : public GameObject, public IMovable
 		float yVelocity;
 
 	public:
-		MovableGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, float _xVelocity, float _yVelocity);
+		MovableGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled,
+						  float _xVelocity, float _yVelocity);
 
 		void move(float deltaTime) override;
 
