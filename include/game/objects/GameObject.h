@@ -9,39 +9,38 @@
 
 class GameObject
 {
-	protected:
-		uint32_t id;
-		float x;
-		float y;
-		int width;
-		int height;
-		GameObjectType type;
-		std::unique_ptr<Color> color;
-		bool collisionEnabled;
-		bool colliding;
+    protected:
+        uint32_t id;
+        float x;
+        float y;
+        int width;
+        int height;
+        GameObjectType type;
+        std::unique_ptr<Color> color;
+        bool collisionEnabled;
+        bool colliding;
 
-	public:
-		GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled);
-		virtual ~GameObject();
+    public:
+        GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled);
+        virtual ~GameObject();
 
-		uint32_t getId();
-		void setId(uint32_t _id);
-		float getX();
-		float getY();
-		int getWidth();
-		int getHeight();
-		GameObjectType getType();
-		std::unique_ptr<Color>& getColor();
-		bool hasCollisionEnabled();
-		void setCollisionEnabled(bool _collisionEnabled);
-		bool isColliding();
-		void setColliding(bool _colliding);
-		SDL_Rect getSDLRect();
+        uint32_t getId();
+        void setId(uint32_t _id);
+        float getX();
+        float getY();
+        int getWidth();
+        int getHeight();
+        GameObjectType getType();
+        std::unique_ptr<Color>& getColor();
+        bool hasCollisionEnabled();
+        void setCollisionEnabled(bool _collisionEnabled);
+        bool isColliding();
+        void setColliding(bool _colliding);
+        SDL_Rect getSDLRect();  // get rekt n00b
 
-	bool operator==(const GameObject &rhs) const;
+        bool operator==(const GameObject &rhs) const;
 
-	bool operator!=(const GameObject &rhs) const;
-	// get rekt n00b
+        bool operator!=(const GameObject &rhs) const;
 };
 
 #endif

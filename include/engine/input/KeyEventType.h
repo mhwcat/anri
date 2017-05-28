@@ -3,7 +3,7 @@
 
 enum KeyEventType
 {
-	KEY_UP, KEY_DOWN
+    KEY_UP, KEY_DOWN
 };
 
 #endif

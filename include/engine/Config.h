@@ -6,19 +6,19 @@
 
 class Config
 {
-	public:
-		static Config& getInstance();
-		int getIntValueByKey(std::string key);
-		std::string getStringValueByKey(std::string key);
+    public:
+        static Config& getInstance();
+        int getIntValueByKey(std::string key);
+        std::string getStringValueByKey(std::string key);
 
-	private:
-		Config();
-		virtual ~Config();
+    private:
+        Config();
+        virtual ~Config();
 
-		std::string configFilePath;
-		std::map<std::string, std::string> configEntries;
+        std::string configFilePath;
+        std::map<std::string, std::string> configEntries;
 
-		void load();
+        void load();
 
 };
 

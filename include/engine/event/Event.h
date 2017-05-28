@@ -5,7 +5,7 @@
 
 struct Event
 {
-	EventType type;
+    EventType type;
 };
 
 #endif

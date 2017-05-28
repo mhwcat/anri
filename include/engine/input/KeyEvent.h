@@ -6,8 +6,8 @@
 
 struct KeyEvent
 {
-	KeyEventType type;
-	KeyValue value;
+    KeyEventType type;
+    KeyValue value;
 };
 
 #endif

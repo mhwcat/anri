@@ -6,9 +6,9 @@
 
 class Input 
 {
-	public:
-		virtual ~Input();
-		virtual KeyEvent getKeyEventFromSDLEvent(SDL_Event *sdlEvent) = 0;
+    public:
+        virtual ~Input();
+        virtual KeyEvent getKeyEventFromSDLEvent(SDL_Event *sdlEvent) = 0;
 };
 
 #endif

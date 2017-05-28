@@ -9,18 +9,18 @@
 
 class EventHandler
 {
-	public:
-		virtual ~EventHandler();
-		virtual void processEvents() = 0;
-		virtual Event getLastEventAndPop() = 0;
-		virtual KeyEvent getLastKeyEventAndPop() = 0;
-		virtual bool isEventsQueueEmpty() = 0;
-		virtual bool isKeyEventsQueueEmpty() = 0;
+    public:
+        virtual ~EventHandler();
+        virtual void processEvents() = 0;
+        virtual Event getLastEventAndPop() = 0;
+        virtual KeyEvent getLastKeyEventAndPop() = 0;
+        virtual bool isEventsQueueEmpty() = 0;
+        virtual bool isKeyEventsQueueEmpty() = 0;
 
-	protected:
-		std::queue<Event> events;
-		std::queue<KeyEvent> keyEvents;
-		std::unique_ptr<Input> input;
+    protected:
+        std::queue<Event> events;
+        std::queue<KeyEvent> keyEvents;
+        std::unique_ptr<Input> input;
 };
 
 #endif

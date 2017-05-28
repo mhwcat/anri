@@ -2,7 +2,7 @@
 #define ANRI_EVENT_TYPE_H
 
 enum EventType {
-	QUIT
+    QUIT
 };
 
 #endif //ANRI_EVENT_TYPE_H

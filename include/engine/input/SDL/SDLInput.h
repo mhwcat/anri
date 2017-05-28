@@ -7,8 +7,8 @@
 
 class SDLInput : public Input
 {
-	public:
-		KeyEvent getKeyEventFromSDLEvent(SDL_Event *sdlEvent) override;
+    public:
+        KeyEvent getKeyEventFromSDLEvent(SDL_Event *sdlEvent) override;
 };
 
 #endif

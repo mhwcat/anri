@@ -10,25 +10,25 @@
 
 int main(int argc, char* args[])
 {
-	std::unique_ptr<Game> g = std::make_unique<Game>();
-	if(!g->init())
-	{
-		ANRI_DE debugPrint("Game init failed!");
+    std::unique_ptr<Game> g = std::make_unique<Game>();
+    if(!g->init())
+    {
+        ANRI_DE debugPrint("Game init failed!");
 
-		return EXIT_FAILURE;
-	}
+        return EXIT_FAILURE;
+    }
 
-	std::unique_ptr<GameLevel> gl = std::make_unique<GameLevel>();
-	gl->addGameObject(std::make_unique<GameObject>(50, 50, 10, 10, Color::ColorName::RED, true));
-	gl->addMovableGameObject(std::make_shared<MovableGameObject>(60, 60, 15, 15, Color::ColorName::GREEN, true, 0.f, 0.f));
-	gl->setPlayer(std::make_shared<PlayerGameObject>(10, 10, 10, 10, Color::ColorName::BLUE, true, 0.f, 0.f));
-	g->loadLevel(std::move(gl));
+    std::unique_ptr<GameLevel> gl = std::make_unique<GameLevel>();
+    gl->addGameObject(std::make_unique<GameObject>(50, 50, 10, 10, Color::ColorName::RED, true));
+    gl->addMovableGameObject(std::make_shared<MovableGameObject>(60, 60, 15, 15, Color::ColorName::GREEN, true, 0.f, -15.f));
+    gl->setPlayer(std::make_shared<PlayerGameObject>(10, 10, 10, 10, Color::ColorName::BLUE, true, 0.f, 0.f));
+    g->loadLevel(std::move(gl));
 
-	g->start();
+    g->start();
 
-	ANRI_DE debugPrint("Exitting gracefully...");
+    ANRI_DE debugPrint("Exitting gracefully...");
 
-	return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
 
 

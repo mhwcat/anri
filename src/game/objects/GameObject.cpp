@@ -4,102 +4,101 @@
 #include <game/Color.h>
 #include <game/objects/GameObject.h>
 #include <engine/DebugPrint.h>
-#include "SDL.h"
 
 
 GameObject::GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled)
 {
-	x = _x;
-	y = _y;
-	width = _width;
-	height = _height;
-	color = std::make_unique<Color>(_colorName);
-	collisionEnabled = _collisionEnabled;
-	colliding = false;
+    x = _x;
+    y = _y;
+    width = _width;
+    height = _height;
+    color = std::make_unique<Color>(_colorName);
+    collisionEnabled = _collisionEnabled;
+    colliding = false;
 
-	type = GameObjectType::GAME_OBJECT;
+    type = GameObjectType::GAME_OBJECT;
 }
 
 GameObject::~GameObject()
 {
-	ANRI_DE debugPrint("GameObject[%d] destructor fired.", id);
+    ANRI_DE debugPrint("GameObject[%d] destructor fired.", id);
 }
 
 uint32_t GameObject::getId() 
 {
-	return id;
+    return id;
 }
 
 void GameObject::setId(uint32_t _id) 
 {
-	id = _id;
+    id = _id;
 }
 
 float GameObject::getX() 
 {
-	return x;
+    return x;
 }
 
 float GameObject::getY()
 {
-	return y;
+    return y;
 }
 
 int GameObject::getWidth()
 {
-	return width;
+    return width;
 }
 
 int GameObject::getHeight() 
 {
-	return height;
+    return height;
 }
 
 GameObjectType GameObject::getType()
 {
-	return type;
+    return type;
 }
 
 std::unique_ptr<Color>& GameObject::getColor() 
 {
-	return color;
+    return color;
 }
 
 bool GameObject::hasCollisionEnabled()
 {
-	return collisionEnabled;
+    return collisionEnabled;
 }
 
 void GameObject::setCollisionEnabled(bool _collisionEnabled)
 {
-	collisionEnabled = _collisionEnabled;
+    collisionEnabled = _collisionEnabled;
 }
 
 bool GameObject::isColliding()
 {
-	return colliding;
+    return colliding;
 }
 
 void GameObject::setColliding(bool _colliding)
 {
-	colliding = _colliding;
+    colliding = _colliding;
 }
 
 bool GameObject::operator==(const GameObject &rhs) const {
-	return id == rhs.id;
+    return id == rhs.id;
 }
 
 bool GameObject::operator!=(const GameObject &rhs) const {
-	return !(rhs == *this);
+    return !(rhs == *this);
 }
 
 SDL_Rect GameObject::getSDLRect()
 {
-	SDL_Rect rect;
-	rect.w = width;
-	rect.h = height;
-	rect.x = (int) round(x);
-	rect.y = (int) round(y);
+    SDL_Rect rect;
+    rect.w = width;
+    rect.h = height;
+    rect.x = (int) round(x);
+    rect.y = (int) round(y);
 
-	return rect;
+    return rect;
 }

@@ -5,15 +5,15 @@
 
 class SimpleTimer
 {
-	public:
-		SimpleTimer();
-		void start();
+    public:
+        SimpleTimer();
+        void start();
 
-		long getMillisecondsSinceStart();
-		long getMicrosecondsSinceStart();
+        long getMillisecondsSinceStart();
+        long getMicrosecondsSinceStart();
 
-	private:
-		std::chrono::steady_clock::time_point begin;
+    private:
+        std::chrono::steady_clock::time_point begin;
 };
 
 #endif

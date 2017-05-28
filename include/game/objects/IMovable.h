@@ -3,9 +3,9 @@
 
 class IMovable
 {
-	public:
-		virtual ~IMovable() {};
-		virtual void move(float deltaTime) = 0;
+    public:
+        virtual ~IMovable() {};
+        virtual void move(float deltaTime) = 0;
 };
 
 #endif

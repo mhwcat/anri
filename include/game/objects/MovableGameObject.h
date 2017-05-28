@@ -6,20 +6,20 @@
 
 class MovableGameObject : public GameObject, public IMovable
 {
-	protected:
-		float xVelocity;
-		float yVelocity;
+    protected:
+        float xVelocity;
+        float yVelocity;
 
-	public:
-		MovableGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled,
-						  float _xVelocity, float _yVelocity);
+    public:
+        MovableGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled,
+                          float _xVelocity, float _yVelocity);
 
-		void move(float deltaTime) override;
+        void move(float deltaTime) override;
 
-		float getXVelocity();
-		float getYVelocity();
-		void setXVelocity(float _xVelocity);
-		void setYVelocity(float _yVelocity);
+        float getXVelocity();
+        float getYVelocity();
+        void setXVelocity(float _xVelocity);
+        void setYVelocity(float _yVelocity);
 };
 
 #endif

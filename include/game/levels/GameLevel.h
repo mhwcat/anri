@@ -11,25 +11,25 @@
 
 class GameLevel
 {
-	private:
-		std::vector<std::unique_ptr<GameObject> > objects;
-		std::vector<std::shared_ptr<MovableGameObject> > movables;
-		std::shared_ptr<PlayerGameObject> player;
-		uint32_t lastId;
+    private:
+        std::vector<std::unique_ptr<GameObject> > objects;
+        std::vector<std::shared_ptr<MovableGameObject> > movables;
+        std::shared_ptr<PlayerGameObject> player;
+        uint32_t lastId;
 
-	public:
-		GameLevel();
-		virtual ~GameLevel();
+    public:
+        GameLevel();
+        virtual ~GameLevel();
 
-		const std::vector<std::unique_ptr<GameObject> >& getObjects() const;
-		const std::vector<std::shared_ptr<MovableGameObject> >& getMovables() const;
-		const std::shared_ptr<PlayerGameObject> &getPlayer() const;
+        const std::vector<std::unique_ptr<GameObject> >& getObjects() const;
+        const std::vector<std::shared_ptr<MovableGameObject> >& getMovables() const;
+        const std::shared_ptr<PlayerGameObject> &getPlayer() const;
 
-		void setPlayer(std::shared_ptr<PlayerGameObject> playerGameObject);
-		void addGameObject(std::unique_ptr<GameObject> gameObject);
-		void addMovableGameObject(std::shared_ptr<MovableGameObject> movableGameObject);
-		const std::unique_ptr<GameObject>& getGameObject(uint32_t id) const;
-		void removeGameObject(uint32_t id);
+        void setPlayer(std::shared_ptr<PlayerGameObject> playerGameObject);
+        void addGameObject(std::unique_ptr<GameObject> gameObject);
+        void addMovableGameObject(std::shared_ptr<MovableGameObject> movableGameObject);
+        const std::unique_ptr<GameObject>& getGameObject(uint32_t id) const;
+        void removeGameObject(uint32_t id);
 
 };
 

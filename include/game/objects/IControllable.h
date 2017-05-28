@@ -5,9 +5,9 @@
 
 class IControllable
 {
-	public:
-		virtual ~IControllable() {};
-		virtual void handleInput(KeyEvent *keyEvent) = 0;
+    public:
+        virtual ~IControllable() {};
+        virtual void handleInput(KeyEvent *keyEvent) = 0;
 };
 
 #endif

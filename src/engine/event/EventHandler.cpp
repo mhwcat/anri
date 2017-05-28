@@ -4,5 +4,5 @@
 
 EventHandler::~EventHandler()
 {
-	ANRI_DE debugPrint("EventHandler destructor fired.");
+    ANRI_DE debugPrint("EventHandler destructor fired.");
 }

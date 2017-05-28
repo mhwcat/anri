@@ -4,12 +4,12 @@
 
 Renderer::Renderer()
 {
-	desiredFramesPerSecond = Config::getInstance().getIntValueByKey("renderer.fps");
-	windowWidth = Config::getInstance().getIntValueByKey("window.width");
-	windowHeight = Config::getInstance().getIntValueByKey("window.height");
+    desiredFramesPerSecond = Config::getInstance().getIntValueByKey("renderer.fps");
+    windowWidth = Config::getInstance().getIntValueByKey("window.width");
+    windowHeight = Config::getInstance().getIntValueByKey("window.height");
 }
 
 Renderer::~Renderer()
 {
-	ANRI_DE debugPrint("Renderer destructor fired.");
+    ANRI_DE debugPrint("Renderer destructor fired.");
 }

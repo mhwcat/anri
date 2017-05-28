@@ -7,14 +7,14 @@
 
 class SDLEventHandler : public EventHandler
 {
-	public:
-		SDLEventHandler();
+    public:
+        SDLEventHandler();
 
-		void processEvents() override;
-		Event getLastEventAndPop() override;
-		KeyEvent getLastKeyEventAndPop() override;
-		bool isEventsQueueEmpty() override;
-		bool isKeyEventsQueueEmpty() override;
+        void processEvents() override;
+        Event getLastEventAndPop() override;
+        KeyEvent getLastKeyEventAndPop() override;
+        bool isEventsQueueEmpty() override;
+        bool isKeyEventsQueueEmpty() override;
 };
 
 #endif

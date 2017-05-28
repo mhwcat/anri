@@ -3,5 +3,5 @@
 
 Input::~Input()
 {
-	ANRI_DE debugPrint("Input destructor fired.");
+    ANRI_DE debugPrint("Input destructor fired.");
 }
