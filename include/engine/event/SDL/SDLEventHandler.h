@@ -3,7 +3,6 @@
 
 #include <engine/event/EventHandler.h>
 #include <engine/event/Event.h>
-#include <engine/input/KeyEvent.h>
 
 class SDLEventHandler : public EventHandler
 {
@@ -12,9 +11,9 @@ class SDLEventHandler : public EventHandler
 
         void processEvents() override;
         Event getLastEventAndPop() override;
-        KeyEvent getLastKeyEventAndPop() override;
+        InputEvent getLastInputEventAndPop() override;
         bool isEventsQueueEmpty() override;
-        bool isKeyEventsQueueEmpty() override;
+        bool isInputEventsQueueEmpty() override;
 };
 
 #endif

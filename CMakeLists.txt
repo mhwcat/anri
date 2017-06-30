@@ -24,10 +24,7 @@ set(SOURCE_FILES
 		include/engine/event/EventHandler.h
 		include/engine/input/SDL/SDLInput.h
 		include/engine/input/Input.h
-		include/engine/input/KeyEvent.h
-		include/engine/input/KeyEventType.h
-		include/engine/input/KeyValue.h
-		include/engine/render/SDL/SDLRenderer.h
+        include/engine/render/SDL/SDLRenderer.h
 		include/engine/render/Renderer.h
 		include/engine/MemoryUsage.h
 		include/engine/SimpleTimer.h

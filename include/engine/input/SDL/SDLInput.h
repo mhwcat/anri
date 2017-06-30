@@ -3,12 +3,18 @@
 
 #include <memory>
 #include <engine/input/Input.h>
+#include <engine/input/InputEvent.h>
 #include "SDL.h"
 
 class SDLInput : public Input
 {
     public:
-        KeyEvent getKeyEventFromSDLEvent(SDL_Event *sdlEvent) override;
+        SDLInput();
+        ~SDLInput();
+        InputEvent getInputEventFromSDLEvent(SDL_Event *sdlEvent) override;
+
+    private:
+        SDL_Joystick* sdlJoystick;
 };
 
 #endif

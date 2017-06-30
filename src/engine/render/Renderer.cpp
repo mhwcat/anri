@@ -4,6 +4,8 @@
 
 Renderer::Renderer()
 {
+    ANRI_DE debugPrint("Initializing Renderer subsystem.");
+
     desiredFramesPerSecond = Config::getInstance().getIntValueByKey("renderer.fps");
     windowWidth = Config::getInstance().getIntValueByKey("window.width");
     windowHeight = Config::getInstance().getIntValueByKey("window.height");

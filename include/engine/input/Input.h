@@ -2,13 +2,14 @@
 #define ANRI_INPUT_H
 
 #include "SDL.h"
-#include <engine/input/KeyEvent.h>
+#include "InputEvent.h"
 
 class Input 
 {
     public:
+        Input();
         virtual ~Input();
-        virtual KeyEvent getKeyEventFromSDLEvent(SDL_Event *sdlEvent) = 0;
+        virtual InputEvent getInputEventFromSDLEvent(SDL_Event *sdlEvent) = 0;
 };
 
 #endif

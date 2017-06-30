@@ -8,38 +8,46 @@ PlayerGameObject::PlayerGameObject(float _x, float _y, int _width, int _height, 
     type = GameObjectType::PLAYER_GAME_OBJECT;
 }
 
-void PlayerGameObject::handleInput(KeyEvent *keyEvent)
+void PlayerGameObject::handleInput(InputEvent *keyEvent)
 {
-    if(keyEvent->type == KeyEventType::KEY_DOWN)
+    if(keyEvent->type == InputEventType::KB_KEY_DOWN || keyEvent->type == InputEventType::PAD_BUTTON_DOWN)
     {
         switch(keyEvent->value)
         {
-            case KeyValue::ARROW_UP:
+            case InputValue::KB_ARROW_UP:
+            case InputValue::PAD_DPAD_UP:
                 yVelocity = -50.f;
                 break;
-            case KeyValue::ARROW_DOWN:
+            case InputValue::KB_ARROW_DOWN:
+            case InputValue::PAD_DPAD_DOWN:
                 yVelocity = 50.f;
                 break;
-            case KeyValue::ARROW_LEFT:
+            case InputValue::KB_ARROW_LEFT:
+            case InputValue::PAD_DPAD_LEFT:
                 xVelocity = -50.f;
                 break;
-            case KeyValue::ARROW_RIGHT:
+            case InputValue::KB_ARROW_RIGHT:
+            case InputValue::PAD_DPAD_RIGHT:
                 xVelocity = 50.f;
                 break;
             default:
                 break;
         }
     }
-    else if(keyEvent->type == KeyEventType::KEY_UP)
+    else if(keyEvent->type == InputEventType::KB_KEY_UP || keyEvent->type == InputEventType::PAD_BUTTON_UP)
     {
         switch(keyEvent->value)
         {
-            case KeyValue::ARROW_UP:
-            case KeyValue::ARROW_DOWN:
+            case InputValue::KB_ARROW_UP:
+            case InputValue::KB_ARROW_DOWN:
+            case InputValue::PAD_DPAD_UP:
+            case InputValue::PAD_DPAD_DOWN:
                 yVelocity = 0.f;
                 break;
-            case KeyValue::ARROW_LEFT:
-            case KeyValue::ARROW_RIGHT:
+            case InputValue::KB_ARROW_LEFT:
+            case InputValue::KB_ARROW_RIGHT:
+            case InputValue::PAD_DPAD_LEFT:
+            case InputValue::PAD_DPAD_RIGHT:
                 xVelocity = 0.f;
                 break;
             default:

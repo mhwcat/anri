@@ -69,11 +69,11 @@ void Game::performEventHandling()
     }
 
     // Handle input events
-    while(!eventHandler->isKeyEventsQueueEmpty())
+    while(!eventHandler->isInputEventsQueueEmpty())
     {
-        KeyEvent keyEvent = eventHandler->getLastKeyEventAndPop();
+        InputEvent inputEvent = eventHandler->getLastInputEventAndPop();
 
-        currentLevel->getPlayer()->handleInput(&keyEvent);
+        currentLevel->getPlayer()->handleInput(&inputEvent);
     }
 }
 

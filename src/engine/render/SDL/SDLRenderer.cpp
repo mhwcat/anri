@@ -91,7 +91,7 @@ void SDLRenderer::renderDebugText(std::string debugText)
 
 bool SDLRenderer::init()
 {
-    ANRI_DE debugPrint("Initializing SDL...");
+    ANRI_DE debugPrint("Initializing SDL and SDL Video subsystem...");
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
     {
         ANRI_DE debugPrint("SDL could not initialize! SDL_Error: %s", SDL_GetError());

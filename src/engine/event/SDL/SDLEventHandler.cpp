@@ -21,9 +21,10 @@ void SDLEventHandler::processEvents()
             quitEvent.type = EventType::QUIT;
 
             events.push(quitEvent);
-        } else if(sdlEvent.type == SDL_KEYDOWN || sdlEvent.type == SDL_KEYUP)
+        } else if(sdlEvent.type == SDL_KEYDOWN || sdlEvent.type == SDL_KEYUP ||
+                sdlEvent.type == SDL_JOYBUTTONDOWN || sdlEvent.type == SDL_JOYBUTTONUP || sdlEvent.type == SDL_JOYAXISMOTION)
         {
-            keyEvents.push(input->getKeyEventFromSDLEvent(&sdlEvent));
+            inputEvents.push(input->getInputEventFromSDLEvent(&sdlEvent));
         }
     }
 }
@@ -36,12 +37,12 @@ Event SDLEventHandler::getLastEventAndPop()
     return eventToReturn;
 }
 
-KeyEvent SDLEventHandler::getLastKeyEventAndPop()
+InputEvent SDLEventHandler::getLastInputEventAndPop()
 {
-    KeyEvent keyEventToReturn = keyEvents.front();
-    keyEvents.pop();
+    InputEvent inputEventToReturn = inputEvents.front();
+    inputEvents.pop();
 
-    return keyEventToReturn;
+    return inputEventToReturn;
 }
 
 bool SDLEventHandler::isEventsQueueEmpty()
@@ -49,7 +50,7 @@ bool SDLEventHandler::isEventsQueueEmpty()
     return events.empty();
 }
 
-bool SDLEventHandler::isKeyEventsQueueEmpty()
+bool SDLEventHandler::isInputEventsQueueEmpty()
 {
-    return keyEvents.empty();
+    return inputEvents.empty();
 }

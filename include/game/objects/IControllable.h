@@ -1,13 +1,13 @@
 #ifndef ANRI_I_CONTROLLABLE_H
 #define ANRI_I_CONTROLLABLE_H
 
-#include <engine/input/KeyEvent.h>
+#include "engine/input/InputEvent.h"
 
 class IControllable
 {
     public:
         virtual ~IControllable() {};
-        virtual void handleInput(KeyEvent *keyEvent) = 0;
+        virtual void handleInput(InputEvent *inputEvent) = 0;
 };
 
 #endif
