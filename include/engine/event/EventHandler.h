@@ -6,6 +6,7 @@
 #include <engine/event/Event.h>
 #include <engine/input/Input.h>
 #include <engine/input/InputEvent.h>
+#include <engine/input/SDL/SDLInput.h>
 
 class EventHandler
 {
@@ -17,11 +18,12 @@ class EventHandler
         virtual InputEvent getLastInputEventAndPop() = 0;
         virtual bool isEventsQueueEmpty() = 0;
         virtual bool isInputEventsQueueEmpty() = 0;
+        virtual std::shared_ptr<Input> getInput() = 0;
 
     protected:
         std::queue<Event> events;
         std::queue<InputEvent> inputEvents;
-        std::unique_ptr<Input> input;
+        std::shared_ptr<Input> input;
 };
 
 #endif

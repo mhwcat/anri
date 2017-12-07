@@ -6,6 +6,7 @@
 #include <engine/MemoryUsage.h>
 #include <engine/render/SDL/SDLRenderer.h>
 #include <engine/DebugPrint.h>
+#include <engine/Config.h>
 
 Game::Game()
 {
@@ -127,7 +128,12 @@ std::string Game::prepareDebugText()
     ss.precision(4);
 
     ss << "MEM: " << getCurrentRSS() / 1024.f / 1024.f << " MB" << std::endl;
-    ss << "Object count: " << (currentLevel->getObjects().size() + currentLevel->getMovables().size());
+    ss << "Object count: " << (currentLevel->getObjects().size() + currentLevel->getMovables().size()) << std::endl;
+    if(Config::getInstance().getIntValueByKey("input.controllerEnabled") == 1)
+    {
+        ss << "Controller X: " << eventHandler->getInput()->getAnalogStickAxisValues().lStickX;
+    }
+
 
     return ss.str();
 }

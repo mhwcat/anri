@@ -10,3 +10,8 @@ Input::~Input()
 {
     ANRI_DE debugPrint("Input destructor fired.");
 }
+
+Input::AnalogStickAxisValues Input::getAnalogStickAxisValues()
+{
+    return analogStickAxisValues;
+}

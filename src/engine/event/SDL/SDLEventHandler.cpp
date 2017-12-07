@@ -6,7 +6,7 @@
 
 SDLEventHandler::SDLEventHandler() : EventHandler()
 {
-    input = std::make_unique<SDLInput>();
+    input = std::make_shared<SDLInput>();
 }
 
 void SDLEventHandler::processEvents()
@@ -53,4 +53,9 @@ bool SDLEventHandler::isEventsQueueEmpty()
 bool SDLEventHandler::isInputEventsQueueEmpty()
 {
     return inputEvents.empty();
+}
+
+std::shared_ptr<Input> SDLEventHandler::getInput()
+{
+    return input;
 }

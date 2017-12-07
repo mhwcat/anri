@@ -78,12 +78,12 @@ void SDLRenderer::renderDebugText(std::string debugText)
     SDL_Surface* surface = TTF_RenderText_Blended_Wrapped(debugFont, ss.str().c_str(), color, 200);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-    SDL_Rect rect;
+    SDL_Rect rect{};
     rect.x = windowWidth - 200;
     rect.y = 5;
 
-    SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-    SDL_RenderCopy(renderer, texture, NULL, &rect);
+    SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
+    SDL_RenderCopy(renderer, texture, nullptr, &rect);
 
     SDL_DestroyTexture(texture);
     SDL_FreeSurface(surface);
@@ -105,24 +105,24 @@ bool SDLRenderer::init()
         return false;
     }
 
-    debugFont = NULL;
+    debugFont = nullptr;
     debugFont = TTF_OpenFont(Config::getInstance().getStringValueByKey("debugOverlay.fontPath").c_str(),
                              Config::getInstance().getIntValueByKey("debugOverlay.fontSize"));
-    if(debugFont == NULL)
+    if(debugFont == nullptr)
     {
         ANRI_DE debugPrint("Could not load debug font! TTF_Error: %s", TTF_GetError());
         return false;
     }
 
     ANRI_DE debugPrint("Initializing window...");
-    window = NULL;
+    window = nullptr;
     window = SDL_CreateWindow(Config::getInstance().getStringValueByKey("window.title").c_str(),
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED,
                               Config::getInstance().getIntValueByKey("window.width"),
                               Config::getInstance().getIntValueByKey("window.height"),
                               SDL_WINDOW_SHOWN);
-    if(window == NULL)
+    if(window == nullptr)
     {
         ANRI_DE debugPrint("Window could not be created! SDL_Error: %s", SDL_GetError());
         return false;
@@ -136,16 +136,16 @@ bool SDLRenderer::init()
     }
 
     ANRI_DE debugPrint("Initializing renderer...");
-    renderer = NULL;
+    renderer = nullptr;
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if(renderer == NULL)
+    if(renderer == nullptr)
     {
         ANRI_DE debugPrint("Renderer could not be created! SDL_Error: %s", SDL_GetError());
         return false;
     }
     else
     {
-        SDL_RendererInfo info;
+        SDL_RendererInfo info{};
         SDL_GetRendererInfo(renderer, &info);
 
         ANRI_DE debugPrint("Selected renderer: %s.", info.name);
@@ -158,11 +158,11 @@ void SDLRenderer::cleanup()
 {
     ANRI_DE debugPrint("Shutting down SDL...");
 
-    if(debugFont != NULL)
+    if(debugFont != nullptr)
         TTF_CloseFont(debugFont);
-    if(renderer != NULL)
+    if(renderer != nullptr)
         SDL_DestroyRenderer(renderer);
-    if(window != NULL)
+    if(window != nullptr)
         SDL_DestroyWindow(window);
 
     SDL_Quit();

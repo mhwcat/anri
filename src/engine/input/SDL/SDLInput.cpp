@@ -6,6 +6,8 @@
 SDLInput::SDLInput()
 {
     if(Config::getInstance().getIntValueByKey("input.controllerEnabled") == 1) {
+        sdlJoystick = nullptr;
+
         if(SDL_InitSubSystem(SDL_INIT_JOYSTICK) < 0)
         {
             ANRI_DE debugPrint("Could not initialize SDL Joystick subsystem! SDL Error: %s", SDL_GetError());
@@ -20,7 +22,7 @@ SDLInput::SDLInput()
         else
         {
             sdlJoystick = SDL_JoystickOpen(0);
-            if(sdlJoystick == NULL)
+            if(sdlJoystick == nullptr)
             {
                 ANRI_DE debugPrint("Unable to open game controller. SDL Error: %s", SDL_GetError());
                 return;
@@ -33,7 +35,7 @@ SDLInput::SDLInput()
 
 SDLInput::~SDLInput()
 {
-    if(sdlJoystick != NULL)
+    if(sdlJoystick != nullptr)
     {
         SDL_JoystickClose(sdlJoystick);
     }
@@ -46,6 +48,17 @@ SDLInput::~SDLInput()
 InputEvent SDLInput::getInputEventFromSDLEvent(SDL_Event *sdlEvent)
 {
     InputEvent keyEvent;
+
+    if(Config::getInstance().getIntValueByKey("input.controllerEnabled"))
+    {
+        if(sdlEvent->type == SDL_JOYAXISMOTION)
+        {
+            if(sdlEvent->jaxis.axis == 0) // lstick X
+                analogStickAxisValues.lStickX = sdlEvent->jaxis.value;
+            if(sdlEvent->jaxis.axis == 1) // lstick Y
+                analogStickAxisValues.lStickY = sdlEvent->jaxis.value;
+        }
+    }
 
     switch(sdlEvent->type)
     {

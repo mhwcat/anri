@@ -14,6 +14,8 @@ class SDLEventHandler : public EventHandler
         InputEvent getLastInputEventAndPop() override;
         bool isEventsQueueEmpty() override;
         bool isInputEventsQueueEmpty() override;
+
+        std::shared_ptr<Input> getInput() override;
 };
 
 #endif
