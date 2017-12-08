@@ -19,13 +19,10 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 add_definitions(-DANRI_DEBUG)
 
 set(SOURCE_FILES
-		include/engine/event/SDL/SDLEventHandler.h
+        include/engine/event/EventHandler.h
 		include/engine/event/Event.h
-		include/engine/event/EventHandler.h
-		include/engine/input/SDL/SDLInput.h
-		include/engine/input/Input.h
-        include/engine/render/SDL/SDLRenderer.h
-		include/engine/render/Renderer.h
+        include/engine/input/Input.h
+        include/engine/render/Renderer.h
 		include/engine/MemoryUsage.h
 		include/engine/SimpleTimer.h
 		include/game/levels/GameLevel.h
@@ -40,11 +37,8 @@ set(SOURCE_FILES
         include/engine/event/EventType.h
 		include/engine/Config.h
 		include/engine/DebugPrint.h
-		src/engine/event/SDL/SDLEventHandler.cpp
-		src/engine/event/EventHandler.cpp
-		src/engine/input/SDL/SDLInput.cpp
-		src/engine/input/Input.cpp
-		src/engine/render/SDL/SDLRenderer.cpp
+        src/engine/event/EventHandler.cpp
+        src/engine/input/Input.cpp
 		src/engine/render/Renderer.cpp
 		src/engine/MemoryUsage.cpp
 		src/engine/SimpleTimer.cpp

@@ -89,7 +89,7 @@ bool GameObject::operator==(const GameObject &rhs) const {
 }
 
 bool GameObject::operator!=(const GameObject &rhs) const {
-    return !(rhs == *this);
+    return id != rhs.id;
 }
 
 SDL_Rect GameObject::getSDLRect()

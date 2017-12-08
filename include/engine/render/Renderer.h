@@ -1,32 +1,38 @@
 #ifndef ANRI_RENDERER_H
 #define ANRI_RENDERER_H
 
-#include <vector>
 #include <memory>
+#include <vector>
 #include <string>
+#include "SDL.h"
+#include "SDL_ttf.h"
 
 #include <game/objects/GameObject.h>
 #include <game/objects/MovableGameObject.h>
 #include <engine/SimpleTimer.h>
 
-
-class Renderer 
+class Renderer
 {
     public:
         Renderer();
         virtual ~Renderer();
-        virtual bool init() = 0;
-        virtual void render(const std::vector<std::unique_ptr<GameObject> > &objects,
+        bool init();
+        void render(const std::vector<std::unique_ptr<GameObject> > &objects,
                         const std::vector<std::shared_ptr<MovableGameObject> > &movables,
-                        std::string debugText) = 0;
-    protected:
+                        std::string debugText);
+        void renderDebugText(std::string debugText);
+        void cleanup();
+
+    private:
+        SDL_Renderer *renderer;
+        SDL_Window *window;
+        TTF_Font *debugFont;
+
         SimpleTimer frameTimer;
         float frameTimeMs;
         int desiredFramesPerSecond;
         int windowWidth;
         int windowHeight;
-        virtual void renderDebugText(std::string debugText) = 0;
-        virtual void cleanup() = 0;
 };
 
 #endif

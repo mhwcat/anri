@@ -2,17 +2,17 @@
 #include <sstream>
 #include <memory>
 #include <game/Game.h>
-#include <engine/event/SDL/SDLEventHandler.h>
+#include <engine/event/EventHandler.h>
 #include <engine/MemoryUsage.h>
-#include <engine/render/SDL/SDLRenderer.h>
+#include <engine/render/Renderer.h>
 #include <engine/DebugPrint.h>
 #include <engine/Config.h>
 
 Game::Game()
 {
     running = false;
-    eventHandler = std::make_unique<SDLEventHandler>();
-    renderer = std::make_unique<SDLRenderer>();
+    eventHandler = std::make_unique<EventHandler>();
+    renderer = std::make_unique<Renderer>();
 }
 
 Game::~Game()

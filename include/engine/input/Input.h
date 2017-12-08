@@ -1,13 +1,13 @@
 #ifndef ANRI_INPUT_H
 #define ANRI_INPUT_H
 
+#include <memory>
+#include <engine/input/Input.h>
+#include <engine/input/InputEvent.h>
 #include "SDL.h"
-#include "InputEvent.h"
 
-class Input 
+class Input
 {
-
-
     public:
         struct AnalogStickAxisValues
         {
@@ -18,12 +18,13 @@ class Input
         };
 
         Input();
-        virtual ~Input();
-        virtual InputEvent getInputEventFromSDLEvent(SDL_Event *sdlEvent) = 0;
-        virtual AnalogStickAxisValues getAnalogStickAxisValues();
+        ~Input();
+        InputEvent getInputEventFromSDLEvent(SDL_Event *sdlEvent);
+        AnalogStickAxisValues getAnalogStickAxisValues();
 
-    protected:
+    private:
         AnalogStickAxisValues analogStickAxisValues;
+        SDL_Joystick* sdlJoystick;
 };
 
 #endif
