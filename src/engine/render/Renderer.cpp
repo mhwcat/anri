@@ -1,4 +1,5 @@
 #include <memory>
+#include <utility>
 #include <vector>
 #include <sstream>
 #include <cmath>
@@ -27,35 +28,29 @@ Renderer::~Renderer()
 }
 
 void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
-                         const std::vector<std::shared_ptr<MovableGameObject> > &movables,
-                         std::string debugText)
+                      const std::vector<std::shared_ptr<MovableGameObject> > &movables,
+                      std::string debugText)
 {
     frameTimer.start();
 
-    // Render background
+    // Clear renderer
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
     // Render objects
     for(auto const& go : objects)
     {
-        SDL_Rect rect = go->getSDLRect();
-
-        SDL_SetRenderDrawColor(renderer, go->getColor()->getR(), go->getColor()->getG(), go->getColor()->getB(), 255);
-        SDL_RenderFillRect(renderer, &rect);
+        go->draw(renderer);
     }
 
     // Render movables
     for(auto const& go : movables)
     {
-        SDL_Rect rect = go->getSDLRect();
-
-        SDL_SetRenderDrawColor(renderer, go->getColor()->getR(), go->getColor()->getG(), go->getColor()->getB(), 255);
-        SDL_RenderFillRect(renderer, &rect);
+        go->draw(renderer);
     }
 
     // Prepare debug text to render
-    renderDebugText(debugText);
+    renderDebugText(std::move(debugText));
 
     // Main render
     SDL_RenderPresent(renderer);

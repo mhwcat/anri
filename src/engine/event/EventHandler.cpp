@@ -3,11 +3,11 @@
 #include <engine/DebugPrint.h>
 
 
-EventHandler::EventHandler()
+EventHandler::EventHandler(std::shared_ptr<Input> _input)
 {
     ANRI_DE debugPrint("Initializing EventHandler subsystem.");
 
-    input = std::make_shared<Input>();
+    input = _input;
 }
 
 EventHandler::~EventHandler()
@@ -27,10 +27,9 @@ void EventHandler::processEvents()
             quitEvent.type = EventType::QUIT;
 
             events.push(quitEvent);
-        } else if(sdlEvent.type == SDL_KEYDOWN || sdlEvent.type == SDL_KEYUP ||
-                sdlEvent.type == SDL_JOYBUTTONDOWN || sdlEvent.type == SDL_JOYBUTTONUP || sdlEvent.type == SDL_JOYAXISMOTION)
+        } else if(isInputEvent(&sdlEvent))
         {
-            inputEvents.push(input->getInputEventFromSDLEvent(&sdlEvent));
+            input.get()->pushInputEvent(sdlEvent);
         }
     }
 }
@@ -43,25 +42,21 @@ Event EventHandler::getLastEventAndPop()
     return eventToReturn;
 }
 
-InputEvent EventHandler::getLastInputEventAndPop()
-{
-    InputEvent inputEventToReturn = inputEvents.front();
-    inputEvents.pop();
 
-    return inputEventToReturn;
-}
 
 bool EventHandler::isEventsQueueEmpty()
 {
     return events.empty();
 }
 
-bool EventHandler::isInputEventsQueueEmpty()
-{
-    return inputEvents.empty();
-}
+
 
 std::shared_ptr<Input> EventHandler::getInput()
 {
     return input;
+}
+
+bool EventHandler::isInputEvent(SDL_Event *event) {
+    return event->type == SDL_KEYDOWN || event->type == SDL_KEYUP ||
+            event->type == SDL_JOYBUTTONDOWN || event->type == SDL_JOYBUTTONUP || event->type == SDL_JOYAXISMOTION;
 }

@@ -19,8 +19,11 @@ class Game
         void start();
         void stop();
 
-    private:
+    std::shared_ptr<Input> getInput();
+
+private:
         std::unique_ptr<Renderer> renderer;
+        std::shared_ptr<Input> input;
         std::unique_ptr<EventHandler> eventHandler;
         std::unique_ptr<GameLevel> currentLevel;
         bool running;

@@ -6,6 +6,7 @@
 #include <SDL_rect.h>
 #include <game/objects/GameObjectType.h>
 #include <game/Color.h>
+#include <SDL_render.h>
 
 class GameObject
 {
@@ -24,6 +25,9 @@ class GameObject
         GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled);
         virtual ~GameObject();
 
+        virtual void draw(SDL_Renderer *renderer);
+        virtual void update(float deltaTime);
+
         uint32_t getId();
         void setId(uint32_t _id);
         float getX();
@@ -36,10 +40,8 @@ class GameObject
         void setCollisionEnabled(bool _collisionEnabled);
         bool isColliding();
         void setColliding(bool _colliding);
-        SDL_Rect getSDLRect();  // get rekt n00b
 
         bool operator==(const GameObject &rhs) const;
-
         bool operator!=(const GameObject &rhs) const;
 };
 

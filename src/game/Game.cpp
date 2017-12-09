@@ -11,7 +11,8 @@
 Game::Game()
 {
     running = false;
-    eventHandler = std::make_unique<EventHandler>();
+    input = std::make_shared<Input>();
+    eventHandler = std::make_unique<EventHandler>(input);
     renderer = std::make_unique<Renderer>();
 }
 
@@ -68,53 +69,22 @@ void Game::performEventHandling()
                 break;
         }
     }
-
-    // Handle input events
-    while(!eventHandler->isInputEventsQueueEmpty())
-    {
-        InputEvent inputEvent = eventHandler->getLastInputEventAndPop();
-
-        currentLevel->getPlayer()->handleInput(&inputEvent);
-    }
 }
 
 void Game::update(float deltaTime)
 {
+    for(auto const& go : currentLevel->getObjects())
+    {
+        go->update(deltaTime);
+    }
+
     for(auto const& movable : currentLevel->getMovables()) 
     {
-        if(movable->hasCollisionEnabled())
-        {
-            bool collisionDetected = false;
-
-            for(auto const& checkedMovable : currentLevel->getMovables())
-            {
-                if(movable != checkedMovable)
-                {
-                    collisionDetected = (movable->getX() < checkedMovable->getX() + checkedMovable->getWidth()) &&
-                                        (movable->getX() + movable->getWidth() > checkedMovable->getX()) &&
-                                        (movable->getY() < checkedMovable->getY() + checkedMovable->getHeight()) &&
-                                        (movable->getHeight() + movable->getY() > checkedMovable->getY());
-
-                    if(collisionDetected && !movable->isColliding())
-                    {
-                        ANRI_DE debugPrint("%d entered collision with %d", movable->getId(), checkedMovable->getId());
-                        movable->setColliding(true);
-                        break;
-                    } else if(!collisionDetected && movable->isColliding())
-                    {
-                        ANRI_DE debugPrint("%d exited collision", movable->getId());
-                        movable->setColliding(false);
-                    }
-                }
-            }
-
-//          if(!collisionDetected) {
-                movable->move(deltaTime);
-//          }
-        } else {
-            movable->move(deltaTime);
-        }
+        movable->update(deltaTime);
     }
+
+    input.get()->cleanKeys();
+    currentLevel->getPlayer()->update(deltaTime);
 }
 
 void Game::loadLevel(std::unique_ptr<GameLevel> level)
@@ -136,4 +106,9 @@ std::string Game::prepareDebugText()
 
 
     return ss.str();
+}
+
+std::shared_ptr<Input> Game::getInput()
+{
+    return input;
 }

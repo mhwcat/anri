@@ -3,29 +3,26 @@
 
 #include <engine/event/EventHandler.h>
 #include <engine/event/Event.h>
-#include <engine/input/InputEvent.h>
 #include <engine/input/Input.h>
 #include <queue>
 
 class EventHandler
 {
     public:
-        EventHandler();
+        EventHandler(std::shared_ptr<Input> _input);
         virtual ~EventHandler();
 
         void processEvents();
         Event getLastEventAndPop();
-        InputEvent getLastInputEventAndPop();
         bool isEventsQueueEmpty();
-        bool isInputEventsQueueEmpty();
 
         std::shared_ptr<Input> getInput();
 
     private:
         std::queue<Event> events;
-        std::queue<InputEvent> inputEvents;
         std::shared_ptr<Input> input;
 
+        bool isInputEvent(SDL_Event *event);
 };
 
 #endif

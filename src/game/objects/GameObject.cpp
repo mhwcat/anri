@@ -24,6 +24,24 @@ GameObject::~GameObject()
     ANRI_DE debugPrint("GameObject[%d] destructor fired.", id);
 }
 
+void GameObject::update(float deltaTime)
+{
+
+}
+
+void GameObject::draw(SDL_Renderer *renderer)
+{
+    SDL_Rect rect {
+            (int) round(x),
+            (int) round(y),
+            width,
+            height
+    };
+
+    SDL_SetRenderDrawColor(renderer, color->getR(), color->getG(), color->getB(), 255);
+    SDL_RenderFillRect(renderer, &rect);
+}
+
 uint32_t GameObject::getId() 
 {
     return id;
@@ -90,15 +108,4 @@ bool GameObject::operator==(const GameObject &rhs) const {
 
 bool GameObject::operator!=(const GameObject &rhs) const {
     return id != rhs.id;
-}
-
-SDL_Rect GameObject::getSDLRect()
-{
-    SDL_Rect rect;
-    rect.w = width;
-    rect.h = height;
-    rect.x = (int) round(x);
-    rect.y = (int) round(y);
-
-    return rect;
 }
