@@ -14,30 +14,39 @@ PlayerGameObject::PlayerGameObject(float _x, float _y, int _width, int _height, 
 
 void PlayerGameObject::update(float deltaTime)
 {
-    if(!input.get()->isInputEventsQueueEmpty())
+    if(!input->isInputEventsQueueEmpty())
     {
-        SDL_Keycode keycode = input.get()->getLastInputEventAndPop().key.keysym.sym;
+        SDL_Keycode keycode = input->getLastInputEventAndPop().key.keysym.sym;
 
-        if(keycode == SDLK_RIGHT)
+        switch(keycode)
         {
-            if(input.get()->isKeyHeld(keycode))
-            {
-                xAcceleration = 10.f;
-            } else if(input.get()->wasKeyReleased(keycode))
-            {
-                xAcceleration = 0.f;
-            }
-        }
-
-        if(keycode == SDLK_LEFT)
-        {
-            if(input.get()->isKeyHeld(keycode))
-            {
-                xAcceleration = -10.f;
-            } else if(input.get()->wasKeyReleased(keycode))
-            {
-                xAcceleration = 0.f;
-            }
+            case SDLK_LEFT:
+                if(input->isKeyHeld(keycode))
+                {
+                    xAcceleration = -30.f;
+                } else if(input->wasKeyReleased(keycode))
+                {
+                    xAcceleration = 0.f;
+                }
+                break;
+            case SDLK_RIGHT:
+                if(input->isKeyHeld(keycode))
+                {
+                    xAcceleration = 30.f;
+                } else if(input->wasKeyReleased(keycode))
+                {
+                    xAcceleration = 0.f;
+                }
+                break;
+            case SDLK_SPACE:
+                if(input->wasKeyPressed(keycode))
+                {
+                    y -= 1;
+                    yAcceleration = -50.f;
+                } else if(input->wasKeyReleased(keycode)) {
+                    yAcceleration = 0.f;
+                }
+                break;
         }
     }
 

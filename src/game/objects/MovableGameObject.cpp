@@ -18,8 +18,7 @@ MovableGameObject::MovableGameObject(float _x, float _y, int _width, int _height
 }
 
 void MovableGameObject::update(float deltaTime) {
-    x += xVelocity * deltaTime;
-    y += yVelocity * deltaTime;
+
 
     if(xAcceleration == 0.f)
     {
@@ -34,7 +33,7 @@ void MovableGameObject::update(float deltaTime) {
     }
 
     xVelocity += xAcceleration * deltaTime;
-    yVelocity += yAcceleration * deltaTime;
+    yVelocity += (yAcceleration + Y_ACCELERATION_GRAVITY) * deltaTime;
 
     if(xVelocity > MAX_VELOCITY_X)
     {
@@ -44,6 +43,16 @@ void MovableGameObject::update(float deltaTime) {
     {
         xVelocity = -MAX_VELOCITY_X;
     }
+
+    if(y > 599)
+    {
+        yAcceleration = 0.f;
+        yVelocity = 0.f;
+        y = 599;
+    }
+
+    x += xVelocity * deltaTime;
+    y += yVelocity * deltaTime;
 
     GameObject::update(deltaTime);
 }

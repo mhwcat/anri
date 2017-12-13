@@ -3,6 +3,7 @@
 
 #include <game/objects/GameObject.h>
 #include <game/objects/IMovable.h>
+#include <engine/Config.h>
 
 class MovableGameObject : public GameObject
 {
@@ -14,6 +15,8 @@ class MovableGameObject : public GameObject
 
         const float MAX_VELOCITY_X = 50.f;
         const float MAX_VELOCITY_Y = 50.f;
+
+        const float Y_ACCELERATION_GRAVITY = (float) Config::getInstance().getIntValueByKey("physics.gravity");
 
     public:
         MovableGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled,

@@ -97,12 +97,10 @@ std::string Game::prepareDebugText()
     std::stringstream ss;
     ss.precision(4);
 
-    ss << "MEM: " << getCurrentRSS() / 1024.f / 1024.f << " MB" << std::endl;
-    ss << "Object count: " << (currentLevel->getObjects().size() + currentLevel->getMovables().size()) << std::endl;
-    if(Config::getInstance().getIntValueByKey("input.controllerEnabled") == 1)
-    {
-        ss << "Controller X: " << eventHandler->getInput()->getAnalogStickAxisValues().lStickX;
-    }
+    ss << "MEM: " << getCurrentRSS() / 1024.f / 1024.f << " MB" << "\n";
+    ss << "Object count: " << (currentLevel->getObjects().size() + currentLevel->getMovables().size()) << "\n";
+    ss << "Player pos:\nX = " << currentLevel->getPlayer()->getX() << "\nY = " << currentLevel->getPlayer()->getY() << "\n";
+    ss << "Player vel:\nX = " << currentLevel->getPlayer()->getXVelocity() << "\nY = " << currentLevel->getPlayer()->getYVelocity();
 
 
     return ss.str();
