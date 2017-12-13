@@ -1,0 +1,7 @@
+Issues:
+1. There is something wrong with input handling, released[keycode] is set (or it's not read or smth - debug it).
+SDL events are received correctly.
+Logs:
+[2017-12-13 20:28:49] key down!
+[2017-12-13 20:28:49] key up!
+[2017-12-13 20:28:49] Space pressed!
