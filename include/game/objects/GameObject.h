@@ -7,13 +7,14 @@
 #include <game/objects/GameObjectType.h>
 #include <game/Color.h>
 #include <SDL_render.h>
+#include <engine/math/Vec2.h>
 
 class GameObject
 {
     protected:
         uint32_t id;
-        float x;
-        float y;
+        Vec2 position;
+        Vec2 previousPosition;
         int width;
         int height;
         GameObjectType type;
@@ -22,16 +23,20 @@ class GameObject
         bool colliding;
 
     public:
-        GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled);
+        GameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled);
         virtual ~GameObject();
 
-        virtual void draw(SDL_Renderer *renderer);
+        virtual void draw(SDL_Renderer *renderer, float alpha);
         virtual void update(float deltaTime);
 
         uint32_t getId();
         void setId(uint32_t _id);
-        float getX();
-        float getY();
+        const Vec2 &getPosition() const;
+        const Vec2 &getPreviousPosition() const;
+        void setPosition(const Vec2 &_position);
+        void setPositionX(float _x);
+        void setPositionY(float _y);
+
         int getWidth();
         int getHeight();
         GameObjectType getType();

@@ -19,7 +19,7 @@ class MovableGameObject : public GameObject
         const float Y_ACCELERATION_GRAVITY = (float) Config::getInstance().getIntValueByKey("physics.gravity");
 
     public:
-        MovableGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled,
+        MovableGameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled,
                           float _xVelocity, float _yVelocity, float _xAcceleration, float _yAcceleration);
 
         void update(float deltaTime) override;

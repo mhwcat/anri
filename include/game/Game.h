@@ -19,7 +19,7 @@ class Game
         void start();
         void stop();
 
-    std::shared_ptr<Input> getInput();
+        std::shared_ptr<Input> getInput();
 
 private:
         std::unique_ptr<Renderer> renderer;
@@ -27,6 +27,7 @@ private:
         std::unique_ptr<EventHandler> eventHandler;
         std::unique_ptr<GameLevel> currentLevel;
         bool running;
+        uint64_t timeElapsed;
 
         void mainLoop();
         void update(float deltaTime);

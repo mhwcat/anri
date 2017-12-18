@@ -14,6 +14,7 @@ Game::Game()
     input = std::make_shared<Input>();
     eventHandler = std::make_unique<EventHandler>(input);
     renderer = std::make_unique<Renderer>();
+    timeElapsed = 0;
 }
 
 Game::~Game()
@@ -39,18 +40,42 @@ void Game::stop()
 
 void Game::mainLoop()
 {
-    SimpleTimer updateTimer;
+    typedef std::chrono::high_resolution_clock Clock;
 
-    float deltaTime = 0.f;
+    // Time between updates in microseconds
+    const uint64_t dt = static_cast<const uint64_t>(Config::getInstance().getIntValueByKey("physics.updateIntervalMs") * 1000);
+
+    uint64_t currentTime = static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::microseconds>(Clock::now().time_since_epoch()).count());
+    uint64_t accumulator = 0;
+    uint64_t newTime, loopTime;
+
+    float interp;
+
     while(running)
     {
+        newTime = static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::microseconds>(Clock::now().time_since_epoch()).count());
+        loopTime = newTime - currentTime;
+
+        currentTime = newTime;
+        accumulator += loopTime;
+
+        // Prevent accumulator reaching too high values when updating takes too long
+        if(accumulator > 250000)
+            accumulator = 250000;
+
         performEventHandling();
 
-        deltaTime = (float) updateTimer.getMicrosecondsSinceStart() / 1000000.f;
-        update(deltaTime);
-        updateTimer.start();
+        while(accumulator >= dt)
+        {
+            update(dt / 1000000.f); // update with deltaTime in seconds
+            timeElapsed += dt;
+            accumulator -= dt;
+        }
 
-        renderer->render(currentLevel->getObjects(), currentLevel->getMovables(), prepareDebugText());
+        // Count interpolation for rendering
+        interp = (float) accumulator / (float) dt;
+
+        renderer->render(currentLevel->getObjects(), currentLevel->getMovables(), prepareDebugText(), interp);
     }
 }
 
@@ -99,9 +124,8 @@ std::string Game::prepareDebugText()
 
     ss << "MEM: " << getCurrentRSS() / 1024.f / 1024.f << " MB" << "\n";
     ss << "Object count: " << (currentLevel->getObjects().size() + currentLevel->getMovables().size()) << "\n";
-    ss << "Player pos:\nX = " << currentLevel->getPlayer()->getX() << "\nY = " << currentLevel->getPlayer()->getY() << "\n";
+    ss << "Player pos:\nX = " << currentLevel->getPlayer()->getPosition().x << "\nY = " << currentLevel->getPlayer()->getPosition().y << "\n";
     ss << "Player vel:\nX = " << currentLevel->getPlayer()->getXVelocity() << "\nY = " << currentLevel->getPlayer()->getYVelocity();
-
 
     return ss.str();
 }

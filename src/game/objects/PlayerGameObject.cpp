@@ -2,10 +2,10 @@
 #include <game/objects/PlayerGameObject.h>
 #include <engine/DebugPrint.h>
 
-PlayerGameObject::PlayerGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName,
+PlayerGameObject::PlayerGameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName,
                                    bool _collisionEnabled, float _xVelocity, float _yVelocity,
                                    float _xAcceleration, float _yAcceleration, std::shared_ptr<Input> _input)
-    : MovableGameObject(_x, _y, _width, _height, _colorName, _collisionEnabled, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
+    : MovableGameObject(_position, _width, _height, _colorName, _collisionEnabled, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
 {
     input = _input;
 
@@ -41,7 +41,7 @@ void PlayerGameObject::update(float deltaTime)
             case SDLK_SPACE:
                 if(input->wasKeyPressed(keycode))
                 {
-                    y -= 1;
+                    setPositionY(position.y - 1.f);
                     yAcceleration = -50.f;
                 } else if(input->wasKeyReleased(keycode)) {
                     yAcceleration = 0.f;

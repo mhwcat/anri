@@ -4,10 +4,10 @@
 #include <engine/DebugPrint.h>
 
 
-MovableGameObject::MovableGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName,
+MovableGameObject::MovableGameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName,
                                      bool _collisionEnabled, float _xVelocity, float _yVelocity, float _xAcceleration,
                                      float _yAcceleration)
-    : GameObject(_x, _y, _width, _height, _colorName, _collisionEnabled)
+    : GameObject(_position, _width, _height, _colorName, _collisionEnabled)
 {
     xVelocity = _xVelocity;
     yVelocity = _yVelocity;
@@ -44,15 +44,15 @@ void MovableGameObject::update(float deltaTime) {
         xVelocity = -MAX_VELOCITY_X;
     }
 
-    if(y > 599)
+    if(position.y > 599)
     {
         yAcceleration = 0.f;
         yVelocity = 0.f;
-        y = 599;
+        setPositionY(599.f);
     }
 
-    x += xVelocity * deltaTime;
-    y += yVelocity * deltaTime;
+    setPositionX(position.x + (xVelocity * deltaTime));
+    setPositionY(position.y + (yVelocity * deltaTime));
 
     GameObject::update(deltaTime);
 }

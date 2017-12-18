@@ -18,8 +18,8 @@ class Renderer
         virtual ~Renderer();
         bool init();
         void render(const std::vector<std::unique_ptr<GameObject> > &objects,
-                        const std::vector<std::shared_ptr<MovableGameObject> > &movables,
-                        std::string debugText);
+                    const std::vector<std::shared_ptr<MovableGameObject> > &movables,
+                    std::string debugText, float alpha);
         void renderDebugText(std::string debugText);
         void cleanup();
 

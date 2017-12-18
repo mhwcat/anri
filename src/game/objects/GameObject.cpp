@@ -6,10 +6,10 @@
 #include <engine/DebugPrint.h>
 
 
-GameObject::GameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled)
+GameObject::GameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled)
 {
-    x = _x;
-    y = _y;
+    position = _position;
+    previousPosition = _position;
     width = _width;
     height = _height;
     color = std::make_unique<Color>(_colorName);
@@ -29,11 +29,15 @@ void GameObject::update(float deltaTime)
 
 }
 
-void GameObject::draw(SDL_Renderer *renderer)
+void GameObject::draw(SDL_Renderer *renderer, float alpha)
 {
+    // Interpolation for rendering
+    float drawX = (previousPosition.x * alpha) + (position.x * (1.f - alpha));
+    float drawY = (previousPosition.y * alpha) + (position.y * (1.f - alpha));
+
     SDL_Rect rect {
-            (int) round(x),
-            (int) round(y),
+            (int) round(drawX),
+            (int) round(drawY),
             width,
             height
     };
@@ -50,16 +54,6 @@ uint32_t GameObject::getId()
 void GameObject::setId(uint32_t _id) 
 {
     id = _id;
-}
-
-float GameObject::getX() 
-{
-    return x;
-}
-
-float GameObject::getY()
-{
-    return y;
 }
 
 int GameObject::getWidth()
@@ -102,10 +96,40 @@ void GameObject::setColliding(bool _colliding)
     colliding = _colliding;
 }
 
-bool GameObject::operator==(const GameObject &rhs) const {
+const Vec2 &GameObject::getPosition() const
+{
+    return position;
+}
+
+const Vec2 &GameObject::getPreviousPosition() const
+{
+    return previousPosition;
+}
+
+void GameObject::setPosition(const Vec2 &_position)
+{
+    previousPosition = position;
+    position = _position;
+}
+
+void GameObject::setPositionX(float _x)
+{
+    previousPosition.x = position.x;
+    position.x = _x;
+}
+
+void GameObject::setPositionY(float _y)
+{
+    previousPosition.y = position.y;
+    position.y = _y;
+}
+
+bool GameObject::operator==(const GameObject &rhs) const
+{
     return id == rhs.id;
 }
 
-bool GameObject::operator!=(const GameObject &rhs) const {
+bool GameObject::operator!=(const GameObject &rhs) const
+{
     return id != rhs.id;
 }

@@ -12,7 +12,9 @@ Config::Config()
 
 Config::~Config()
 {
+    ANRI_DE debugPrint("Config destructor fired.");
 
+    configEntries.clear();
 }
 
 Config& Config::getInstance()

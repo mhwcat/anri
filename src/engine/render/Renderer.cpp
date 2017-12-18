@@ -29,10 +29,8 @@ Renderer::~Renderer()
 
 void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
                       const std::vector<std::shared_ptr<MovableGameObject> > &movables,
-                      std::string debugText)
+                      std::string debugText, float alpha)
 {
-    frameTimer.start();
-
     // Clear renderer
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
@@ -40,13 +38,13 @@ void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
     // Render objects
     for(auto const& go : objects)
     {
-        go->draw(renderer);
+        go->draw(renderer, alpha);
     }
 
     // Render movables
     for(auto const& go : movables)
     {
-        go->draw(renderer);
+        go->draw(renderer, alpha);
     }
 
     // Prepare debug text to render
@@ -54,16 +52,6 @@ void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
 
     // Main render
     SDL_RenderPresent(renderer);
-
-    float frameTimeMicroseconds = (float) frameTimer.getMicrosecondsSinceStart();
-    // If frame was rendered faster than desired, wait
-    if((1000000.f / frameTimeMicroseconds) > desiredFramesPerSecond)
-    {
-        std::this_thread::sleep_for(std::chrono::microseconds((long) round(((1000000.f / desiredFramesPerSecond) - frameTimeMicroseconds))));
-    }
-
-    // Update frame time
-    frameTimeMs = (frameTimeMicroseconds / 1000.f) + (round(((1000000.f / desiredFramesPerSecond) - frameTimeMicroseconds)) / 1000.f);
 }
 
 void Renderer::renderDebugText(std::string debugText)

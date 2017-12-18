@@ -10,7 +10,7 @@
 class PlayerGameObject : public MovableGameObject
 {
     public:
-        PlayerGameObject(float _x, float _y, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled,
+        PlayerGameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled,
                          float _xVelocity, float _yVelocity, float _xAcceleration, float _yAcceleration, std::shared_ptr<Input> _input);
         void update(float deltaTime) override;
 

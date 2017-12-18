@@ -17,14 +17,19 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 #Set macros
 add_definitions(-DANRI_DEBUG)
+add_definitions(-Wall)
 
 set(SOURCE_FILES
+		include/engine/math/Vec2.h
         include/engine/event/EventHandler.h
 		include/engine/event/Event.h
+		include/engine/event/EventType.h
         include/engine/input/Input.h
         include/engine/render/Renderer.h
 		include/engine/MemoryUsage.h
 		include/engine/SimpleTimer.h
+		include/engine/Config.h
+		include/engine/DebugPrint.h
 		include/game/levels/GameLevel.h
 		include/game/objects/GameObject.h
 		include/game/objects/GameObjectType.h
@@ -34,9 +39,6 @@ set(SOURCE_FILES
 		include/game/objects/PlayerGameObject.h
 		include/game/Color.h
 		include/game/Game.h
-        include/engine/event/EventType.h
-		include/engine/Config.h
-		include/engine/DebugPrint.h
         src/engine/event/EventHandler.cpp
         src/engine/input/Input.cpp
 		src/engine/render/Renderer.cpp
