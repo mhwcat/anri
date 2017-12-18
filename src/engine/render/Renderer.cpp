@@ -126,6 +126,15 @@ bool Renderer::init()
                            windowWidth,
                            windowHeight);
     }
+    int windowMode = Config::getInstance().getIntValueByKey("window.mode");
+    if(windowMode == 1)
+    {
+        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+    } else if(windowMode == 2)
+    {
+        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    }
+
 
     ANRI_DE debugPrint("Initializing renderer...");
     renderer = nullptr;

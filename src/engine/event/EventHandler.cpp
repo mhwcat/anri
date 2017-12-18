@@ -42,14 +42,10 @@ Event EventHandler::getLastEventAndPop()
     return eventToReturn;
 }
 
-
-
 bool EventHandler::isEventsQueueEmpty()
 {
     return events.empty();
 }
-
-
 
 std::shared_ptr<Input> EventHandler::getInput()
 {
