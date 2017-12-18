@@ -58,6 +58,10 @@ set(SOURCE_FILES
 add_executable(anri ${SOURCE_FILES})
 target_link_libraries(anri ${SDL2_LIBRARY})
 target_link_libraries(anri ${SDL2TTF_LIBRARY})
+if (WIN32)
+	target_link_libraries(anri psapi)
+endif (WIN32)
+
 
 set(TARGET_ASSETS_DIR ${TARGET_FILE_DIR}/assets)
 

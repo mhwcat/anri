@@ -1,6 +1,7 @@
 #include <ctime>
 #include <cstdio>
 #include <iostream>
+#include <cstdarg>
 
 void debugPrint(const char* format, ...)
 {
