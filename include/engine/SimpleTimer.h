@@ -9,11 +9,11 @@ class SimpleTimer
         SimpleTimer();
         void start();
 
-        long getMillisecondsSinceStart();
-        long getMicrosecondsSinceStart();
+        uint64_t getMillisecondsSinceStart();
+        uint64_t getMicrosecondsSinceStart();
 
     private:
-        std::chrono::steady_clock::time_point begin;
+        std::chrono::high_resolution_clock::time_point begin;
 };
 
 #endif

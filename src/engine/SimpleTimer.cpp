@@ -4,25 +4,25 @@
 SimpleTimer::SimpleTimer()
 {
     // Initialize begin value to prevent counting delta using undefined value
-    begin = std::chrono::steady_clock::now();
+    begin = std::chrono::high_resolution_clock::now();
 }
 
 void SimpleTimer::start()
 {
-    begin = std::chrono::steady_clock::now();
+    begin = std::chrono::high_resolution_clock::now();
 }
 
 
-long SimpleTimer::getMillisecondsSinceStart()
+uint64_t SimpleTimer::getMillisecondsSinceStart()
 {
-    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 
-    return std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+    return static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count());
 }
 
-long SimpleTimer::getMicrosecondsSinceStart()
+uint64_t SimpleTimer::getMicrosecondsSinceStart()
 {
-    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 
-    return std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
+    return static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count());
 }

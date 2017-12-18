@@ -11,6 +11,9 @@ class Config
         int getIntValueByKey(std::string key);
         std::string getStringValueByKey(std::string key);
 
+        Config(Config const&) = delete;
+        Config(Config&&) = delete;
+
     private:
         Config();
         virtual ~Config();

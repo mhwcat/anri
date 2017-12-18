@@ -7,6 +7,7 @@
 #include <engine/render/Renderer.h>
 #include <engine/DebugPrint.h>
 #include <engine/Config.h>
+#include <engine/DebugInfo.h>
 
 Game::Game()
 {
@@ -41,6 +42,7 @@ void Game::stop()
 void Game::mainLoop()
 {
     typedef std::chrono::high_resolution_clock Clock;
+    SimpleTimer frameTimer;
 
     // Time between updates in microseconds
     const uint64_t dt = static_cast<const uint64_t>(Config::getInstance().getIntValueByKey("physics.updateIntervalMs") * 1000);
@@ -48,11 +50,14 @@ void Game::mainLoop()
     uint64_t currentTime = static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::microseconds>(Clock::now().time_since_epoch()).count());
     uint64_t accumulator = 0;
     uint64_t newTime, loopTime;
+    unsigned short memoryUsageRefreshCounter = 0;
 
     float interp;
 
     while(running)
     {
+        frameTimer.start();
+
         newTime = static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::microseconds>(Clock::now().time_since_epoch()).count());
         loopTime = newTime - currentTime;
 
@@ -62,6 +67,14 @@ void Game::mainLoop()
         // Prevent accumulator reaching too high values when updating takes too long
         if(accumulator > 250000)
             accumulator = 250000;
+
+        // Update memory usage every fixed step
+        if(memoryUsageRefreshCounter >= 1000)
+        {
+            ANRI_DE DebugInfo::getInstance().memoryUsageBytes = getCurrentRSS();
+            memoryUsageRefreshCounter = 0;
+        }
+        memoryUsageRefreshCounter++;
 
         performEventHandling();
 
@@ -75,7 +88,11 @@ void Game::mainLoop()
         // Count interpolation for rendering
         interp = (float) accumulator / (float) dt;
 
-        renderer->render(currentLevel->getObjects(), currentLevel->getMovables(), prepareDebugText(), interp);
+        ANRI_DE DebugInfo::getInstance().updateTime = frameTimer.getMicrosecondsSinceStart() / 1000.f; // micro -> milli
+
+        frameTimer.start();
+        renderer->render(currentLevel->getObjects(), currentLevel->getMovables(), interp);
+        ANRI_DE DebugInfo::getInstance().renderTime = frameTimer.getMicrosecondsSinceStart() / 1000.f; // micro -> milli
     }
 }
 
@@ -115,19 +132,6 @@ void Game::update(float deltaTime)
 void Game::loadLevel(std::unique_ptr<GameLevel> level)
 {
     currentLevel = std::move(level);
-}
-
-std::string Game::prepareDebugText()
-{
-    std::stringstream ss;
-    ss.precision(4);
-
-    ss << "MEM: " << getCurrentRSS() / 1024.f / 1024.f << " MB" << "\n";
-    ss << "Object count: " << (currentLevel->getObjects().size() + currentLevel->getMovables().size()) << "\n";
-    ss << "Player pos:\nX = " << currentLevel->getPlayer()->getPosition().x << "\nY = " << currentLevel->getPlayer()->getPosition().y << "\n";
-    ss << "Player vel:\nX = " << currentLevel->getPlayer()->getXVelocity() << "\nY = " << currentLevel->getPlayer()->getYVelocity();
-
-    return ss.str();
 }
 
 std::shared_ptr<Input> Game::getInput()

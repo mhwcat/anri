@@ -30,6 +30,7 @@ set(SOURCE_FILES
 		include/engine/SimpleTimer.h
 		include/engine/Config.h
 		include/engine/DebugPrint.h
+		include/engine/DebugInfo.h
 		include/game/levels/GameLevel.h
 		include/game/objects/GameObject.h
 		include/game/objects/GameObjectType.h

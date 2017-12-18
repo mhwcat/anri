@@ -1,6 +1,7 @@
 #include <game/objects/MovableGameObject.h>
 #include <game/objects/PlayerGameObject.h>
 #include <engine/DebugPrint.h>
+#include <engine/DebugInfo.h>
 
 PlayerGameObject::PlayerGameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName,
                                    bool _collisionEnabled, float _xVelocity, float _yVelocity,
@@ -49,6 +50,11 @@ void PlayerGameObject::update(float deltaTime)
                 break;
         }
     }
+
+    DebugInfo::getInstance().playerPosition.x = position.x;
+    DebugInfo::getInstance().playerPosition.y = position.y;
+    DebugInfo::getInstance().playerVelocity.x = xVelocity;
+    DebugInfo::getInstance().playerVelocity.y = yVelocity;
 
     MovableGameObject::update(deltaTime);
 }

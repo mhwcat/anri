@@ -8,7 +8,7 @@
 #include <thread>
 #include <engine/render/Renderer.h>
 #include <engine/DebugPrint.h>
-#include <engine/Config.h>
+#include <engine/DebugInfo.h>
 
 
 Renderer::Renderer()
@@ -29,7 +29,7 @@ Renderer::~Renderer()
 
 void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
                       const std::vector<std::shared_ptr<MovableGameObject> > &movables,
-                      std::string debugText, float alpha)
+                      float alpha)
 {
     // Clear renderer
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -47,27 +47,34 @@ void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
         go->draw(renderer, alpha);
     }
 
-    // Prepare debug text to render
-    renderDebugText(std::move(debugText));
+    // Render debug overlay
+    ANRI_DE renderDebugText();
 
     // Main render
     SDL_RenderPresent(renderer);
 }
 
-void Renderer::renderDebugText(std::string debugText)
+void Renderer::renderDebugText()
 {
-    std::stringstream ss;
-    ss.precision(4);
-    ss << "Frame time: " << frameTimeMs << "ms" << std::endl;
-    ss << debugText;
+    char textBuffer[256];
+
+    snprintf(textBuffer, sizeof(textBuffer), "Render:     %.5fms\nUpdate:     %.5fms\nMem:        %.2fMB\nPlayer pos: [%.2f, %.2f]\nPlayer vel: [%.2f, %.2f]",
+             DebugInfo::getInstance().renderTime,
+             DebugInfo::getInstance().updateTime,
+             DebugInfo::getInstance().memoryUsageBytes / 1024.f / 1024.f,
+             DebugInfo::getInstance().playerPosition.x,
+             DebugInfo::getInstance().playerPosition.y,
+             DebugInfo::getInstance().playerVelocity.x,
+             DebugInfo::getInstance().playerVelocity.y
+    );
 
     SDL_Color color = {255, 255, 255};
 
-    SDL_Surface* surface = TTF_RenderText_Blended_Wrapped(debugFont, ss.str().c_str(), color, 200);
+    SDL_Surface* surface = TTF_RenderText_Blended_Wrapped(debugFont, textBuffer, color, 300);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     SDL_Rect rect{};
-    rect.x = windowWidth - 200;
+    rect.x = windowWidth - 300;
     rect.y = 5;
 
     SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
@@ -125,7 +132,10 @@ bool Renderer::init()
 
     ANRI_DE debugPrint("Initializing renderer...");
     renderer = nullptr;
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    Uint32 rendererFlags = SDL_RENDERER_ACCELERATED;
+    if(Config::getInstance().getIntValueByKey("renderer.vsyncEnabled") == 1)
+        rendererFlags |= SDL_RENDERER_PRESENTVSYNC;
+    renderer = SDL_CreateRenderer(window, -1, rendererFlags);
     if(renderer == nullptr)
     {
         ANRI_DE debugPrint("Renderer could not be created! SDL_Error: %s", SDL_GetError());
