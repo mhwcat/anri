@@ -29,11 +29,11 @@ void GameObject::update(float deltaTime)
 
 }
 
-void GameObject::draw(SDL_Renderer *renderer, float alpha)
+void GameObject::draw(SDL_Renderer *renderer, float interp)
 {
     // Interpolation for rendering
-    float drawX = (previousPosition.x * alpha) + (position.x * (1.f - alpha));
-    float drawY = (previousPosition.y * alpha) + (position.y * (1.f - alpha));
+    float drawX = (previousPosition.x * interp) + (position.x * (1.f - interp));
+    float drawY = (previousPosition.y * interp) + (position.y * (1.f - interp));
 
     SDL_Rect rect {
             (int) round(drawX),

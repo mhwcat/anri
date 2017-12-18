@@ -26,7 +26,7 @@ class GameObject
         GameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled);
         virtual ~GameObject();
 
-        virtual void draw(SDL_Renderer *renderer, float alpha);
+        virtual void draw(SDL_Renderer *renderer, float interp);
         virtual void update(float deltaTime);
 
         uint32_t getId();

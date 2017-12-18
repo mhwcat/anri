@@ -1,5 +1,4 @@
 #include <memory>
-#include <utility>
 #include <vector>
 #include <sstream>
 #include <cmath>
@@ -15,8 +14,6 @@ Renderer::Renderer()
 {
     ANRI_DE debugPrint("Initializing Renderer subsystem.");
 
-    frameTimeMs = 0.f;
-    desiredFramesPerSecond = Config::getInstance().getIntValueByKey("renderer.fps");
     windowWidth = Config::getInstance().getIntValueByKey("window.width");
     windowHeight = Config::getInstance().getIntValueByKey("window.height");
 }
@@ -29,7 +26,7 @@ Renderer::~Renderer()
 
 void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
                       const std::vector<std::shared_ptr<MovableGameObject> > &movables,
-                      float alpha)
+                      float interp)
 {
     // Clear renderer
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -38,13 +35,13 @@ void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
     // Render objects
     for(auto const& go : objects)
     {
-        go->draw(renderer, alpha);
+        go->draw(renderer, interp);
     }
 
     // Render movables
     for(auto const& go : movables)
     {
-        go->draw(renderer, alpha);
+        go->draw(renderer, interp);
     }
 
     // Render debug overlay

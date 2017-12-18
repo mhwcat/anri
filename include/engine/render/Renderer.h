@@ -19,7 +19,7 @@ class Renderer
         bool init();
         void render(const std::vector<std::unique_ptr<GameObject> > &objects,
                     const std::vector<std::shared_ptr<MovableGameObject> > &movables,
-                    float alpha);
+                    float interp);
         void renderDebugText();
         void cleanup();
 
@@ -28,9 +28,6 @@ class Renderer
         SDL_Window *window;
         TTF_Font *debugFont;
 
-        SimpleTimer frameTimer;
-        float frameTimeMs;
-        int desiredFramesPerSecond;
         int windowWidth;
         int windowHeight;
 };
