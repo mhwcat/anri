@@ -9,8 +9,10 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 find_package(SDL2 REQUIRED)
 find_package(SDL2TTF REQUIRED)
+find_package(SDL2MIXER REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2TTF_INCLUDE_DIR})
+include_directories(${SDL2MIXER_INCLUDE_DIR})
 
 #Include local headers
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -26,6 +28,7 @@ set(SOURCE_FILES
 		include/engine/event/EventType.h
         include/engine/input/Input.h
         include/engine/render/Renderer.h
+		include/engine/sound/SoundSystem.h
 		include/engine/MemoryUsage.h
 		include/engine/SimpleTimer.h
 		include/engine/Config.h
@@ -43,6 +46,7 @@ set(SOURCE_FILES
         src/engine/event/EventHandler.cpp
         src/engine/input/Input.cpp
 		src/engine/render/Renderer.cpp
+		src/engine/sound/SoundSystem.cpp
 		src/engine/MemoryUsage.cpp
 		src/engine/SimpleTimer.cpp
 		src/engine/Config.cpp
@@ -58,10 +62,10 @@ set(SOURCE_FILES
 add_executable(anri ${SOURCE_FILES})
 target_link_libraries(anri ${SDL2_LIBRARY})
 target_link_libraries(anri ${SDL2TTF_LIBRARY})
+target_link_libraries(anri ${SDL2MIXER_LIBRARY})
 if (WIN32)
 	target_link_libraries(anri psapi)
 endif (WIN32)
-
 
 set(TARGET_ASSETS_DIR ${TARGET_FILE_DIR}/assets)
 

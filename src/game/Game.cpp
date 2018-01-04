@@ -15,6 +15,7 @@ Game::Game()
     input = std::make_shared<Input>();
     eventHandler = std::make_unique<EventHandler>(input);
     renderer = std::make_unique<Renderer>();
+    soundSystem = std::make_shared<SoundSystem>();
     timeElapsed = 0;
 }
 
@@ -25,11 +26,16 @@ Game::~Game()
 
 bool Game::init()
 {
-    return renderer->init();
+    bool rendererInitialized = renderer->init();
+    bool soundSystemInitialized = soundSystem->init();
+
+    return rendererInitialized & soundSystemInitialized;
 }
 
 void Game::start() 
 {
+    soundSystem->loadMusic("cyberpunkAmbient", "assets/sounds/Future-Cities-ambient.ogg");
+
     running = true;
     mainLoop();
 }

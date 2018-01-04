@@ -6,6 +6,7 @@
 #include <engine/render/Renderer.h>
 #include <engine/event/EventHandler.h>
 #include <game/levels/GameLevel.h>
+#include <engine/sound/SoundSystem.h>
 
 
 class Game 
@@ -23,6 +24,7 @@ class Game
 
 private:
         std::unique_ptr<Renderer> renderer;
+        std::shared_ptr<SoundSystem> soundSystem;
         std::shared_ptr<Input> input;
         std::unique_ptr<EventHandler> eventHandler;
         std::unique_ptr<GameLevel> currentLevel;
