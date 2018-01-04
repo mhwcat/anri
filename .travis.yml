@@ -27,6 +27,7 @@ matrix:
             - cmake3
             - libsdl2-dev
             - libsdl2-ttf-dev
+            - libsdl2-mixer-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
