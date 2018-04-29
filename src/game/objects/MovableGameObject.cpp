@@ -1,13 +1,12 @@
-#include <game/Color.h>
 #include <game/objects/GameObject.h>
 #include <game/objects/MovableGameObject.h>
 #include <engine/DebugPrint.h>
 
 
-MovableGameObject::MovableGameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName,
-                                     bool _collisionEnabled, float _xVelocity, float _yVelocity, float _xAcceleration,
+MovableGameObject::MovableGameObject(Vec2 _position, int _width, int _height, bool _collisionEnabled,
+                                     float _xVelocity, float _yVelocity, float _xAcceleration,
                                      float _yAcceleration)
-    : GameObject(_position, _width, _height, _colorName, _collisionEnabled)
+    : GameObject(_position, _width, _height, _collisionEnabled)
 {
     xVelocity = _xVelocity;
     yVelocity = _yVelocity;
@@ -18,16 +17,14 @@ MovableGameObject::MovableGameObject(Vec2 _position, int _width, int _height, Co
 }
 
 void MovableGameObject::update(float deltaTime) {
-
-
     if(xAcceleration == 0.f)
     {
         if(xVelocity > 0.f) {
-            xVelocity -= 10.f * deltaTime;
+            xVelocity -= 50.f * deltaTime;
             if(xVelocity < 0.f) xVelocity = 0.f;
         } else if(xVelocity < 0.f)
         {
-            xVelocity += 10.f * deltaTime;
+            xVelocity += 50.f * deltaTime;
             if(xVelocity > 0.f) xVelocity = 0.f;
         }
     }
@@ -44,11 +41,11 @@ void MovableGameObject::update(float deltaTime) {
         xVelocity = -MAX_VELOCITY_X;
     }
 
-    if(position.y > 599)
+    if((position.y + height) > 658)
     {
         yAcceleration = 0.f;
         yVelocity = 0.f;
-        setPositionY(599.f);
+        setPositionY(658.f - height);
     }
 
     setPositionX(position.x + (xVelocity * deltaTime));

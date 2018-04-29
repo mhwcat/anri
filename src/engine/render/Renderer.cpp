@@ -8,7 +8,8 @@
 #include <engine/render/Renderer.h>
 #include <engine/DebugPrint.h>
 #include <engine/DebugInfo.h>
-
+#include <engine/Globals.h>
+#include <SDL_image.h>
 
 Renderer::Renderer()
 {
@@ -155,6 +156,15 @@ bool Renderer::init()
         ANRI_DE debugPrint("Selected renderer: %s.", info.name);
     }
 
+    // TODO: SDL_image initialization here, move it somewhere else later
+    ANRI_DE debugPrint("Initializing SDL_image...");
+    int imgFlags = IMG_INIT_JPG | IMG_INIT_PNG;
+    if(!(IMG_Init(imgFlags) & imgFlags))
+    {
+        ANRI_DE debugPrint( "SDL_image could not initialize! SDL_image Error: %s", IMG_GetError());
+        return false;
+    }
+
     return true;
 }
 
@@ -165,11 +175,23 @@ void Renderer::cleanup()
     if(debugFont != nullptr)
         TTF_CloseFont(debugFont);
     if(renderer != nullptr)
+    {
         SDL_DestroyRenderer(renderer);
+        //delete MAIN_RENDERER;
+    }
     if(window != nullptr)
         SDL_DestroyWindow(window);
 
+    IMG_Quit();
+
+    TTF_Quit();
+
     SDL_Quit();
+}
+
+SDL_Renderer* Renderer::getRenderer() const 
+{
+    return renderer;
 }
 
 

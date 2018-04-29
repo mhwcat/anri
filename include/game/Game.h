@@ -21,6 +21,7 @@ class Game
         void stop();
 
         std::shared_ptr<Input> getInput();
+        SDL_Renderer* getMainRenderer() const;
 
 private:
         std::unique_ptr<Renderer> renderer;

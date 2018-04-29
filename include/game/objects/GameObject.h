@@ -2,12 +2,12 @@
 #define ANRI_GAME_OBJECT_H
 
 #include <memory>
-
+#include <map>
 #include <SDL_rect.h>
-#include <game/objects/GameObjectType.h>
-#include <game/Color.h>
 #include <SDL_render.h>
+#include <game/objects/GameObjectType.h>
 #include <engine/math/Vec2.h>
+#include <engine/graphics/Texture.h>
 
 class GameObject
 {
@@ -18,12 +18,13 @@ class GameObject
         int width;
         int height;
         GameObjectType type;
-        std::unique_ptr<Color> color;
         bool collisionEnabled;
         bool colliding;
+        std::shared_ptr<Texture> texture;
+        unsigned int frameCounter;
 
     public:
-        GameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled);
+        GameObject(Vec2 _position, int _width, int _height, bool _collisionEnabled);
         virtual ~GameObject();
 
         virtual void draw(SDL_Renderer *renderer, float interp);
@@ -40,11 +41,12 @@ class GameObject
         int getWidth();
         int getHeight();
         GameObjectType getType();
-        std::unique_ptr<Color>& getColor();
         bool hasCollisionEnabled();
         void setCollisionEnabled(bool _collisionEnabled);
         bool isColliding();
         void setColliding(bool _colliding);
+
+        std::shared_ptr<Texture> getTexture();
 
         bool operator==(const GameObject &rhs) const;
         bool operator!=(const GameObject &rhs) const;

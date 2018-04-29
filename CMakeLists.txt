@@ -3,16 +3,18 @@ project(anri)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_BUILD_TYPE Debug)
+#set(CMAKE_BUILD_TYPE Debug)
 
 #SDL2 configuration
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 find_package(SDL2 REQUIRED)
 find_package(SDL2TTF REQUIRED)
 find_package(SDL2MIXER REQUIRED)
+find_package(SDL2IMAGE REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2TTF_INCLUDE_DIR})
 include_directories(${SDL2MIXER_INCLUDE_DIR})
+include_directories(${SDL2IMAGE_INCLUDE_DIR})
 
 #Include local headers
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -29,6 +31,7 @@ set(SOURCE_FILES
         include/engine/input/Input.h
         include/engine/render/Renderer.h
 		include/engine/sound/SoundSystem.h
+		include/engine/graphics/Texture.h
 		include/engine/MemoryUsage.h
 		include/engine/SimpleTimer.h
 		include/engine/Config.h
@@ -41,12 +44,12 @@ set(SOURCE_FILES
 		include/game/objects/IMovable.h
 		include/game/objects/MovableGameObject.h
 		include/game/objects/PlayerGameObject.h
-		include/game/Color.h
 		include/game/Game.h
         src/engine/event/EventHandler.cpp
         src/engine/input/Input.cpp
 		src/engine/render/Renderer.cpp
 		src/engine/sound/SoundSystem.cpp
+		src/engine/graphics/Texture.cpp
 		src/engine/MemoryUsage.cpp
 		src/engine/SimpleTimer.cpp
 		src/engine/Config.cpp
@@ -55,7 +58,6 @@ set(SOURCE_FILES
 		src/game/objects/GameObject.cpp
 		src/game/objects/MovableGameObject.cpp
 		src/game/objects/PlayerGameObject.cpp
-		src/game/Color.cpp
 		src/game/Game.cpp
 		src/main.cpp)
 
@@ -63,6 +65,7 @@ add_executable(anri ${SOURCE_FILES})
 target_link_libraries(anri ${SDL2_LIBRARY})
 target_link_libraries(anri ${SDL2TTF_LIBRARY})
 target_link_libraries(anri ${SDL2MIXER_LIBRARY})
+target_link_libraries(anri ${SDL2IMAGE_LIBRARY})
 if (WIN32)
 	target_link_libraries(anri psapi)
 endif (WIN32)

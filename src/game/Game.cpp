@@ -144,3 +144,8 @@ std::shared_ptr<Input> Game::getInput()
 {
     return input;
 }
+
+SDL_Renderer* Game::getMainRenderer() const 
+{
+    return renderer->getRenderer();
+}

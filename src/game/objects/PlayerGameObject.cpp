@@ -2,10 +2,10 @@
 #include <game/objects/PlayerGameObject.h>
 #include <engine/DebugInfo.h>
 
-PlayerGameObject::PlayerGameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName,
+PlayerGameObject::PlayerGameObject(Vec2 _position, int _width, int _height,
                                    bool _collisionEnabled, float _xVelocity, float _yVelocity,
                                    float _xAcceleration, float _yAcceleration, std::shared_ptr<Input> _input)
-    : MovableGameObject(_position, _width, _height, _colorName, _collisionEnabled, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
+    : MovableGameObject(_position, _width, _height, _collisionEnabled, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
 {
     input = _input;
 
@@ -24,17 +24,23 @@ void PlayerGameObject::update(float deltaTime)
                 if(input->isKeyHeld(keycode))
                 {
                     xAcceleration = -30.f;
+                    texture->setTexture("player_walk", true);
+
                 } else if(input->wasKeyReleased(keycode))
                 {
                     xAcceleration = 0.f;
+                    texture->setTexture("player_idle", true);
+
                 }
                 break;
             case SDLK_RIGHT:
                 if(input->isKeyHeld(keycode))
                 {
+                    texture->setTexture("player_walk", false);
                     xAcceleration = 30.f;
                 } else if(input->wasKeyReleased(keycode))
                 {
+                    texture->setTexture("player_idle", false);
                     xAcceleration = 0.f;
                 }
                 break;

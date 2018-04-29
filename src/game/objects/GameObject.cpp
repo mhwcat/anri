@@ -1,20 +1,20 @@
 #include <cmath>
 #include <cstdint>
 #include <memory>
-#include <game/Color.h>
 #include <game/objects/GameObject.h>
 #include <engine/DebugPrint.h>
 
 
-GameObject::GameObject(Vec2 _position, int _width, int _height, Color::ColorName _colorName, bool _collisionEnabled)
+GameObject::GameObject(Vec2 _position, int _width, int _height, bool _collisionEnabled)
 {
     position = _position;
     previousPosition = _position;
     width = _width;
     height = _height;
-    color = std::make_unique<Color>(_colorName);
     collisionEnabled = _collisionEnabled;
     colliding = false;
+    texture = std::make_shared<Texture>();
+    frameCounter = 0;
 
     type = GameObjectType::GAME_OBJECT;
 }
@@ -35,15 +35,23 @@ void GameObject::draw(SDL_Renderer *renderer, float interp)
     float drawX = (previousPosition.x * interp) + (position.x * (1.f - interp));
     float drawY = (previousPosition.y * interp) + (position.y * (1.f - interp));
 
-    SDL_Rect rect {
-            (int) round(drawX),
-            (int) round(drawY),
-            width,
-            height
-    };
+    if(texture->isLoaded()) 
+    {
+        if(frameCounter % 4 == 0)
+        {
+            texture->nextSprite();
+        }
+        texture->draw((int) round(drawX), (int) round(drawY), width, height, renderer);
+    }
+    else 
+    {
+        SDL_Rect rect { (int) round(drawX),(int) round(drawY), width, height };
 
-    SDL_SetRenderDrawColor(renderer, color->getR(), color->getG(), color->getB(), 255);
-    SDL_RenderFillRect(renderer, &rect);
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderFillRect(renderer, &rect);
+    }
+
+    frameCounter++;
 }
 
 uint32_t GameObject::getId() 
@@ -69,11 +77,6 @@ int GameObject::getHeight()
 GameObjectType GameObject::getType()
 {
     return type;
-}
-
-std::unique_ptr<Color>& GameObject::getColor() 
-{
-    return color;
 }
 
 bool GameObject::hasCollisionEnabled()
@@ -122,6 +125,11 @@ void GameObject::setPositionY(float _y)
 {
     previousPosition.y = position.y;
     position.y = _y;
+}
+
+std::shared_ptr<Texture> GameObject::getTexture() 
+{
+    return texture;
 }
 
 bool GameObject::operator==(const GameObject &rhs) const

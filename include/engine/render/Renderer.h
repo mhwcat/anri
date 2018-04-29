@@ -22,6 +22,7 @@ class Renderer
                     float interp);
         void renderDebugText();
         void cleanup();
+        SDL_Renderer* getRenderer() const;
 
     private:
         SDL_Renderer *renderer;
