@@ -1,5 +1,4 @@
 #include <SDL_image.h>
-#include <engine/Globals.h>
 #include <engine/DebugPrint.h>
 #include <engine/graphics/Texture.h>
 

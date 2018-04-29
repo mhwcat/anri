@@ -8,7 +8,6 @@
 #include <engine/render/Renderer.h>
 #include <engine/DebugPrint.h>
 #include <engine/DebugInfo.h>
-#include <engine/Globals.h>
 #include <SDL_image.h>
 
 Renderer::Renderer()
