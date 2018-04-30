@@ -1,6 +1,7 @@
 #include <game/objects/MovableGameObject.h>
 #include <game/objects/PlayerGameObject.h>
 #include <engine/DebugInfo.h>
+#include <engine/DebugPrint.h>
 
 PlayerGameObject::PlayerGameObject(Vec2 _position, int _width, int _height,
                                    bool _collisionEnabled, float _xVelocity, float _yVelocity,
@@ -8,12 +9,23 @@ PlayerGameObject::PlayerGameObject(Vec2 _position, int _width, int _height,
     : MovableGameObject(_position, _width, _height, _collisionEnabled, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
 {
     input = _input;
+    inAir = false;
+    jumpTime = 0.f;
 
     type = GameObjectType::PLAYER_GAME_OBJECT;
 }
 
 void PlayerGameObject::update(float deltaTime)
 {
+    if(inAir) 
+    {
+        jumpTime += deltaTime;
+        if(jumpTime > 0.15f)
+        {
+            yAcceleration = 0.f;
+        }
+    }
+
     if(!input->isInputEventsQueueEmpty())
     {
         SDL_Keycode keycode = input->getLastInputEventAndPop().key.keysym.sym;
@@ -30,7 +42,6 @@ void PlayerGameObject::update(float deltaTime)
                 {
                     xAcceleration = 0.f;
                     texture->setTexture("player_idle", true);
-
                 }
                 break;
             case SDLK_RIGHT:
@@ -45,13 +56,13 @@ void PlayerGameObject::update(float deltaTime)
                 }
                 break;
             case SDLK_SPACE:
-                if(input->wasKeyPressed(keycode))
+                if(input->wasKeyPressed(keycode) && !inAir)
                 {
                     setPositionY(position.y - 1.f);
-                    yAcceleration = -50.f;
-                } else if(input->wasKeyReleased(keycode)) {
-                    yAcceleration = 0.f;
-                }
+                    yAcceleration = -800.f;
+                    inAir = true;
+                    jumpTime = 0.f;
+                } 
                 break;
             case SDLK_ESCAPE:
                 SDL_Event quitEvent{};
@@ -65,6 +76,9 @@ void PlayerGameObject::update(float deltaTime)
     DebugInfo::getInstance().playerPosition.y = position.y;
     DebugInfo::getInstance().playerVelocity.x = xVelocity;
     DebugInfo::getInstance().playerVelocity.y = yVelocity;
+
+    if(inAir && (position.y + height) >= 658.0)
+        inAir = false;
 
     MovableGameObject::update(deltaTime);
 }

@@ -15,6 +15,8 @@ class PlayerGameObject : public MovableGameObject
 
     private:
         std::shared_ptr<Input> input;
+        bool inAir;
+        float jumpTime;
 
 };
 

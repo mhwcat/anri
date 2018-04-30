@@ -61,9 +61,6 @@ void Texture::nextSprite()
     {
         currentSprites[currentSheet]++;
     }
-
-
-    //printf("%d\n", currentSprites[currentSheet]);
 }
 
 void Texture::draw(int drawX, int drawY, int width, int height, SDL_Renderer *renderer)

@@ -41,6 +41,7 @@ void GameObject::draw(SDL_Renderer *renderer, float interp)
         {
             texture->nextSprite();
         }
+        
         texture->draw((int) round(drawX), (int) round(drawY), width, height, renderer);
     }
     else 
@@ -49,6 +50,14 @@ void GameObject::draw(SDL_Renderer *renderer, float interp)
 
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderFillRect(renderer, &rect);
+    }
+
+    // Outline movables
+    if(type == MOVABLE_GAME_OBJECT || type == PLAYER_GAME_OBJECT) 
+    {
+        SDL_Rect outline { (int) round(drawX),(int) round(drawY), width, height };
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderDrawRect(renderer, &outline);
     }
 
     frameCounter++;
