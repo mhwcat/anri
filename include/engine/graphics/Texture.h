@@ -1,7 +1,5 @@
-
 #ifndef ANRI_TEXTURE_H
 #define ANRI_TEXTURE_H
-
 
 #include <SDL_render.h>
 #include <map>

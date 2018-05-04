@@ -32,9 +32,12 @@ set(SOURCE_FILES
         include/engine/render/Renderer.h
 		include/engine/sound/SoundSystem.h
 		include/engine/graphics/Texture.h
+		include/engine/graphics/Particle.h
+		include/engine/graphics/ParticleSystem.h
 		include/engine/MemoryUsage.h
 		include/engine/SimpleTimer.h
 		include/engine/Config.h
+		include/engine/Random.h
 		include/engine/DebugPrint.h
 		include/engine/DebugInfo.h
 		include/game/levels/GameLevel.h
@@ -50,9 +53,11 @@ set(SOURCE_FILES
 		src/engine/render/Renderer.cpp
 		src/engine/sound/SoundSystem.cpp
 		src/engine/graphics/Texture.cpp
+		src/engine/graphics/ParticleSystem.cpp
 		src/engine/MemoryUsage.cpp
 		src/engine/SimpleTimer.cpp
 		src/engine/Config.cpp
+		src/engine/Random.cpp
 		src/engine/DebugPrint.cpp
 		src/game/levels/GameLevel.cpp
 		src/game/objects/GameObject.cpp

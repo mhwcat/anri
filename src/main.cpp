@@ -22,11 +22,21 @@ int main(int argc, char* args[])
     bgObject->getTexture()->loadSheet("tex_bg", "assets/textures/background.png", Vec2 {0, 0}, 0, g->getMainRenderer());
     gl->addGameObject(std::move(bgObject));
 
+    std::unique_ptr<GameObject> bonfireObject = std::make_unique<GameObject>(Vec2 {830.f, 668.f - 60.f}, 60, 60, false);
+    bonfireObject->getTexture()->loadSheet("bonfire_lit", "assets/textures/bonfire_lit.png", Vec2 {60, 0}, 9, g->getMainRenderer());
+    bonfireObject->getTexture()->loadSheet("bonfire_kindle", "assets/textures/bonfire_kindle.png", Vec2 {60, 0}, 9, g->getMainRenderer());
+    bonfireObject->getTexture()->setTexture("bonfire_lit", false);
+    gl->addGameObject(std::move(bonfireObject));
+
     gl->setPlayer(std::make_shared<PlayerGameObject>(Vec2 {100.f, 100.f}, 80, 121, true, 0.f, 0.f, 0.f, 50.f, g->getInput()));
     gl->getPlayer()->getTexture()->loadSheet("player_idle", "assets/textures/mr_skeleton_idle.png", Vec2 {91, 0}, 11, g->getMainRenderer());
     gl->getPlayer()->getTexture()->loadSheet("player_walk", "assets/textures/mr_skeleton_walk.png", Vec2 {81, 0}, 13, g->getMainRenderer());
-
     gl->getPlayer()->getTexture()->setTexture("player_idle", false);
+
+    std::unique_ptr<ParticleSystem> ps1 = std::make_unique<ParticleSystem>(Vec2{350.f, 150.f}, 30, 10.f, 100.f, false);
+    ps1->start();
+    gl->addParticleSystem(std::move(ps1));
+    gl->addParticleSystem(std::make_unique<ParticleSystem>(Vec2{850.f, 150.f}, 30, 10.f, 600.f, true));
 
     g->loadLevel(std::move(gl));
 

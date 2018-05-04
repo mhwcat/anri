@@ -97,7 +97,7 @@ void Game::mainLoop()
         ANRI_DE DebugInfo::getInstance().updateTime = frameTimer.getMicrosecondsSinceStart() / 1000.f; // micro -> milli
 
         frameTimer.start();
-        renderer->render(currentLevel->getObjects(), currentLevel->getMovables(), interp);
+        renderer->render(currentLevel->getObjects(), currentLevel->getMovables(), currentLevel->getParticleSystems(), interp);
         ANRI_DE DebugInfo::getInstance().renderTime = frameTimer.getMicrosecondsSinceStart() / 1000.f; // micro -> milli
     }
 }
@@ -129,6 +129,11 @@ void Game::update(float deltaTime)
     for(auto const& movable : currentLevel->getMovables()) 
     {
         movable->update(deltaTime);
+    }
+
+    for(auto const& particleSystem : currentLevel->getParticleSystems())
+    {
+        particleSystem->update(deltaTime);
     }
 
     input.get()->cleanKeys();

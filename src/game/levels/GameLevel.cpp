@@ -28,6 +28,11 @@ const std::shared_ptr<PlayerGameObject>& GameLevel::getPlayer() const
     return player;
 }
 
+const std::vector<std::unique_ptr<ParticleSystem> >& GameLevel::getParticleSystems() const
+{
+    return particleSystems;
+}
+
 void GameLevel::setPlayer(std::shared_ptr<PlayerGameObject> playerGameObject)
 {
     player = std::move(playerGameObject);
@@ -48,6 +53,12 @@ void GameLevel::addMovableGameObject(std::shared_ptr<MovableGameObject> movableG
 
     ANRI_DE debugPrint("MovableGameObject[%d] added to level.", movableGameObject->getId());
     movables.push_back(std::move(movableGameObject));
+}
+
+void GameLevel::addParticleSystem(std::unique_ptr<ParticleSystem> particleSystem)
+{
+    ANRI_DE debugPrint("ParticleSystem[] added to level.");
+    particleSystems.push_back(std::move(particleSystem));
 }
 
 const std::unique_ptr<GameObject>& GameLevel::getGameObject(uint32_t id) const

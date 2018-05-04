@@ -26,6 +26,7 @@ Renderer::~Renderer()
 
 void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
                       const std::vector<std::shared_ptr<MovableGameObject> > &movables,
+                      const std::vector<std::unique_ptr<ParticleSystem> > &particleSystems,
                       float interp)
 {
     // Clear renderer
@@ -42,6 +43,12 @@ void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
     for(auto const& go : movables)
     {
         go->draw(renderer, interp);
+    }
+
+    // Render particle systems
+    for(auto const& ps : particleSystems)
+    {
+        ps->draw(renderer, interp);
     }
 
     // Render debug overlay

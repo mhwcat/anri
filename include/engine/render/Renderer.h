@@ -9,6 +9,7 @@
 
 #include <game/objects/GameObject.h>
 #include <game/objects/MovableGameObject.h>
+#include <engine/graphics/ParticleSystem.h>
 #include <engine/SimpleTimer.h>
 
 class Renderer
@@ -19,6 +20,7 @@ class Renderer
         bool init();
         void render(const std::vector<std::unique_ptr<GameObject> > &objects,
                     const std::vector<std::shared_ptr<MovableGameObject> > &movables,
+                    const std::vector<std::unique_ptr<ParticleSystem> > &particleSystems,
                     float interp);
         void renderDebugText();
         void cleanup();
