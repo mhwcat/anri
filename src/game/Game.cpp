@@ -30,7 +30,7 @@ bool Game::init()
     bool rendererInitialized = renderer->init();
     bool soundSystemInitialized = soundSystem->init();
 
-    return rendererInitialized & soundSystemInitialized;
+    return rendererInitialized && soundSystemInitialized;
 }
 
 void Game::start() 
