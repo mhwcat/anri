@@ -36,8 +36,10 @@ int main(int argc, char* args[])
     std::unique_ptr<ParticleSystem> ps1 = std::make_unique<ParticleSystem>(Vec2{350.f, 150.f}, 30, 10.f, 100.f, false);
     ps1->start();
     gl->addParticleSystem(std::move(ps1));
-    gl->addParticleSystem(std::make_unique<ParticleSystem>(Vec2{850.f, 150.f}, 30, 10.f, 600.f, true));
-
+    std::unique_ptr<ParticleSystem> ps2 = std::make_unique<ParticleSystem>(Vec2{650.f, 150.f}, 30, 10.f, 100.f, true);
+    ps2->start();
+    gl->addParticleSystem(std::move(ps2));
+    
     g->loadLevel(std::move(gl));
 
     g->start();
