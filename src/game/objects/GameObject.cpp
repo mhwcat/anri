@@ -14,7 +14,8 @@ GameObject::GameObject(Vec2 _position, int _width, int _height, bool _collisionE
     collisionEnabled = _collisionEnabled;
     colliding = false;
     texture = std::make_shared<Texture>();
-    frameCounter = 0;
+    renderTimeElapsed = 0.f;
+    lastSpriteChangeTime = 0.f;
 
     type = GameObjectType::GAME_OBJECT;
 }
@@ -29,17 +30,20 @@ void GameObject::update(float deltaTime)
 
 }
 
-void GameObject::draw(SDL_Renderer *renderer, float interp)
+void GameObject::draw(SDL_Renderer *renderer, float interp, float lastRenderTime)
 {
     // Interpolation for rendering
     float drawX = (previousPosition.x * interp) + (position.x * (1.f - interp));
     float drawY = (previousPosition.y * interp) + (position.y * (1.f - interp));
 
+    renderTimeElapsed += lastRenderTime;
+
     if(texture->isLoaded()) 
     {
-        if(frameCounter % 4 == 0)
+        if((renderTimeElapsed - lastSpriteChangeTime) >= TEXTURE_ANIM_FRAME_INTERVAL)
         {
             texture->nextSprite();
+            lastSpriteChangeTime = renderTimeElapsed;
         }
         
         texture->draw((int) round(drawX), (int) round(drawY), width, height, renderer);
@@ -59,8 +63,6 @@ void GameObject::draw(SDL_Renderer *renderer, float interp)
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderDrawRect(renderer, &outline);
     }
-
-    frameCounter++;
 }
 
 uint32_t GameObject::getId() 

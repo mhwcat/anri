@@ -21,7 +21,8 @@ class Renderer
         void render(const std::vector<std::unique_ptr<GameObject> > &objects,
                     const std::vector<std::shared_ptr<MovableGameObject> > &movables,
                     const std::vector<std::unique_ptr<ParticleSystem> > &particleSystems,
-                    float interp);
+                    float interp,
+                    float lastRenderTime);
         void renderDebugText();
         void cleanup();
         SDL_Renderer* getRenderer() const;

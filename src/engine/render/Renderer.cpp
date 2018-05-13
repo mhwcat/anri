@@ -27,7 +27,8 @@ Renderer::~Renderer()
 void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
                       const std::vector<std::shared_ptr<MovableGameObject> > &movables,
                       const std::vector<std::unique_ptr<ParticleSystem> > &particleSystems,
-                      float interp)
+                      float interp,
+                      float lastRenderTime)
 {
     // Clear renderer
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -36,13 +37,13 @@ void Renderer::render(const std::vector<std::unique_ptr<GameObject> > &objects,
     // Render objects
     for(auto const& go : objects)
     {
-        go->draw(renderer, interp);
+        go->draw(renderer, interp, lastRenderTime);
     }
 
     // Render movables
     for(auto const& go : movables)
     {
-        go->draw(renderer, interp);
+        go->draw(renderer, interp, lastRenderTime);
     }
 
     // Render particle systems

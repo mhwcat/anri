@@ -17,6 +17,7 @@ Game::Game()
     renderer = std::make_unique<Renderer>();
     soundSystem = std::make_shared<SoundSystem>();
     timeElapsed = 0;
+    lastRenderTime = 0.f;
 }
 
 Game::~Game()
@@ -97,8 +98,9 @@ void Game::mainLoop()
         ANRI_DE DebugInfo::getInstance().updateTime = frameTimer.getMicrosecondsSinceStart() / 1000.f; // micro -> milli
 
         frameTimer.start();
-        renderer->render(currentLevel->getObjects(), currentLevel->getMovables(), currentLevel->getParticleSystems(), interp);
-        ANRI_DE DebugInfo::getInstance().renderTime = frameTimer.getMicrosecondsSinceStart() / 1000.f; // micro -> milli
+        renderer->render(currentLevel->getObjects(), currentLevel->getMovables(), currentLevel->getParticleSystems(), interp, lastRenderTime);
+        lastRenderTime = frameTimer.getMicrosecondsSinceStart() / 1000.f; // micro -> milli
+        ANRI_DE DebugInfo::getInstance().renderTime = lastRenderTime; 
     }
 }
 

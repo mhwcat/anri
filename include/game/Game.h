@@ -31,6 +31,7 @@ private:
         std::unique_ptr<GameLevel> currentLevel;
         bool running;
         uint64_t timeElapsed;
+        float lastRenderTime;
 
         void mainLoop();
         void update(float deltaTime);

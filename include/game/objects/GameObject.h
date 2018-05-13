@@ -11,6 +11,9 @@
 
 class GameObject
 {
+    private:
+        const float TEXTURE_ANIM_FRAME_INTERVAL = 50.f;
+        
     protected:
         uint32_t id;
         Vec2 position;
@@ -21,13 +24,14 @@ class GameObject
         bool collisionEnabled;
         bool colliding;
         std::shared_ptr<Texture> texture;
-        unsigned int frameCounter;
+        float renderTimeElapsed;
+        float lastSpriteChangeTime;
 
     public:
         GameObject(Vec2 _position, int _width, int _height, bool _collisionEnabled);
         virtual ~GameObject();
 
-        virtual void draw(SDL_Renderer *renderer, float interp);
+        virtual void draw(SDL_Renderer *renderer, float interp, float lastRenderTime);
         virtual void update(float deltaTime);
 
         uint32_t getId();
