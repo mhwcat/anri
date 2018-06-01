@@ -23,6 +23,8 @@ class MovableGameObject : public GameObject
                           float _xVelocity, float _yVelocity, float _xAcceleration, float _yAcceleration);
 
         void update(float deltaTime) override;
+        void move(float directionDegrees, float acceleration);
+        void stopMoving();
 
         float getXVelocity() const;
         void setXVelocity(float _xVelocity);

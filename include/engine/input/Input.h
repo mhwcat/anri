@@ -1,13 +1,15 @@
 #ifndef ANRI_INPUT_H
 #define ANRI_INPUT_H
 
-#include <memory>
 #include <engine/input/Input.h>
+#include <engine/System.h>
+#include <engine/messaging/Message.h>
+#include <memory>
 #include <map>
 #include <queue>
 #include "SDL.h"
 
-class Input
+class Input : public System
 {
     public:
         struct AnalogStickAxisValues
@@ -33,6 +35,8 @@ class Input
 
         AnalogStickAxisValues getAnalogStickAxisValues();
 
+        void handleEngineMessages() override;
+        
     private:
         std::queue<SDL_Event> inputEvents;
 
@@ -45,6 +49,8 @@ class Input
 
         void onKeyDownEvent(const SDL_Keycode& event);
         void onKeyUpEvent(const SDL_Keycode& event);
+
+        float getDegreesByKey(const SDL_Keycode& keycode);
 };
 
 #endif

@@ -7,9 +7,13 @@
 #include <engine/DebugPrint.h>
 #include <engine/Config.h>
 
+#include <engine/Allocator.h>
+
 int main(int argc, char* args[])
 {
+    std::shared_ptr<MessageSystem> msgSystem = std::make_shared<MessageSystem>();
     std::unique_ptr<Game> g = std::make_unique<Game>();
+    g->setMessageSystem(msgSystem);
     if(!g->init())
     {
         ANRI_DE debugPrint("Game init failed!");

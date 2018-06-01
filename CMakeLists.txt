@@ -34,12 +34,16 @@ set(SOURCE_FILES
 		include/engine/graphics/Texture.h
 		include/engine/graphics/Particle.h
 		include/engine/graphics/ParticleSystem.h
+		include/engine/messaging/Message.h
+		include/engine/messaging/MessageSystem.h
 		include/engine/MemoryUsage.h
 		include/engine/SimpleTimer.h
 		include/engine/Config.h
 		include/engine/Random.h
 		include/engine/DebugPrint.h
 		include/engine/DebugInfo.h
+		include/engine/System.h
+		include/engine/Allocator.h
 		include/game/levels/GameLevel.h
 		include/game/objects/GameObject.h
 		include/game/objects/GameObjectType.h
@@ -54,11 +58,15 @@ set(SOURCE_FILES
 		src/engine/sound/SoundSystem.cpp
 		src/engine/graphics/Texture.cpp
 		src/engine/graphics/ParticleSystem.cpp
+		src/engine/messaging/Message.cpp
+		src/engine/messaging/MessageSystem.cpp
 		src/engine/MemoryUsage.cpp
 		src/engine/SimpleTimer.cpp
 		src/engine/Config.cpp
 		src/engine/Random.cpp
 		src/engine/DebugPrint.cpp
+		src/engine/System.cpp
+		src/engine/Allocator.cpp
 		src/game/levels/GameLevel.cpp
 		src/game/objects/GameObject.cpp
 		src/game/objects/MovableGameObject.cpp

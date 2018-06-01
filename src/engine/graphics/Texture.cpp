@@ -85,3 +85,8 @@ bool Texture::isLoaded()
 {
     return !textureSheets.empty();
 }
+
+bool Texture::isFlippedHorizontal()
+{
+    return flipHorizontal;
+}

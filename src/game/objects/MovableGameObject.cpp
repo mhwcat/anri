@@ -1,6 +1,7 @@
 #include <game/objects/GameObject.h>
 #include <game/objects/MovableGameObject.h>
 #include <engine/DebugPrint.h>
+#include <math.h>
 
 
 MovableGameObject::MovableGameObject(Vec2 _position, int _width, int _height, bool _collisionEnabled,
@@ -52,6 +53,19 @@ void MovableGameObject::update(float deltaTime) {
     setPositionY(position.y + (yVelocity * deltaTime));
 
     GameObject::update(deltaTime);
+}
+
+void MovableGameObject::move(float directionDegrees, float acceleration)
+{
+    float rad = 180.f / M_PI * directionDegrees;
+    xAcceleration = acceleration * cos(rad);
+    yAcceleration = acceleration * sin(rad);
+}
+
+void MovableGameObject::stopMoving()
+{
+    xAcceleration = 0.f;
+    yAcceleration = 0.f;
 }
 
 float MovableGameObject::getXVelocity() const

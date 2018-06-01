@@ -3,13 +3,20 @@
 
 enum SystemType
 {
-    RENDER, INPUT, GAME, CAMERA,
+    RENDER, INPUT, GAME, CAMERA, EVENT_HANDLER
 };
 
 enum MessageType 
 {
-    GAME_OBJECT_SET_POSITION,
-    GAME_OBJECT_SET_ACCELERATION,
+    GAME_SHUTDOWN,
+
+    PLAYER_MOVE,                // generic move, angle must be specified
+    PLAYER_STOP_MOVING,         // set acceleration to 0
+    PLAYER_WALK_LEFT,           // move left with texture switch
+    PLAYER_WALK_RIGHT,          // move right with texture switch
+    PLAYER_STOP_WALKING,        // stop moving with texture switch
+    PLAYER_JUMP,
+    PLAYER_SWITCH_TEXTURE,      // switch texture
     
 };
 
@@ -20,5 +27,8 @@ struct Message
     MessageType type;
     void* data;
 };
+
+Message* createMessage(SystemType sender, SystemType recipient, MessageType type, void* data);
+Message* createMessage(SystemType sender, SystemType recipient, MessageType type);
 
 #endif

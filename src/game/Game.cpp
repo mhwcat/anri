@@ -8,16 +8,11 @@
 #include <engine/DebugPrint.h>
 #include <engine/Config.h>
 #include <engine/DebugInfo.h>
+#include <engine/Allocator.h>
 
-Game::Game()
+Game::Game() : System()
 {
-    running = false;
-    input = std::make_shared<Input>();
-    eventHandler = std::make_unique<EventHandler>(input);
-    renderer = std::make_unique<Renderer>();
-    soundSystem = std::make_shared<SoundSystem>();
-    timeElapsed = 0;
-    lastRenderTime = 0.f;
+
 }
 
 Game::~Game()
@@ -27,6 +22,19 @@ Game::~Game()
 
 bool Game::init()
 {
+    running = false;
+
+    input = std::make_shared<Input>();
+    input->setMessageSystem(messageSystem);
+
+    eventHandler = std::make_unique<EventHandler>(input);
+    eventHandler->setMessageSystem(messageSystem);
+
+    renderer = std::make_unique<Renderer>();
+    soundSystem = std::make_shared<SoundSystem>();
+    timeElapsed = 0;
+    lastRenderTime = 0.f;
+
     bool rendererInitialized = renderer->init();
     bool soundSystemInitialized = soundSystem->init();
 
@@ -101,6 +109,9 @@ void Game::mainLoop()
         renderer->render(currentLevel->getObjects(), currentLevel->getMovables(), currentLevel->getParticleSystems(), interp, lastRenderTime);
         lastRenderTime = frameTimer.getMicrosecondsSinceStart() / 1000.f; // micro -> milli
         ANRI_DE DebugInfo::getInstance().renderTime = lastRenderTime; 
+
+        // Clear local allocated memory
+        Allocator::getInstance().resetMemory();
     }
 }
 
@@ -109,16 +120,7 @@ void Game::performEventHandling()
     eventHandler->processEvents();
 
     // Handle engine events
-    while(!eventHandler->isEventsQueueEmpty())
-    {
-        Event event = eventHandler->getLastEventAndPop();
-        switch(event.type)
-        {
-            case EventType::QUIT:
-                running = false;
-                break;
-        }
-    }
+    handleEngineMessages();
 }
 
 void Game::update(float deltaTime)
@@ -156,3 +158,55 @@ SDL_Renderer* Game::getMainRenderer() const
 {
     return renderer->getRenderer();
 }
+
+void Game::handleEngineMessages()
+{
+    while(!messageSystem->isQueueEmpty(GAME))
+    {
+        Message *message = messageSystem->getLastMessage(GAME);
+        //debugPrint("received message %d", message);
+
+        debugPrint("Received message %d -> %d: %d ", message->sender, message->recipient, message->type);
+
+        switch(message->type)
+        {
+            case PLAYER_MOVE:
+                currentLevel->getPlayer()->move(*((float *) (message->data)), 190.f);
+                break;
+            case PLAYER_STOP_MOVING:
+                currentLevel->getPlayer()->stopMoving();
+                break;
+            case PLAYER_SWITCH_TEXTURE:
+                //currentLevel->getPlayer()->setTexture(*((char *) (message->data)))
+                break;
+            case PLAYER_WALK_LEFT:
+                currentLevel->getPlayer()->getTexture()->setTexture("player_walk", true);
+                currentLevel->getPlayer()->move(-180.f, 190.f);
+                break;
+            case PLAYER_WALK_RIGHT:
+                currentLevel->getPlayer()->getTexture()->setTexture("player_walk", false);
+                currentLevel->getPlayer()->move(180.f, -190.f);
+                break;
+            case PLAYER_STOP_WALKING:
+                currentLevel->getPlayer()->getTexture()->setTexture("player_idle", currentLevel->getPlayer()->getTexture()->isFlippedHorizontal());
+                currentLevel->getPlayer()->stopMoving();
+                break;
+            case PLAYER_JUMP:
+                currentLevel->getPlayer()->jump();
+                break;
+            case GAME_SHUTDOWN:
+                running = false;
+                break;
+            default:
+                break;
+        }
+
+        if(message->data != nullptr)
+        {
+            free(message->data);
+        }
+        //free(message);
+    }
+}
+
+

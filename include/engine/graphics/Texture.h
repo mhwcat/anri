@@ -19,6 +19,7 @@ class Texture
 
         void unloadAllSheets();
         bool isLoaded();
+        bool isFlippedHorizontal();
 
     private:
         std::map<std::string, SDL_Texture*> textureSheets;

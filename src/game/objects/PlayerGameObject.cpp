@@ -26,7 +26,7 @@ void PlayerGameObject::update(float deltaTime)
         }
     }
 
-    if(!input->isInputEventsQueueEmpty())
+    /*if(!input->isInputEventsQueueEmpty())
     {
         SDL_Keycode keycode = input->getLastInputEventAndPop().key.keysym.sym;
 
@@ -70,7 +70,7 @@ void PlayerGameObject::update(float deltaTime)
                 SDL_PushEvent(&quitEvent);
                 break;
         }
-    }
+    }*/
 
     DebugInfo::getInstance().playerPosition.x = position.x;
     DebugInfo::getInstance().playerPosition.y = position.y;
@@ -81,4 +81,15 @@ void PlayerGameObject::update(float deltaTime)
         inAir = false;
 
     MovableGameObject::update(deltaTime);
+}
+
+void PlayerGameObject::jump() 
+{
+    if(!inAir) 
+    {
+        setPositionY(position.y - 1.f);
+        yAcceleration = -800.f;
+        inAir = true;
+        jumpTime = 0.f;
+    }
 }

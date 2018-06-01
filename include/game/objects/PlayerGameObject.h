@@ -13,6 +13,8 @@ class PlayerGameObject : public MovableGameObject
                          float _xVelocity, float _yVelocity, float _xAcceleration, float _yAcceleration, std::shared_ptr<Input> _input);
         void update(float deltaTime) override;
 
+        void jump();
+
     private:
         std::shared_ptr<Input> input;
         bool inAir;

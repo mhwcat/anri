@@ -9,7 +9,7 @@
 #include <engine/sound/SoundSystem.h>
 
 
-class Game 
+class Game : public System
 {
     public:
         Game();
@@ -23,7 +23,7 @@ class Game
         std::shared_ptr<Input> getInput();
         SDL_Renderer* getMainRenderer() const;
 
-private:
+   private:
         std::unique_ptr<Renderer> renderer;
         std::shared_ptr<SoundSystem> soundSystem;
         std::shared_ptr<Input> input;
@@ -37,6 +37,8 @@ private:
         void update(float deltaTime);
         void performEventHandling();
         std::string prepareDebugText();
+        
+        void handleEngineMessages() override;
 };
 
 #endif

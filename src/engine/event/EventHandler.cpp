@@ -1,9 +1,11 @@
 #include <memory>
 #include <engine/event/EventHandler.h>
+#include <engine/messaging/Message.h>
+#include <engine/messaging/MessageSystem.h>
 #include <engine/DebugPrint.h>
 
 
-EventHandler::EventHandler(std::shared_ptr<Input> _input)
+EventHandler::EventHandler(std::shared_ptr<Input> _input) : System()
 {
     ANRI_DE debugPrint("Initializing EventHandler subsystem.");
 
@@ -21,15 +23,19 @@ void EventHandler::processEvents()
 
     while(SDL_PollEvent(&sdlEvent) != 0)
     {
-        if(sdlEvent.type == SDL_QUIT)
-        {
-            Event quitEvent{};
-            quitEvent.type = EventType::QUIT;
-
-            events.push(quitEvent);
-        } else if(isInputEvent(&sdlEvent))
+        if(isInputEvent(&sdlEvent))
         {
             input.get()->pushInputEvent(sdlEvent);
+        } 
+        else 
+        {
+            switch(sdlEvent.type) 
+            {
+                case SDL_QUIT:
+                    Message *msg = createMessage(EVENT_HANDLER, GAME, GAME_SHUTDOWN);
+                    messageSystem->postMessage(msg);
+                    break;
+            }
         }
     }
 }
@@ -55,4 +61,9 @@ std::shared_ptr<Input> EventHandler::getInput()
 bool EventHandler::isInputEvent(SDL_Event *event) {
     return event->type == SDL_KEYDOWN || event->type == SDL_KEYUP ||
             event->type == SDL_JOYBUTTONDOWN || event->type == SDL_JOYBUTTONUP || event->type == SDL_JOYAXISMOTION;
+}
+
+void EventHandler::handleEngineMessages()
+{
+
 }
