@@ -31,6 +31,7 @@ set(SOURCE_FILES
         include/engine/input/Input.h
         include/engine/render/Renderer.h
 		include/engine/sound/SoundSystem.h
+		include/engine/graphics/RGBColor.h
 		include/engine/graphics/Texture.h
 		include/engine/graphics/Particle.h
 		include/engine/graphics/ParticleSystem.h
@@ -51,6 +52,7 @@ set(SOURCE_FILES
 		include/game/objects/IMovable.h
 		include/game/objects/MovableGameObject.h
 		include/game/objects/PlayerGameObject.h
+		include/game/objects/ui/UiGameObject.h
 		include/game/Game.h
         src/engine/event/EventHandler.cpp
         src/engine/input/Input.cpp
@@ -71,6 +73,7 @@ set(SOURCE_FILES
 		src/game/objects/GameObject.cpp
 		src/game/objects/MovableGameObject.cpp
 		src/game/objects/PlayerGameObject.cpp
+		src/game/objects/ui/UiGameObject.cpp
 		src/game/Game.cpp
 		src/main.cpp)
 

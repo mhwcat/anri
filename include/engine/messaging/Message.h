@@ -3,7 +3,7 @@
 
 enum SystemType
 {
-    RENDER, INPUT, GAME, CAMERA, EVENT_HANDLER
+    RENDER, AINPUT, GAME, CAMERA, EVENT_HANDLER
 };
 
 enum MessageType 
@@ -16,7 +16,11 @@ enum MessageType
     PLAYER_WALK_RIGHT,          // move right with texture switch
     PLAYER_STOP_WALKING,        // stop moving with texture switch
     PLAYER_JUMP,
+    PLAYER_ATTACK,
+    PLAYER_ACTION,
     PLAYER_SWITCH_TEXTURE,      // switch texture
+
+    PARTICLE_SYSTEM_ADD,
     
 };
 

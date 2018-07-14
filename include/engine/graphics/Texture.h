@@ -12,25 +12,39 @@ class Texture
         Texture();
         virtual ~Texture();
 
-        void loadSheet(std::string _id, std::string _path, Vec2 _offset, int _spriteCount, SDL_Renderer *renderer);
-        void setTexture(std::string _sheetId, bool _flipHorizontal);
+        void loadSheet(std::string _name, std::string _path, Vec2 _offset, int _spritesInRow, int _spriteCount, SDL_Renderer *renderer);
+        void setTextureByName(std::string _sheetName, bool _flipHorizontal, bool _playOnce);
+        void setTextureById(unsigned int _sheetId, bool _flipHorizontal, bool _playOnce);
         void draw(int drawX, int drawY, int width, int height, SDL_Renderer *renderer);
         void nextSprite();
+        uint8_t getAlpha();
+        void setAlpha(uint8_t _alpha);
 
         void unloadAllSheets();
         bool isLoaded();
         bool isFlippedHorizontal();
 
     private:
-        std::map<std::string, SDL_Texture*> textureSheets;
-        std::map<std::string, Vec2> offsets;
-        std::map<std::string, int> spriteCounts;
-        std::map<std::string, int> currentSprites;
+        void setTexture(unsigned int _sheetId, bool _flipHorizontal, bool _playOnce);
 
-        std::string currentSheet;
+        std::map<std::string, unsigned int> nameToIdMap;
+        std::map<unsigned int, SDL_Texture*> textureSheets;
+        std::map<unsigned int, Vec2> offsets;
+        std::map<unsigned int, unsigned int> spriteCounts;
+        std::map<unsigned int, unsigned int> spritesInRow;
+        std::map<unsigned int, unsigned int> currentSprites;
+        std::map<unsigned int, unsigned int> currentSpritesInRows;
+        std::map<unsigned int, unsigned int> currentRows;
+
+        unsigned int lastId;
+        unsigned int currentSheet;
+        unsigned int lastSheet;
         Vec2 currentOffset;
 
         bool flipHorizontal;
+        bool lastFlipHorizontal;
+        uint8_t alpha;
+        bool playOnce;
 
 
 };

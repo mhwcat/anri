@@ -30,5 +30,7 @@ int Random::getRandomIntInRange(int min, int max)
 
 float Random::getRandomFloatInRange(float min, float max)
 {
-    return 0.f;
+    std::uniform_real_distribution<> distr(min, max);
+
+    return (float) distr(mtEngine);
 }

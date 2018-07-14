@@ -1,6 +1,3 @@
-#include <string>
-#include <sstream>
-#include <memory>
 #include <game/Game.h>
 #include <engine/event/EventHandler.h>
 #include <engine/MemoryUsage.h>
@@ -9,6 +6,10 @@
 #include <engine/Config.h>
 #include <engine/DebugInfo.h>
 #include <engine/Allocator.h>
+#include <game/objects/ui/UiGameObject.h>
+#include <string>
+#include <sstream>
+#include <memory>
 
 Game::Game() : System()
 {
@@ -44,6 +45,10 @@ bool Game::init()
 void Game::start() 
 {
     soundSystem->loadMusic("cyberpunkAmbient", "assets/sounds/Future-Cities-ambient.ogg");
+    soundSystem->loadSound("bonfire_ambient", "assets/sounds/bonfire_ambient.ogg");
+    soundSystem->loadSound("bonfire_lit_sfx", "assets/sounds/bonfire_lit_sfx.ogg");
+    soundSystem->loadMusic("bonfire_music", "assets/sounds/bonfire_music.ogg");
+    soundSystem->playMusic("bonfire_music", 30, -1);
 
     running = true;
     mainLoop();
@@ -166,7 +171,7 @@ void Game::handleEngineMessages()
         Message *message = messageSystem->getLastMessage(GAME);
         //debugPrint("received message %d", message);
 
-        debugPrint("Received message %d -> %d: %d ", message->sender, message->recipient, message->type);
+        //debugPrint("Received message %d -> %d: %d ", message->sender, message->recipient, message->type);
 
         switch(message->type)
         {
@@ -180,31 +185,87 @@ void Game::handleEngineMessages()
                 //currentLevel->getPlayer()->setTexture(*((char *) (message->data)))
                 break;
             case PLAYER_WALK_LEFT:
-                currentLevel->getPlayer()->getTexture()->setTexture("player_walk", true);
-                currentLevel->getPlayer()->move(-180.f, 190.f);
+                if(!currentLevel->getPlayer()->isInAction())
+                {
+                    currentLevel->getPlayer()->getTexture()->setTextureByName("player_walk", true, false);
+                    currentLevel->getPlayer()->move(-180.f, 190.f);
+                }
                 break;
             case PLAYER_WALK_RIGHT:
-                currentLevel->getPlayer()->getTexture()->setTexture("player_walk", false);
-                currentLevel->getPlayer()->move(180.f, -190.f);
+                if(!currentLevel->getPlayer()->isInAction())
+                {
+                    currentLevel->getPlayer()->getTexture()->setTextureByName("player_walk", false, false);
+                    currentLevel->getPlayer()->move(180.f, -190.f);
+                }
                 break;
             case PLAYER_STOP_WALKING:
-                currentLevel->getPlayer()->getTexture()->setTexture("player_idle", currentLevel->getPlayer()->getTexture()->isFlippedHorizontal());
+                currentLevel->getPlayer()->getTexture()->setTextureByName("player_idle", currentLevel->getPlayer()->getTexture()->isFlippedHorizontal(), false);
                 currentLevel->getPlayer()->stopMoving();
                 break;
             case PLAYER_JUMP:
                 currentLevel->getPlayer()->jump();
                 break;
+            case PLAYER_ATTACK:
+                currentLevel->getPlayer()->getTexture()->setTextureByName("player_attack", currentLevel->getPlayer()->getTexture()->isFlippedHorizontal(), true);
+                break;
+            case PLAYER_ACTION:
+            {
+                char *actionType = (char *) message->data;
+                if(strncmp(actionType, "lit_bonfire", 11) == 0 && currentLevel->getParticleSystems().empty() &&
+                    currentLevel->getPlayer()->getPosition().x >= 300.f && currentLevel->getPlayer()->getPosition().x <= 500.f)
+                {
+                    std::unique_ptr<UiGameObject> bonfireLitTxt = std::make_unique<UiGameObject>(
+                        "bonfire_lit_txt", Vec2 {180.f, 242.5f}, 600, 55);
+                    bonfireLitTxt->getTexture()->loadSheet("bonfire_lit_txt", "assets/textures/bonfire_lit_txt.png", Vec2 {600.f, 55.f}, 1, 1, getMainRenderer());
+
+                    bonfireLitTxt->show();
+                    currentLevel->addGameObject(std::move(bonfireLitTxt));
+
+                    currentLevel->getPlayer()->executeAction();
+
+                    ParticleSystemBuilder psBuilder;
+                    std::unique_ptr<ParticleSystem> ps1 = psBuilder
+                        .setOriginPosition(Vec2{440.f, 495.f})
+                        .setOriginSize(Vec2{20.f, 15.f})
+                        .setMaxParticleCount(120)
+                        .setMaxTimeRunning(1.5f)
+                        .setLifespan(50.f, 200.f)
+                        .applyAdditionalAcceleration(Vec2{0.f, -80.f})
+                        .setVariation(Vec2{-900.f, -250.f}, Vec2{900.f, 250.f})
+                        .build();
+
+                    std::unique_ptr<ParticleSystem> ps2 = psBuilder
+                        .setOriginPosition(Vec2{440.f, 495.f})
+                        .setOriginSize(Vec2{10.f, 10.f})
+                        .setMaxParticleCount(20)
+                        .setMaxTimeRunning(0.f)
+                        .setLifespan(60.f, 220.f)
+                        .applyAdditionalAcceleration(Vec2{0.f, -80.f})
+                        .setVariation(Vec2{-400.f, -10.f}, Vec2{400.f, 10.f})
+                        .build();
+
+                    ps1->start();
+                    ps2->start();
+                    currentLevel->addParticleSystem(std::move(ps1));
+                    currentLevel->addParticleSystem(std::move(ps2));
+
+                    currentLevel->getObjectByName("bonfire")->getTexture()->setTextureByName("bonfire2_lit", false, false);
+                    soundSystem->playSound("bonfire_lit_sfx", 80, 0);
+                    soundSystem->playSound("bonfire_ambient", 40, -1);
+                }
+                break;
+            }
             case GAME_SHUTDOWN:
                 running = false;
                 break;
-            default:
-                break;
+             default:
+                 break;
         }
 
-        if(message->data != nullptr)
-        {
-            free(message->data);
-        }
+        // if(message->data != nullptr)
+        // {
+        //     free(message->data);
+        // }
         //free(message);
     }
 }

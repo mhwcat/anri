@@ -74,6 +74,16 @@ const std::unique_ptr<GameObject>& GameLevel::getGameObject(uint32_t id) const
     return gameObjectNotFound;
 }
 
+const std::unique_ptr<GameObject>& GameLevel::getObjectByName(std::string name) const
+{
+    for(auto const& go : objects)
+    {
+        if(go->getName().compare(name) == 0)
+            return go;
+    }
+}
+
+
 void GameLevel::removeGameObject(uint32_t id)
 {
     std::vector<std::unique_ptr<GameObject> >::iterator it;
@@ -97,3 +107,4 @@ void GameLevel::removeGameObject(uint32_t id)
     objects.erase(position);
     ANRI_DE debugPrint("GameObject[%d] removed from level.", id);
 }
+

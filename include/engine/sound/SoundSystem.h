@@ -12,9 +12,9 @@ class SoundSystem
         virtual ~SoundSystem();
         bool init();
 
-        void playMusic(std::string id);
+        void playMusic(std::string id, int volume, int loops);
         void stopMusic(int fadeOutMs);
-        void playSound(std::string id);
+        void playSound(std::string id, int volume, int loops);
 
         void loadSound(std::string id, std::string path);
         void loadMusic(std::string id, std::string path);

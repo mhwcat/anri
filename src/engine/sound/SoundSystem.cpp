@@ -33,10 +33,12 @@ bool SoundSystem::init()
         return false;
     }
 
+    Mix_AllocateChannels(16);
+
     return true;
 }
 
-void SoundSystem::playSound(std::string id)
+void SoundSystem::playSound(std::string id, int volume, int loops)
 {
     if(sounds.count(id) == 0)
     {
@@ -46,10 +48,11 @@ void SoundSystem::playSound(std::string id)
 
     Mix_Chunk *chunk = sounds[id];
 
-    Mix_PlayChannel(-1, chunk, 0);
+    Mix_VolumeChunk(chunk, volume);
+    Mix_PlayChannel(-1, chunk, loops);
 }
 
-void SoundSystem::playMusic(std::string id)
+void SoundSystem::playMusic(std::string id, int volume, int loops)
 {
     if(musicTracks.count(id) == 0)
     {
@@ -59,7 +62,8 @@ void SoundSystem::playMusic(std::string id)
 
     Mix_Music *music = musicTracks[id];
 
-    Mix_PlayMusic(music, 0);
+    Mix_VolumeMusic(volume);
+    Mix_PlayMusic(music, loops);
     nowPlayingMusicTrackId = id;
 }
 

@@ -3,13 +3,14 @@
 #include <engine/DebugInfo.h>
 #include <engine/DebugPrint.h>
 
-PlayerGameObject::PlayerGameObject(Vec2 _position, int _width, int _height,
+PlayerGameObject::PlayerGameObject(std::string _name, Vec2 _position, int _width, int _height,
                                    bool _collisionEnabled, float _xVelocity, float _yVelocity,
                                    float _xAcceleration, float _yAcceleration, std::shared_ptr<Input> _input)
-    : MovableGameObject(_position, _width, _height, _collisionEnabled, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
+    : MovableGameObject(_name, _position, _width, _height, _collisionEnabled, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
 {
     input = _input;
     inAir = false;
+    inAction = false;
     jumpTime = 0.f;
 
     type = GameObjectType::PLAYER_GAME_OBJECT;
@@ -24,6 +25,15 @@ void PlayerGameObject::update(float deltaTime)
         {
             yAcceleration = 0.f;
         }
+    }
+
+    if(inAction)
+    {
+        actionTime += deltaTime;
+        if(actionTime > 1.5f)
+        {
+            inAction = false;
+        }  
     }
 
     /*if(!input->isInputEventsQueueEmpty())
@@ -77,8 +87,13 @@ void PlayerGameObject::update(float deltaTime)
     DebugInfo::getInstance().playerVelocity.x = xVelocity;
     DebugInfo::getInstance().playerVelocity.y = yVelocity;
 
-    if(inAir && (position.y + height) >= 658.0)
+    if(inAir && (position.y + height) >= 510.0)
+    {
+        position.y = (510.f - height);
+        yVelocity = 0.f;
         inAir = false;
+        inAction = false;
+    }
 
     MovableGameObject::update(deltaTime);
 }
@@ -90,6 +105,22 @@ void PlayerGameObject::jump()
         setPositionY(position.y - 1.f);
         yAcceleration = -800.f;
         inAir = true;
+        inAction = true;
         jumpTime = 0.f;
     }
+}
+
+void PlayerGameObject::executeAction()
+{
+    if(!inAction)
+    {
+        inAction = true;
+        actionTime = 0.f;
+        //texture->setTexture("player_action", texture->isFlippedHorizontal(), true);
+    }
+}
+
+bool PlayerGameObject::isInAction()
+{
+    return inAction;
 }

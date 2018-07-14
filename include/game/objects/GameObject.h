@@ -16,6 +16,7 @@ class GameObject
         
     protected:
         uint32_t id;
+        std::string name;
         Vec2 position;
         Vec2 previousPosition;
         int width;
@@ -28,14 +29,15 @@ class GameObject
         float lastSpriteChangeTime;
 
     public:
-        GameObject(Vec2 _position, int _width, int _height, bool _collisionEnabled);
+        GameObject(std::string _name, Vec2 _position, int _width, int _height, bool _collisionEnabled);
         virtual ~GameObject();
 
         virtual void draw(SDL_Renderer *renderer, float interp, float lastRenderTime);
         virtual void update(float deltaTime);
 
-        uint32_t getId();
+        uint32_t getId() const;
         void setId(uint32_t _id);
+        std::string getName() const;
         const Vec2 &getPosition() const;
         const Vec2 &getPreviousPosition() const;
         void setPosition(const Vec2 &_position);

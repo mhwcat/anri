@@ -40,8 +40,6 @@ void* Allocator::allocateMemory(std::size_t size)
     void* newPointer = (void *) (currentMemoryAddress + size);
     offset += size;
 
-    debugPrint("Allocated %d bytes, current offset %d returned pointer %d", size, offset, newPointer);
-
     return newPointer;
 }
 

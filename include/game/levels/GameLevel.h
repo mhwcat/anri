@@ -35,6 +35,8 @@ class GameLevel
         const std::unique_ptr<GameObject>& getGameObject(uint32_t id) const;
         void removeGameObject(uint32_t id);
 
+        const std::unique_ptr<GameObject>& getObjectByName(std::string name) const;
+
 };
 
 #endif

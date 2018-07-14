@@ -18,7 +18,7 @@ class MessageSystem
     private:
         // Recipient -> queue of message pointers
         std::map<SystemType, std::queue<Message*> > bus = {
-            { INPUT, std::queue<Message*>() },
+            { AINPUT, std::queue<Message*>() },
             { GAME, std::queue<Message*>() },
             { EVENT_HANDLER, std::queue<Message*>() }
         };

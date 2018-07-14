@@ -5,8 +5,9 @@
 #include <engine/DebugPrint.h>
 
 
-GameObject::GameObject(Vec2 _position, int _width, int _height, bool _collisionEnabled)
+GameObject::GameObject(std::string _name, Vec2 _position, int _width, int _height, bool _collisionEnabled)
 {
+    name = _name;
     position = _position;
     previousPosition = _position;
     width = _width;
@@ -45,7 +46,7 @@ void GameObject::draw(SDL_Renderer *renderer, float interp, float lastRenderTime
             texture->nextSprite();
             lastSpriteChangeTime = renderTimeElapsed;
         }
-        
+
         texture->draw((int) round(drawX), (int) round(drawY), width, height, renderer);
     }
     else 
@@ -57,22 +58,27 @@ void GameObject::draw(SDL_Renderer *renderer, float interp, float lastRenderTime
     }
 
     // Outline movables
-    if(type == MOVABLE_GAME_OBJECT || type == PLAYER_GAME_OBJECT) 
-    {
-        SDL_Rect outline { (int) round(drawX),(int) round(drawY), width, height };
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_RenderDrawRect(renderer, &outline);
-    }
+    // if(type == MOVABLE_GAME_OBJECT || type == PLAYER_GAME_OBJECT) 
+    // {
+    //     SDL_Rect outline { (int) round(drawX),(int) round(drawY), width, height };
+    //     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    //     SDL_RenderDrawRect(renderer, &outline);
+    // }
 }
 
-uint32_t GameObject::getId() 
+uint32_t GameObject::getId() const
 {
     return id;
 }
 
-void GameObject::setId(uint32_t _id) 
+void GameObject::setId(uint32_t _id)
 {
     id = _id;
+}
+
+std::string GameObject::getName() const
+{
+    return name;
 }
 
 int GameObject::getWidth()

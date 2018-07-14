@@ -2,7 +2,9 @@
 #include <engine/messaging/MessageSystem.h>
 #include <engine/Config.h>
 #include <engine/DebugPrint.h>
+#include <engine/Allocator.h>
 #include <memory>
+#include <cstring>
 
 Input::Input() : System()
 {
@@ -103,21 +105,34 @@ void Input::onKeyDownEvent(const SDL_Keycode& keycode) {
     {
         case SDLK_LEFT:
         case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
-            msgMove = createMessage(INPUT, GAME, PLAYER_WALK_LEFT);
+            msgMove = createMessage(AINPUT, GAME, PLAYER_WALK_LEFT);
             break;
         case SDLK_RIGHT:
         case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
-            msgMove = createMessage(INPUT, GAME, PLAYER_WALK_RIGHT);
+            msgMove = createMessage(AINPUT, GAME, PLAYER_WALK_RIGHT);
             break;
         case SDLK_SPACE:
         case SDL_CONTROLLER_BUTTON_A:
-            msgMove = createMessage(INPUT, GAME, PLAYER_JUMP);
+            msgMove = createMessage(AINPUT, GAME, PLAYER_JUMP);
+            break;
+        case SDLK_c:
+            msgMove = createMessage(AINPUT, GAME, PLAYER_ATTACK);
+            break;
+        case SDLK_e:
+            {
+                char *actionType = (char *) Allocator::getInstance().allocateMemory(11 * sizeof(char));
+                strncpy(actionType, "lit_bonfire", 11);
+                msgMove = createMessage(AINPUT, GAME, PLAYER_ACTION, actionType);
+                break;
+            }
+        case SDLK_ESCAPE:
+            msgMove = createMessage(AINPUT, GAME, GAME_SHUTDOWN);
             break;
     }    
 
     if(msgMove != nullptr)
     {
-        debugPrint("Posting message %d -> %d: %d", msgMove->sender, msgMove->recipient, msgMove->type);
+        //debugPrint("Posting message %d -> %d: %d", msgMove->sender, msgMove->recipient, msgMove->type);
         messageSystem->postMessage(msgMove);
     }
 }
@@ -134,13 +149,13 @@ void Input::onKeyUpEvent(const SDL_Keycode& keycode) {
         case SDLK_RIGHT:
         case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
         case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
-            msg = createMessage(INPUT, GAME, PLAYER_STOP_WALKING);
+            msg = createMessage(AINPUT, GAME, PLAYER_STOP_WALKING);
             break; 
     }
 
     if(msg != nullptr)
     {
-        debugPrint("Posting message %d -> %d: %d", msg->sender, msg->recipient, msg->type);
+        //debugPrint("Posting message %d -> %d: %d", msg->sender, msg->recipient, msg->type);
         messageSystem->postMessage(msg);
     }
 }
