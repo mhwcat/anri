@@ -401,4 +401,5 @@ Mkfile.old
 dkms.conf
 
 # Project specific
-/cmake-build-debug*
+/cmake-build*
+/msvc-build*

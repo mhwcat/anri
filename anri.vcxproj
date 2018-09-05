@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{CB1DE410-064A-459C-8DC1-96D67F110FBC}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+    <SourcePath>$(SourcePath)</SourcePath>
+    <OutDir>$(SolutionDir)msvc-build-$(Configuration)-$(Platform)</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <LanguageStandard>
+      </LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Users\micha\Programowanie\SDL2\SDL2_image-2.0.3\include;C:\Users\micha\Programowanie\SDL2\SDL2_mixer-2.0.2\include;C:\Users\micha\Programowanie\SDL2\SDL2_ttf-2.0.14\include;C:\Users\micha\Programowanie\SDL2\SDL2-2.0.8\include;C:\Users\micha\Programowanie\anri\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ANRI_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\Users\micha\Programowanie\SDL2\SDL2_image-2.0.3\lib\x64;C:\Users\micha\Programowanie\SDL2\SDL2_mixer-2.0.2\lib\x64;C:\Users\micha\Programowanie\SDL2\SDL2_ttf-2.0.14\lib\x64;C:\Users\micha\Programowanie\SDL2\SDL2-2.0.8\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\engine\Allocator.cpp" />
+    <ClCompile Include="src\engine\Config.cpp" />
+    <ClCompile Include="src\engine\DebugPrint.cpp" />
+    <ClCompile Include="src\engine\event\EventHandler.cpp" />
+    <ClCompile Include="src\engine\graphics\ParticleSystem.cpp" />
+    <ClCompile Include="src\engine\graphics\Texture.cpp" />
+    <ClCompile Include="src\engine\input\Input.cpp" />
+    <ClCompile Include="src\engine\MemoryUsage.cpp" />
+    <ClCompile Include="src\engine\messaging\Message.cpp" />
+    <ClCompile Include="src\engine\messaging\MessageSystem.cpp" />
+    <ClCompile Include="src\engine\Random.cpp" />
+    <ClCompile Include="src\engine\render\Renderer.cpp" />
+    <ClCompile Include="src\engine\SimpleTimer.cpp" />
+    <ClCompile Include="src\engine\sound\SoundSystem.cpp" />
+    <ClCompile Include="src\engine\System.cpp" />
+    <ClCompile Include="src\game\Game.cpp" />
+    <ClCompile Include="src\game\levels\GameLevel.cpp" />
+    <ClCompile Include="src\game\objects\GameObject.cpp" />
+    <ClCompile Include="src\game\objects\MovableGameObject.cpp" />
+    <ClCompile Include="src\game\objects\PlayerGameObject.cpp" />
+    <ClCompile Include="src\game\objects\ui\UiGameObject.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\engine\Allocator.h" />
+    <ClInclude Include="include\engine\Config.h" />
+    <ClInclude Include="include\engine\DebugInfo.h" />
+    <ClInclude Include="include\engine\DebugPrint.h" />
+    <ClInclude Include="include\engine\event\Event.h" />
+    <ClInclude Include="include\engine\event\EventHandler.h" />
+    <ClInclude Include="include\engine\event\EventType.h" />
+    <ClInclude Include="include\engine\graphics\Particle.h" />
+    <ClInclude Include="include\engine\graphics\ParticleSystem.h" />
+    <ClInclude Include="include\engine\graphics\RGBColor.h" />
+    <ClInclude Include="include\engine\graphics\Texture.h" />
+    <ClInclude Include="include\engine\input\Input.h" />
+    <ClInclude Include="include\engine\math\Vec2.h" />
+    <ClInclude Include="include\engine\MemoryUsage.h" />
+    <ClInclude Include="include\engine\messaging\Message.h" />
+    <ClInclude Include="include\engine\messaging\MessageSystem.h" />
+    <ClInclude Include="include\engine\Random.h" />
+    <ClInclude Include="include\engine\render\Renderer.h" />
+    <ClInclude Include="include\engine\SimpleTimer.h" />
+    <ClInclude Include="include\engine\sound\SoundSystem.h" />
+    <ClInclude Include="include\engine\System.h" />
+    <ClInclude Include="include\game\Game.h" />
+    <ClInclude Include="include\game\levels\GameLevel.h" />
+    <ClInclude Include="include\game\objects\GameObject.h" />
+    <ClInclude Include="include\game\objects\GameObjectType.h" />
+    <ClInclude Include="include\game\objects\IControllable.h" />
+    <ClInclude Include="include\game\objects\IMovable.h" />
+    <ClInclude Include="include\game\objects\MovableGameObject.h" />
+    <ClInclude Include="include\game\objects\PlayerGameObject.h" />
+    <ClInclude Include="include\game\objects\ui\UiGameObject.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
