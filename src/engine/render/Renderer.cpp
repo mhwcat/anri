@@ -91,6 +91,10 @@ void Renderer::renderDebugText()
 
 bool Renderer::init()
 {
+    renderer = nullptr;
+    debugFont = nullptr;
+    window = nullptr;
+
     ANRI_DE debugPrint("Initializing SDL and SDL Video subsystem...");
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -105,7 +109,6 @@ bool Renderer::init()
         return false;
     }
 
-    debugFont = nullptr;
     debugFont = TTF_OpenFont(Config::getInstance().getStringValueByKey("debugOverlay.fontPath").c_str(),
                              Config::getInstance().getIntValueByKey("debugOverlay.fontSize"));
     if(debugFont == nullptr)
@@ -115,7 +118,6 @@ bool Renderer::init()
     }
 
     ANRI_DE debugPrint("Initializing window...");
-    window = nullptr;
     window = SDL_CreateWindow(Config::getInstance().getStringValueByKey("window.title").c_str(),
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED,
@@ -143,9 +145,7 @@ bool Renderer::init()
         SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
     }
 
-
     ANRI_DE debugPrint("Initializing renderer...");
-    renderer = nullptr;
     Uint32 rendererFlags = SDL_RENDERER_ACCELERATED;
     if(Config::getInstance().getIntValueByKey("renderer.vsyncEnabled") == 1)
         rendererFlags |= SDL_RENDERER_PRESENTVSYNC;
@@ -180,14 +180,20 @@ void Renderer::cleanup()
     ANRI_DE debugPrint("Shutting down SDL...");
 
     if(debugFont != nullptr)
+    {
         TTF_CloseFont(debugFont);
+    }
+
     if(renderer != nullptr)
     {
+        debugPrint(" no i co");
         SDL_DestroyRenderer(renderer);
-        //delete MAIN_RENDERER;
     }
-    if(window != nullptr)
+
+    if(window != nullptr) 
+    {
         SDL_DestroyWindow(window);
+    }
 
     IMG_Quit();
 

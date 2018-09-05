@@ -26,11 +26,6 @@ int main(int argc, char* args[])
     gl->addGameObject(std::move(bgObject));
 
     gl->setPlayer(std::make_shared<PlayerGameObject>("player", Vec2 {100.f, 510.f - 121.f}, 80, 121, true, 0.f, 0.f, 0.f, 50.f, g->getInput()));
-    gl->getPlayer()->getTexture()->loadSheet("player_idle", "assets/textures/mr_skeleton_idle.png", Vec2 {91, 0}, 11, 11, g->getMainRenderer());
-    gl->getPlayer()->getTexture()->loadSheet("player_walk", "assets/textures/mr_skeleton_walk.png", Vec2 {81, 0}, 13, 13, g->getMainRenderer());
-    gl->getPlayer()->getTexture()->loadSheet("player_attack", "assets/textures/mr_skeleton_attack.png", Vec2 {140, 0}, 18, 18, g->getMainRenderer());
-    gl->getPlayer()->getTexture()->loadSheet("player_action", "assets/textures/mr_skeleton_action.png", Vec2 {81, 0}, 14, 14, g->getMainRenderer());
-    gl->getPlayer()->getTexture()->setTextureByName("player_idle", false, false);
 
     g->loadLevel(std::move(gl));
 

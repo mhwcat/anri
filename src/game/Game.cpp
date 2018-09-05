@@ -44,8 +44,6 @@ bool Game::init()
 
 void Game::start() 
 {
-    soundSystem->loadMusic("cyberpunkAmbient", "assets/sounds/Future-Cities-ambient.ogg");
-
     running = true;
     mainLoop();
 }
