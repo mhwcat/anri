@@ -186,7 +186,6 @@ void Renderer::cleanup()
 
     if(renderer != nullptr)
     {
-        debugPrint(" no i co");
         SDL_DestroyRenderer(renderer);
     }
 

@@ -402,4 +402,3 @@ dkms.conf
 
 # Project specific
 /cmake-build-debug*
-engine_assets
