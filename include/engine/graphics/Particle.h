@@ -6,10 +6,10 @@
 
 struct Particle 
 {
-    Vec2 position;
-    Vec2 previousPosition;
-    Vec2 velocity;
-    Vec2 acceleration;
+    Vec2f position;
+    Vec2f previousPosition;
+    Vec2f velocity;
+    Vec2f acceleration;
     RGBColor color;
     float lifespan;
 };

@@ -17,19 +17,17 @@ class GameObject
     protected:
         uint32_t id;
         std::string name;
-        Vec2 position;
-        Vec2 previousPosition;
+        Vec2f position;
+        Vec2f previousPosition;
         int width;
         int height;
         GameObjectType type;
-        bool collisionEnabled;
-        bool colliding;
         std::shared_ptr<Texture> texture;
         float renderTimeElapsed;
         float lastSpriteChangeTime;
 
     public:
-        GameObject(std::string _name, Vec2 _position, int _width, int _height, bool _collisionEnabled);
+        GameObject(std::string _name, Vec2f _position, int _width, int _height);
         virtual ~GameObject();
 
         virtual void draw(SDL_Renderer *renderer, float interp, float lastRenderTime);
@@ -38,19 +36,15 @@ class GameObject
         uint32_t getId() const;
         void setId(uint32_t _id);
         std::string getName() const;
-        const Vec2 &getPosition() const;
-        const Vec2 &getPreviousPosition() const;
-        void setPosition(const Vec2 &_position);
+        const Vec2f &getPosition() const;
+        const Vec2f &getPreviousPosition() const;
+        void setPosition(const Vec2f &_position);
         void setPositionX(float _x);
         void setPositionY(float _y);
 
         int getWidth();
         int getHeight();
         GameObjectType getType();
-        bool hasCollisionEnabled();
-        void setCollisionEnabled(bool _collisionEnabled);
-        bool isColliding();
-        void setColliding(bool _colliding);
 
         std::shared_ptr<Texture> getTexture();
 

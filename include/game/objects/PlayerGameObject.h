@@ -9,8 +9,8 @@
 class PlayerGameObject : public MovableGameObject
 {
     public:
-        PlayerGameObject(std::string _name, Vec2 _position, int _width, int _height, bool _collisionEnabled,
-                         float _xVelocity, float _yVelocity, float _xAcceleration, float _yAcceleration, std::shared_ptr<Input> _input);
+        PlayerGameObject(std::string _name, Vec2f _position, int _width, int _height,
+                         float _xVelocity, float _yVelocity, float _xAcceleration, float _yAcceleration);
         void update(float deltaTime) override;
 
         void jump();
@@ -18,7 +18,6 @@ class PlayerGameObject : public MovableGameObject
         void executeAction();
 
     private:
-        std::shared_ptr<Input> input;
         bool inAir;
         bool inAction;
         float jumpTime;

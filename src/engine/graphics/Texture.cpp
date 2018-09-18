@@ -13,7 +13,7 @@ Texture::~Texture()
     unloadAllSheets();
 }
 
-void Texture::loadSheet(std::string _name, std::string _path, Vec2 _offset, int _spritesInRow, int _spriteCount, SDL_Renderer *renderer)
+void Texture::loadSheet(std::string _name, std::string _path, Vec2f _offset, int _spritesInRow, int _spriteCount, SDL_Renderer *renderer)
 {
     //The final texture
     SDL_Texture* newTexture = NULL;
@@ -50,6 +50,12 @@ void Texture::loadSheet(std::string _name, std::string _path, Vec2 _offset, int 
 
 void Texture::setTextureByName(std::string _sheetName, bool _flipHorizontal, bool _playOnce)
 {
+    if(nameToIdMap.count(_sheetName) == 0) 
+    {
+        ANRI_DE debugPrint("%s texture not found!", _sheetName.c_str());
+        return;
+    }
+
     setTexture(nameToIdMap[_sheetName], _flipHorizontal, _playOnce);
 }
 

@@ -3,12 +3,11 @@
 #include <engine/DebugInfo.h>
 #include <engine/DebugPrint.h>
 
-PlayerGameObject::PlayerGameObject(std::string _name, Vec2 _position, int _width, int _height,
-                                   bool _collisionEnabled, float _xVelocity, float _yVelocity,
-                                   float _xAcceleration, float _yAcceleration, std::shared_ptr<Input> _input)
-    : MovableGameObject(_name, _position, _width, _height, _collisionEnabled, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
+PlayerGameObject::PlayerGameObject(std::string _name, Vec2f _position, int _width, int _height,
+                                   float _xVelocity, float _yVelocity,
+                                   float _xAcceleration, float _yAcceleration)
+    : MovableGameObject(_name, _position, _width, _height, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
 {
-    input = _input;
     inAir = false;
     inAction = false;
     jumpTime = 0.f;

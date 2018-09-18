@@ -22,10 +22,10 @@ int main(int argc, char* args[])
     }
 
     std::unique_ptr<GameLevel> gl = std::make_unique<GameLevel>();
-    std::unique_ptr<GameObject> bgObject = std::make_unique<GameObject>("bg", Vec2{0.f, 0.f}, 1280, 720, false);
+    std::unique_ptr<GameObject> bgObject = std::make_unique<GameObject>("bg", Vec2f{0.f, 0.f}, 1280, 720);
     gl->addGameObject(std::move(bgObject));
 
-    gl->setPlayer(std::make_shared<PlayerGameObject>("player", Vec2 {100.f, 510.f - 121.f}, 80, 121, true, 0.f, 0.f, 0.f, 50.f, g->getInput()));
+    gl->setPlayer(std::make_shared<PlayerGameObject>("player", Vec2f {100.f, 510.f - 121.f}, 80, 121, 0.f, 0.f, 0.f, 50.f));
 
     g->loadLevel(std::move(gl));
 

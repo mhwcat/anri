@@ -20,7 +20,7 @@ class UiGameObject : public GameObject
         void fadeOut();
 
     public:
-        UiGameObject(std::string _name, Vec2 _position, int _width, int _height);
+        UiGameObject(std::string _name, Vec2f _position, int _width, int _height);
         void show();
         void draw(SDL_Renderer *renderer, float interp, float lastRenderTime) override;
 

@@ -12,7 +12,7 @@ class Texture
         Texture();
         virtual ~Texture();
 
-        void loadSheet(std::string _name, std::string _path, Vec2 _offset, int _spritesInRow, int _spriteCount, SDL_Renderer *renderer);
+        void loadSheet(std::string _name, std::string _path, Vec2f _offset, int _spritesInRow, int _spriteCount, SDL_Renderer *renderer);
         void setTextureByName(std::string _sheetName, bool _flipHorizontal, bool _playOnce);
         void setTextureById(unsigned int _sheetId, bool _flipHorizontal, bool _playOnce);
         void draw(int drawX, int drawY, int width, int height, SDL_Renderer *renderer);
@@ -29,7 +29,7 @@ class Texture
 
         std::map<std::string, unsigned int> nameToIdMap;
         std::map<unsigned int, SDL_Texture*> textureSheets;
-        std::map<unsigned int, Vec2> offsets;
+        std::map<unsigned int, Vec2f> offsets;
         std::map<unsigned int, unsigned int> spriteCounts;
         std::map<unsigned int, unsigned int> spritesInRow;
         std::map<unsigned int, unsigned int> currentSprites;
@@ -39,7 +39,7 @@ class Texture
         unsigned int lastId;
         unsigned int currentSheet;
         unsigned int lastSheet;
-        Vec2 currentOffset;
+        Vec2f currentOffset;
 
         bool flipHorizontal;
         bool lastFlipHorizontal;

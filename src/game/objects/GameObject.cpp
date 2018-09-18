@@ -5,15 +5,13 @@
 #include <engine/DebugPrint.h>
 
 
-GameObject::GameObject(std::string _name, Vec2 _position, int _width, int _height, bool _collisionEnabled)
+GameObject::GameObject(std::string _name, Vec2f _position, int _width, int _height)
 {
     name = _name;
     position = _position;
     previousPosition = _position;
     width = _width;
     height = _height;
-    collisionEnabled = _collisionEnabled;
-    colliding = false;
     texture = std::make_shared<Texture>();
     renderTimeElapsed = 0.f;
     lastSpriteChangeTime = 0.f;
@@ -53,7 +51,15 @@ void GameObject::draw(SDL_Renderer *renderer, float interp, float lastRenderTime
     {
         SDL_Rect rect { (int) round(drawX),(int) round(drawY), width, height };
 
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        if(type == PLAYER_GAME_OBJECT) 
+        {
+            SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        }
+        else 
+        {
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        }
+
         SDL_RenderFillRect(renderer, &rect);
     }
 
@@ -96,37 +102,17 @@ GameObjectType GameObject::getType()
     return type;
 }
 
-bool GameObject::hasCollisionEnabled()
-{
-    return collisionEnabled;
-}
-
-void GameObject::setCollisionEnabled(bool _collisionEnabled)
-{
-    collisionEnabled = _collisionEnabled;
-}
-
-bool GameObject::isColliding()
-{
-    return colliding;
-}
-
-void GameObject::setColliding(bool _colliding)
-{
-    colliding = _colliding;
-}
-
-const Vec2 &GameObject::getPosition() const
+const Vec2f &GameObject::getPosition() const
 {
     return position;
 }
 
-const Vec2 &GameObject::getPreviousPosition() const
+const Vec2f &GameObject::getPreviousPosition() const
 {
     return previousPosition;
 }
 
-void GameObject::setPosition(const Vec2 &_position)
+void GameObject::setPosition(const Vec2f &_position)
 {
     previousPosition = position;
     position = _position;

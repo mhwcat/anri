@@ -115,16 +115,6 @@ void Input::onKeyDownEvent(const SDL_Keycode& keycode) {
         case SDL_CONTROLLER_BUTTON_A:
             msgMove = createMessage(AINPUT, GAME, PLAYER_JUMP);
             break;
-        case SDLK_c:
-            msgMove = createMessage(AINPUT, GAME, PLAYER_ATTACK);
-            break;
-        case SDLK_e:
-            {
-                char *actionType = (char *) Allocator::getInstance().allocateMemory(11 * sizeof(char));
-                strncpy(actionType, "lit_bonfire", 11);
-                msgMove = createMessage(AINPUT, GAME, PLAYER_ACTION, actionType);
-                break;
-            }
         case SDLK_ESCAPE:
             msgMove = createMessage(AINPUT, GAME, GAME_SHUTDOWN);
             break;

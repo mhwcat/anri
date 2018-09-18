@@ -2,8 +2,8 @@
 #include <game/objects/GameObject.h>
 #include <engine/DebugPrint.h>
 
-UiGameObject::UiGameObject(std::string _name, Vec2 _position, int _width, int _height) 
-    : GameObject(_name, _position, _width, _height, false)
+UiGameObject::UiGameObject(std::string _name, Vec2f _position, int _width, int _height) 
+    : GameObject(_name, _position, _width, _height)
 {
     texture->setAlpha(0);
     shown = false;

@@ -181,26 +181,26 @@ void Game::handleEngineMessages()
             case PLAYER_WALK_LEFT:
                 if(!currentLevel->getPlayer()->isInAction())
                 {
-                    currentLevel->getPlayer()->getTexture()->setTextureByName("player_walk", true, false);
+                    //currentLevel->getPlayer()->getTexture()->setTextureByName("player_walk", true, false);
                     currentLevel->getPlayer()->move(-180.f, 190.f);
                 }
                 break;
             case PLAYER_WALK_RIGHT:
                 if(!currentLevel->getPlayer()->isInAction())
                 {
-                    currentLevel->getPlayer()->getTexture()->setTextureByName("player_walk", false, false);
+                    //currentLevel->getPlayer()->getTexture()->setTextureByName("player_walk", false, false);
                     currentLevel->getPlayer()->move(180.f, -190.f);
                 }
                 break;
             case PLAYER_STOP_WALKING:
-                currentLevel->getPlayer()->getTexture()->setTextureByName("player_idle", currentLevel->getPlayer()->getTexture()->isFlippedHorizontal(), false);
+                //currentLevel->getPlayer()->getTexture()->setTextureByName("player_idle", currentLevel->getPlayer()->getTexture()->isFlippedHorizontal(), false);
                 currentLevel->getPlayer()->stopMoving();
                 break;
             case PLAYER_JUMP:
                 currentLevel->getPlayer()->jump();
                 break;
             case PLAYER_ATTACK:
-                currentLevel->getPlayer()->getTexture()->setTextureByName("player_attack", currentLevel->getPlayer()->getTexture()->isFlippedHorizontal(), true);
+                //currentLevel->getPlayer()->getTexture()->setTextureByName("player_attack", currentLevel->getPlayer()->getTexture()->isFlippedHorizontal(), true);
                 break;
             case PLAYER_ACTION:
                 break;

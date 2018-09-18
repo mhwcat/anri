@@ -5,7 +5,7 @@
 #include <engine/DebugPrint.h>
 
 
-ParticleSystem::ParticleSystem(Vec2 _originPosition, Vec2 _originSize, uint32_t _maxParticleCount, float _maxTimeRunning, float _minLifespan, float _maxLifespan, Vec2 _additionalAcceleration, Vec2 _minVariation, Vec2 _maxVariation)
+ParticleSystem::ParticleSystem(Vec2f _originPosition, Vec2f _originSize, uint32_t _maxParticleCount, float _maxTimeRunning, float _minLifespan, float _maxLifespan, Vec2f _additionalAcceleration, Vec2f _minVariation, Vec2f _maxVariation)
 {
     originPosition = _originPosition;
     originSize = _originSize;
@@ -50,10 +50,10 @@ void ParticleSystem::update(float deltaTime)
         while(particles.size() < maxParticleCount)
         {
             Particle p = Particle {
-                Vec2{originPosition.x + Random::getInstance().getRandomFloatInRange(-originSize.x, originSize.x), originPosition.y + Random::getInstance().getRandomFloatInRange(-originSize.y, originSize.y)}, 
-                Vec2{0.f, 0.f}, 
-                Vec2{0.f, 0.f}, 
-                Vec2{Random::getInstance().getRandomFloatInRange(-10.f, 10.f), Random::getInstance().getRandomFloatInRange(-10.f, 10.f)}, 
+                Vec2f{originPosition.x + Random::getInstance().getRandomFloatInRange(-originSize.x, originSize.x), originPosition.y + Random::getInstance().getRandomFloatInRange(-originSize.y, originSize.y)}, 
+                Vec2f{0.f, 0.f}, 
+                Vec2f{0.f, 0.f}, 
+                Vec2f{Random::getInstance().getRandomFloatInRange(-10.f, 10.f), Random::getInstance().getRandomFloatInRange(-10.f, 10.f)}, 
                 RGBColor{(unsigned char) Random::getInstance().getRandomIntInRange(160, 255), (unsigned char) Random::getInstance().getRandomIntInRange(23, 134), (unsigned char) Random::getInstance().getRandomIntInRange(0, 10), (unsigned char) 255},
                 Random::getInstance().getRandomFloatInRange(minLifespan, maxLifespan)};
             particles.push_back(p);
@@ -105,13 +105,13 @@ void ParticleSystem::draw(SDL_Renderer *renderer, float interp)
 
 /* Builder */
 
-ParticleSystemBuilder& ParticleSystemBuilder::setOriginPosition(Vec2 _originPosition)
+ParticleSystemBuilder& ParticleSystemBuilder::setOriginPosition(Vec2f _originPosition)
 {
     this->originPosition = _originPosition;
     return *this;
 }
 
-ParticleSystemBuilder& ParticleSystemBuilder::setOriginSize(Vec2 _originSize)
+ParticleSystemBuilder& ParticleSystemBuilder::setOriginSize(Vec2f _originSize)
 {
     this->originSize = _originSize;
     return *this;
@@ -136,13 +136,13 @@ ParticleSystemBuilder& ParticleSystemBuilder::setLifespan(float _minLifespan, fl
     return *this;
 }
 
-ParticleSystemBuilder& ParticleSystemBuilder::applyAdditionalAcceleration(Vec2 _acceleration)
+ParticleSystemBuilder& ParticleSystemBuilder::applyAdditionalAcceleration(Vec2f _acceleration)
 {
     this->additionalAcceleration = _acceleration;
     return *this;
 }
 
-ParticleSystemBuilder& ParticleSystemBuilder::setVariation(Vec2 _minVariation, Vec2 _maxVariation)
+ParticleSystemBuilder& ParticleSystemBuilder::setVariation(Vec2f _minVariation, Vec2f _maxVariation)
 {
     this->minVariation = _minVariation;
     this->maxVariation = _maxVariation;

@@ -8,8 +8,8 @@ struct DebugInfo {
         float renderTime;
         float updateTime;
         float memoryUsageBytes;
-        Vec2 playerPosition;
-        Vec2 playerVelocity;
+        Vec2f playerPosition;
+        Vec2f playerVelocity;
 
         static DebugInfo& getInstance()
         {

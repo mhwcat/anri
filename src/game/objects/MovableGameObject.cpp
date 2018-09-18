@@ -4,10 +4,10 @@
 #include <math.h>
 
 
-MovableGameObject::MovableGameObject(std::string _name, Vec2 _position, int _width, int _height, bool _collisionEnabled,
+MovableGameObject::MovableGameObject(std::string _name, Vec2f _position, int _width, int _height,
                                      float _xVelocity, float _yVelocity, float _xAcceleration,
                                      float _yAcceleration)
-    : GameObject(_name, _position, _width, _height, _collisionEnabled)
+    : GameObject(_name, _position, _width, _height)
 {
     xVelocity = _xVelocity;
     yVelocity = _yVelocity;
