@@ -4,6 +4,13 @@ branches:
   only:
   - development
 
+notifications:
+  email:
+    recipients:
+      - mhwcat@gmail.com
+    on_success: never 
+    on_failure: always
+    
 env:
   global:
     # Ubuntu version
