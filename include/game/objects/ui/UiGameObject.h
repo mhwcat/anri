@@ -22,7 +22,7 @@ class UiGameObject : public GameObject
     public:
         UiGameObject(std::string _name, Vec2f _position, int _width, int _height);
         void show();
-        void draw(SDL_Renderer *renderer, float interp, float lastRenderTime) override;
+        //void draw(SDL_Renderer *renderer, float interp, float lastRenderTime) override;
 
 
 };

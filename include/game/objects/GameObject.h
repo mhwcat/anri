@@ -7,43 +7,40 @@
 #include <SDL_render.h>
 #include <game/objects/GameObjectType.h>
 #include <engine/math/Vec2.h>
-#include <engine/graphics/Texture.h>
+#include <game/components/GraphicsComponent.h>
 
 class GameObject
-{
-    private:
-        const float TEXTURE_ANIM_FRAME_INTERVAL = 50.f;
-        
+{       
     protected:
         uint32_t id;
         std::string name;
         Vec2f position;
         Vec2f previousPosition;
-        int width;
-        int height;
+        Vec2_ui32 size;
         GameObjectType type;
-        std::shared_ptr<Texture> texture;
-        float renderTimeElapsed;
-        float lastSpriteChangeTime;
+
+        // Components
+        std::shared_ptr<GraphicsComponent> graphicsComponent;
+
 
     public:
-        GameObject(std::string _name, Vec2f _position, int _width, int _height);
+        GameObject(std::string _name, Vec2f _position, Vec2_ui32 _size);
         virtual ~GameObject();
 
-        virtual void draw(SDL_Renderer *renderer, float interp, float lastRenderTime);
         virtual void update(float deltaTime);
 
         uint32_t getId() const;
         void setId(uint32_t _id);
         std::string getName() const;
-        const Vec2f &getPosition() const;
-        const Vec2f &getPreviousPosition() const;
+        std::shared_ptr<GraphicsComponent> getGraphicsComponent();
+
+        const Vec2f& getPosition() const;
+        const Vec2f& getPreviousPosition() const;
         void setPosition(const Vec2f &_position);
         void setPositionX(float _x);
         void setPositionY(float _y);
 
-        int getWidth();
-        int getHeight();
+        const Vec2_ui32& getSize() const;
         GameObjectType getType();
 
         std::shared_ptr<Texture> getTexture();

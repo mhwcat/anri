@@ -81,8 +81,9 @@ const std::unique_ptr<GameObject>& GameLevel::getObjectByName(std::string name) 
         if(go->getName().compare(name) == 0)
             return go;
     }
-}
 
+    return nullptr;
+}
 
 void GameLevel::removeGameObject(uint32_t id)
 {

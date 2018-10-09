@@ -53,6 +53,8 @@ set(SOURCE_FILES
 		include/game/objects/MovableGameObject.h
 		include/game/objects/PlayerGameObject.h
 		include/game/objects/ui/UiGameObject.h
+		include/game/components/Component.h
+		include/game/components/GraphicsComponent.h
 		include/game/Game.h
         src/engine/event/EventHandler.cpp
         src/engine/input/Input.cpp
@@ -74,6 +76,7 @@ set(SOURCE_FILES
 		src/game/objects/MovableGameObject.cpp
 		src/game/objects/PlayerGameObject.cpp
 		src/game/objects/ui/UiGameObject.cpp
+		src/game/components/GraphicsComponent.cpp
 		src/game/Game.cpp
 		src/main.cpp)
 

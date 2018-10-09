@@ -4,10 +4,10 @@
 #include <math.h>
 
 
-MovableGameObject::MovableGameObject(std::string _name, Vec2f _position, int _width, int _height,
+MovableGameObject::MovableGameObject(std::string _name, Vec2f _position, Vec2_ui32 _size,
                                      float _xVelocity, float _yVelocity, float _xAcceleration,
-                                     float _yAcceleration)
-    : GameObject(_name, _position, _width, _height)
+                                     float _yAcceleration) 
+    : GameObject(_name, _position, _size)
 {
     xVelocity = _xVelocity;
     yVelocity = _yVelocity;
@@ -42,11 +42,11 @@ void MovableGameObject::update(float deltaTime) {
         xVelocity = -MAX_VELOCITY_X;
     }
 
-    if((position.y + height) >= 510.f)
+    if((position.y + size.y) >= 510.f)
     {
         yAcceleration = 0.f;
         yVelocity = 0.f;
-        setPositionY(510.f - height);
+        setPositionY(510.f - size.y);
     }
 
     setPositionX(position.x + (xVelocity * deltaTime));

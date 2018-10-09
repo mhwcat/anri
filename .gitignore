@@ -403,3 +403,5 @@ dkms.conf
 # Project specific
 /cmake-build*
 /msvc-build*
+*.code-workspace
+.vscode

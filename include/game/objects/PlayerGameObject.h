@@ -9,7 +9,7 @@
 class PlayerGameObject : public MovableGameObject
 {
     public:
-        PlayerGameObject(std::string _name, Vec2f _position, int _width, int _height,
+        PlayerGameObject(std::string _name, Vec2f _position, Vec2_ui32 _size,
                          float _xVelocity, float _yVelocity, float _xAcceleration, float _yAcceleration);
         void update(float deltaTime) override;
 

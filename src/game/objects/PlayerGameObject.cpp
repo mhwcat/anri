@@ -3,10 +3,10 @@
 #include <engine/DebugInfo.h>
 #include <engine/DebugPrint.h>
 
-PlayerGameObject::PlayerGameObject(std::string _name, Vec2f _position, int _width, int _height,
+PlayerGameObject::PlayerGameObject(std::string _name, Vec2f _position, Vec2_ui32 _size,
                                    float _xVelocity, float _yVelocity,
                                    float _xAcceleration, float _yAcceleration)
-    : MovableGameObject(_name, _position, _width, _height, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
+    : MovableGameObject(_name, _position, _size, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
 {
     inAir = false;
     inAction = false;
@@ -86,9 +86,9 @@ void PlayerGameObject::update(float deltaTime)
     DebugInfo::getInstance().playerVelocity.x = xVelocity;
     DebugInfo::getInstance().playerVelocity.y = yVelocity;
 
-    if(inAir && (position.y + height) >= 510.0)
+    if(inAir && (position.y + size.y) >= 510.0)
     {
-        position.y = (510.f - height);
+        position.y = (510.f - size.y);
         yVelocity = 0.f;
         inAir = false;
         inAction = false;
