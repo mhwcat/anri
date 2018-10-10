@@ -82,7 +82,9 @@ const std::unique_ptr<GameObject>& GameLevel::getObjectByName(std::string name) 
             return go;
     }
 
-    return nullptr;
+    ANRI_DE debugPrint("GameObject[%s] not found!", name);
+    static std::unique_ptr<GameObject> gameObjectNotFound;
+    return gameObjectNotFound;
 }
 
 void GameLevel::removeGameObject(uint32_t id)
