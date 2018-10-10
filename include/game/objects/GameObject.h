@@ -34,14 +34,14 @@ class GameObject
         std::string getName() const;
         std::shared_ptr<GraphicsComponent> getGraphicsComponent();
 
-        const Vec2f& getPosition() const;
-        const Vec2f& getPreviousPosition() const;
-        void setPosition(const Vec2f &_position);
+        Vec2f getPosition() const;
+        Vec2f getPreviousPosition() const;
+        void setPosition(Vec2f _position);
         void setPositionX(float _x);
         void setPositionY(float _y);
 
-        const Vec2_ui32& getSize() const;
-        GameObjectType getType();
+        Vec2_ui32 getSize() const;
+        GameObjectType getType() const;
 
         std::shared_ptr<Texture> getTexture();
 

@@ -17,7 +17,7 @@ class GraphicsComponent : Component
     
     public:
         GraphicsComponent();
-        void draw(SDL_Renderer *renderer, Vec2f &previousPosition, Vec2f &position, Vec2_ui32 &size, float interp, float lastRenderTime);
+        void draw(SDL_Renderer *renderer, Vec2f previousPosition, Vec2f position, Vec2_ui32 size, float interp, float lastRenderTime);
         std::shared_ptr<Texture> getTexture();
         const float& getRenderTimeElapsed() const;
         const float& getLastSpriteChangeTime() const;        

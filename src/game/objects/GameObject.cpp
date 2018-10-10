@@ -46,27 +46,27 @@ std::shared_ptr<GraphicsComponent> GameObject::getGraphicsComponent()
     return graphicsComponent;
 }
 
-const Vec2_ui32 &GameObject::getSize() const
+Vec2_ui32 GameObject::getSize() const
 {
     return size;
 }
 
-GameObjectType GameObject::getType()
+GameObjectType GameObject::getType() const
 {
     return type;
 }
 
-const Vec2f& GameObject::getPosition() const
+Vec2f GameObject::getPosition() const
 {
     return position;
 }
 
-const Vec2f& GameObject::getPreviousPosition() const
+Vec2f GameObject::getPreviousPosition() const
 {
     return previousPosition;
 }
 
-void GameObject::setPosition(const Vec2f &_position)
+void GameObject::setPosition(Vec2f _position)
 {
     previousPosition = position;
     position = _position;

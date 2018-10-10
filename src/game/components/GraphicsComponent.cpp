@@ -12,7 +12,7 @@ GraphicsComponent::GraphicsComponent()
     lastSpriteChangeTime = 0.f;
 }
 
-void GraphicsComponent::draw(SDL_Renderer *renderer, Vec2f &previousPosition, Vec2f &position, Vec2_ui32 &size, float interp, float lastRenderTime)
+void GraphicsComponent::draw(SDL_Renderer *renderer, Vec2f previousPosition, Vec2f position, Vec2_ui32 size, float interp, float lastRenderTime)
 {
     // Interpolation for rendering
     float drawX = (previousPosition.x * interp) + (position.x * (1.f - interp));
@@ -28,11 +28,11 @@ void GraphicsComponent::draw(SDL_Renderer *renderer, Vec2f &previousPosition, Ve
             lastSpriteChangeTime = renderTimeElapsed;
         }
 
-        texture->draw((int) round(drawX), (int) round(drawY), size.x, size.y, renderer);
+        texture->draw((int) round(drawX), (int) round(drawY), (int) size.x, (int) size.y, renderer);
     }
     else 
     {
-        SDL_Rect rect { (int) round(drawX),(int) round(drawY), size.x, size.y };
+        SDL_Rect rect { (int) round(drawX),(int) round(drawY), (int) size.x, (int) size.y };
 
         // if(type == PLAYER_GAME_OBJECT) 
         // {
