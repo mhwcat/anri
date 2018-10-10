@@ -32,27 +32,17 @@ void GraphicsComponent::draw(SDL_Renderer *renderer, Vec2f previousPosition, Vec
     }
     else 
     {
-        SDL_Rect rect { (int) round(drawX),(int) round(drawY), (int) size.x, (int) size.y };
-
-        // if(type == PLAYER_GAME_OBJECT) 
-        // {
-        //     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-        // }
-        // else 
-        // {
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        // }
-
+        SDL_Rect rect { (int) round(drawX), (int) round(drawY), (int) size.x, (int) size.y };
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderFillRect(renderer, &rect);
     }
 
-    // Outline movables
-    // if(type == MOVABLE_GAME_OBJECT || type == PLAYER_GAME_OBJECT) 
-    // {
-    //     SDL_Rect outline { (int) round(drawX),(int) round(drawY), width, height };
-    //     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    //     SDL_RenderDrawRect(renderer, &outline);
-    // }
+    if(DRAW_OUTLINES)
+    {
+        SDL_Rect outline { (int) round(drawX),(int) round(drawY), (int) size.x, (int) size.y };
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        SDL_RenderDrawRect(renderer, &outline);
+    }
 }
 
 std::shared_ptr<Texture> GraphicsComponent::getTexture() 

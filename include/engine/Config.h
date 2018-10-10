@@ -8,8 +8,9 @@ class Config
 {
     public:
         static Config& getInstance();
-        int getIntValueByKey(std::string key);
-        std::string getStringValueByKey(std::string key);
+        int getIntValueByKey(std::string key) const;
+        std::string getStringValueByKey(std::string key) const;
+        bool getBoolValueByKey(std::string key) const;
 
         Config(Config const&) = delete;
         Config(Config&&) = delete;

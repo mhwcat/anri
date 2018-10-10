@@ -53,12 +53,17 @@ void Config::load()
     }
 }
 
-int Config::getIntValueByKey(std::string key)
+int Config::getIntValueByKey(std::string key) const
 {
     return std::stoi(configEntries.find(key)->second);
 }
 
-std::string Config::getStringValueByKey(std::string key)
+std::string Config::getStringValueByKey(std::string key) const
 {
     return configEntries.find(key)->second;
+}
+
+bool Config::getBoolValueByKey(std::string key) const
+{
+    return std::stoi(configEntries.find(key)->second) == 1;
 }

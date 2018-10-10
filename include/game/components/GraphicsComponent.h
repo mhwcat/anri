@@ -3,6 +3,7 @@
 
 #include <engine/math/Vec2.h>
 #include <engine/graphics/Texture.h>
+#include <engine/Config.h>
 #include <game/components/Component.h>
 #include <memory>
 
@@ -10,6 +11,7 @@ class GraphicsComponent : public Component
 {
     private:
         const float TEXTURE_ANIM_FRAME_INTERVAL = 50.f;
+        const bool DRAW_OUTLINES = Config::getInstance().getBoolValueByKey("renderer.drawOutlines");
 
         std::shared_ptr<Texture> texture;
         float renderTimeElapsed;
