@@ -3,10 +3,6 @@
 
 #include <game/objects/GameObject.h>
 
-enum UiFadeMode {
-    UI_FADE_IN, UI_FADE_OUT
-};
-
 class UiGameObject : public GameObject
 {
     private:
@@ -14,17 +10,6 @@ class UiGameObject : public GameObject
         float fadeOutTime;
         float displayTime;
         bool shown;
-        UiFadeMode fadeMode;
-
-        void fadeIn();
-        void fadeOut();
-
-    public:
-        UiGameObject(std::string _name, Vec2f _position, int _width, int _height);
-        void show();
-        //void draw(SDL_Renderer *renderer, float interp, float lastRenderTime) override;
-
-
 };
 
 #endif

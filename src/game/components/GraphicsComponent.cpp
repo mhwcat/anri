@@ -55,18 +55,17 @@ void GraphicsComponent::draw(SDL_Renderer *renderer, Vec2f previousPosition, Vec
     // }
 }
 
-
 std::shared_ptr<Texture> GraphicsComponent::getTexture() 
 {
     return texture;
 }
 
-const float& GraphicsComponent::getRenderTimeElapsed() const
+float GraphicsComponent::getRenderTimeElapsed() const
 {
     return renderTimeElapsed;
 }
 
-const float& GraphicsComponent::getLastSpriteChangeTime() const 
+float GraphicsComponent::getLastSpriteChangeTime() const 
 {
     return lastSpriteChangeTime;
 }
@@ -80,5 +79,3 @@ void GraphicsComponent::setLastSpriteChangeTime(float _lastSpriteChangeTime)
 {
     lastSpriteChangeTime = _lastSpriteChangeTime;
 }
-
-
