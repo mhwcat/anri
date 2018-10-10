@@ -2,7 +2,6 @@
 #define ANRI_MOVABLE_GAME_OBJECT_H
 
 #include <game/objects/GameObject.h>
-#include <game/objects/IMovable.h>
 #include <engine/Config.h>
 
 class MovableGameObject : public GameObject

@@ -48,8 +48,6 @@ set(SOURCE_FILES
 		include/game/levels/GameLevel.h
 		include/game/objects/GameObject.h
 		include/game/objects/GameObjectType.h
-		include/game/objects/IControllable.h
-		include/game/objects/IMovable.h
 		include/game/objects/MovableGameObject.h
 		include/game/objects/PlayerGameObject.h
 		include/game/objects/ui/UiGameObject.h

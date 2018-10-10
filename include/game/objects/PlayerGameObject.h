@@ -2,7 +2,6 @@
 #define ANRI_PLAYER_OBJECT_H
 
 #include <game/objects/MovableGameObject.h>
-#include <game/objects/IControllable.h>
 #include <engine/input/Input.h>
 #include <SDL_events.h>
 
