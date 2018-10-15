@@ -3,6 +3,7 @@ language: cpp
 branches:
   only:
   - development
+  - box2d-integration
 
 notifications:
   email:
