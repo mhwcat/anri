@@ -18,6 +18,7 @@ env:
     - LINUX_DIST=trusty
     # Global build options and C++ flags
     - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow"
+    - MAKEFLAGS="-j2"
 
 matrix:
   include:
