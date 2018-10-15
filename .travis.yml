@@ -23,7 +23,7 @@ matrix:
   include:
     - os: linux
       dist: trusty
-      sudo: false
+      sudo: true
       compiler: g++
       addons:
         apt:
