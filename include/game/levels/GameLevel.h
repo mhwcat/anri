@@ -17,6 +17,7 @@ class GameLevel
         std::vector<std::shared_ptr<MovableGameObject> > movables;
         std::shared_ptr<PlayerGameObject> player;
         std::vector<std::unique_ptr<ParticleSystem> > particleSystems;
+
         uint32_t lastId;
 
     public:

@@ -8,10 +8,11 @@
 class PlayerGameObject : public MovableGameObject
 {
     public:
-        PlayerGameObject(std::string _name, Vec2f _position, Vec2_ui32 _size,
+        PlayerGameObject(std::string _name, Vec2f _position, Vec2_ui32 _size, b2BodyType _bodyType, bool _fixedRotation,
                          float _xVelocity, float _yVelocity, float _xAcceleration, float _yAcceleration);
         void update(float deltaTime) override;
-
+        // void move(float directionDegrees, float velocity);
+        // void stopMoving();
         void jump();
         bool isInAction();
         void executeAction();

@@ -11,11 +11,13 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2TTF REQUIRED)
 find_package(SDL2MIXER REQUIRED)
 find_package(SDL2IMAGE REQUIRED)
+find_package(SDL2GFX REQUIRED)
 find_package(Box2D REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2TTF_INCLUDE_DIR})
 include_directories(${SDL2MIXER_INCLUDE_DIR})
 include_directories(${SDL2IMAGE_INCLUDE_DIR})
+include_directories(${SDL2GFX_INCLUDE_DIR})
 include_directories(${BOX2D_INCLUDE_DIR})
 
 #Include local headers
@@ -39,6 +41,7 @@ set(SOURCE_FILES
 		include/engine/graphics/ParticleSystem.h
 		include/engine/messaging/Message.h
 		include/engine/messaging/MessageSystem.h
+		include/engine/physics/World.h
 		include/engine/MemoryUsage.h
 		include/engine/SimpleTimer.h
 		include/engine/Config.h
@@ -55,6 +58,7 @@ set(SOURCE_FILES
 		include/game/objects/ui/UiGameObject.h
 		include/game/components/Component.h
 		include/game/components/GraphicsComponent.h
+		include/game/components/PhysicsComponent.h
 		include/game/Game.h
         src/engine/event/EventHandler.cpp
         src/engine/input/Input.cpp
@@ -64,6 +68,7 @@ set(SOURCE_FILES
 		src/engine/graphics/ParticleSystem.cpp
 		src/engine/messaging/Message.cpp
 		src/engine/messaging/MessageSystem.cpp
+		src/engine/physics/World.cpp
 		src/engine/MemoryUsage.cpp
 		src/engine/SimpleTimer.cpp
 		src/engine/Config.cpp
@@ -77,6 +82,7 @@ set(SOURCE_FILES
 		src/game/objects/PlayerGameObject.cpp
 		src/game/objects/ui/UiGameObject.cpp
 		src/game/components/GraphicsComponent.cpp
+		src/game/components/PhysicsComponent.cpp
 		src/game/Game.cpp
 		src/main.cpp)
 
@@ -85,6 +91,7 @@ target_link_libraries(anri ${SDL2_LIBRARY})
 target_link_libraries(anri ${SDL2TTF_LIBRARY})
 target_link_libraries(anri ${SDL2MIXER_LIBRARY})
 target_link_libraries(anri ${SDL2IMAGE_LIBRARY})
+target_link_libraries(anri ${SDL2GFX_LIBRARY})
 target_link_libraries(anri ${BOX2D_LIBRARY})
 if (WIN32)
 	target_link_libraries(anri psapi)

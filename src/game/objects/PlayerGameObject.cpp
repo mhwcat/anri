@@ -3,10 +3,10 @@
 #include <engine/DebugInfo.h>
 #include <engine/DebugPrint.h>
 
-PlayerGameObject::PlayerGameObject(std::string _name, Vec2f _position, Vec2_ui32 _size,
+PlayerGameObject::PlayerGameObject(std::string _name, Vec2f _position, Vec2_ui32 _size, b2BodyType _bodyType, bool _fixedRotation,
                                    float _xVelocity, float _yVelocity,
                                    float _xAcceleration, float _yAcceleration)
-    : MovableGameObject(_name, _position, _size, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
+    : MovableGameObject(_name, _position, _size, _bodyType, _fixedRotation, _xVelocity, _yVelocity, _xAcceleration, _yAcceleration)
 {
     inAir = false;
     inAction = false;
@@ -17,23 +17,14 @@ PlayerGameObject::PlayerGameObject(std::string _name, Vec2f _position, Vec2_ui32
 
 void PlayerGameObject::update(float deltaTime)
 {
-    if(inAir) 
-    {
-        jumpTime += deltaTime;
-        if(jumpTime > 0.15f)
-        {
-            yAcceleration = 0.f;
-        }
-    }
-
-    if(inAction)
-    {
-        actionTime += deltaTime;
-        if(actionTime > 1.5f)
-        {
-            inAction = false;
-        }  
-    }
+    // if(inAction)
+    // {
+    //     actionTime += deltaTime;
+    //     if(actionTime > 1.5f)
+    //     {
+    //         inAction = false;
+    //     }  
+    // }
 
     /*if(!input->isInputEventsQueueEmpty())
     {
@@ -67,10 +58,7 @@ void PlayerGameObject::update(float deltaTime)
             case SDLK_SPACE:
                 if(input->wasKeyPressed(keycode) && !inAir)
                 {
-                    setPositionY(position.y - 1.f);
-                    yAcceleration = -800.f;
-                    inAir = true;
-                    jumpTime = 0.f;
+
                 } 
                 break;
             case SDLK_ESCAPE:
@@ -81,32 +69,79 @@ void PlayerGameObject::update(float deltaTime)
         }
     }*/
 
-    DebugInfo::getInstance().playerPosition.x = position.x;
-    DebugInfo::getInstance().playerPosition.y = position.y;
-    DebugInfo::getInstance().playerVelocity.x = xVelocity;
-    DebugInfo::getInstance().playerVelocity.y = yVelocity;
 
-    if(inAir && (position.y + size.y) >= 510.0)
-    {
-        position.y = (510.f - size.y);
-        yVelocity = 0.f;
-        inAir = false;
-        inAction = false;
-    }
+
+    // if(xAcceleration == 0.f)
+    // {
+    //     if(xVelocity > 0.f) {
+    //         xVelocity -= 100.f * deltaTime;
+    //         if(xVelocity < 0.f) xVelocity = 0.f;
+    //     } else if(xVelocity < 0.f)
+    //     {
+    //         xVelocity += 100.f * deltaTime;
+    //         if(xVelocity > 0.f) xVelocity = 0.f;
+    //     }
+    // }
+
+    // xVelocity += xAcceleration * deltaTime;
+    // yVelocity += (yAcceleration) * deltaTime;
+
+    // if(xVelocity > 100.f) {
+    //     xVelocity = 100.f;
+    // }
+    // if(xVelocity < -100.f) {
+    //     xVelocity = -100.f;
+    // }
+
+    // if(!inAir) {
+    //     physicsComponent->setLinearVelocity(Vec2f{xVelocity, yVelocity});
+    // }
+
+    // if(inAir) {
+    //     jumpTime += deltaTime;
+
+    //     if(jumpTime > 0.5f) {
+    //         inAir = false;
+    //         physicsComponent->setLinearVelocity(Vec2f{physicsComponent->getVelocity().x, physicsComponent->getVelocity().y});
+    //     }
+    // }
+
+    
+
+    DebugInfo::getInstance().playerPosition.x = physicsComponent->getPosition().x;
+    DebugInfo::getInstance().playerPosition.y = physicsComponent->getPosition().y;
+    DebugInfo::getInstance().playerVelocity.x = physicsComponent->getVelocity().x;
+    DebugInfo::getInstance().playerVelocity.y = physicsComponent->getVelocity().y;
+
+
 
     MovableGameObject::update(deltaTime);
 }
 
+// void PlayerGameObject::move(float directionDegrees, float velocity)
+// {
+//     float rad = M_PI / 180.f * directionDegrees;
+
+//     xVelocity = velocity * cos(rad);
+//     yVelocity = velocity * sin(rad);
+
+//     debugPrint("[%.5f, %.5f]", xVelocity, yVelocity);
+// }
+
+// void PlayerGameObject::stopMoving()
+// {
+//     xVelocity = 0.f;
+//     yVelocity = 0.f;
+// }
+
 void PlayerGameObject::jump() 
 {
-    if(!inAir) 
-    {
-        setPositionY(position.y - 1.f);
-        yAcceleration = -800.f;
-        inAir = true;
-        inAction = true;
-        jumpTime = 0.f;
-    }
+    physicsComponent->applyLinearImpulse(Vec2f{0.f, -80.f});
+    // if(!inAir) 
+    // {
+    //     inAir = true;
+    //     jumpTime = 0.f;
+    // }
 }
 
 void PlayerGameObject::executeAction()

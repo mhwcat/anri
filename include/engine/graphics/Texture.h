@@ -15,7 +15,7 @@ class Texture
         void loadSheet(std::string _name, std::string _path, Vec2f _offset, int _spritesInRow, int _spriteCount, SDL_Renderer *renderer);
         void setTextureByName(std::string _sheetName, bool _flipHorizontal, bool _playOnce);
         void setTextureById(unsigned int _sheetId, bool _flipHorizontal, bool _playOnce);
-        void draw(int drawX, int drawY, int width, int height, SDL_Renderer *renderer);
+        void draw(int drawX, int drawY, int width, int height, double angle, SDL_Renderer *renderer);
         void nextSprite();
         uint8_t getAlpha();
         void setAlpha(uint8_t _alpha);

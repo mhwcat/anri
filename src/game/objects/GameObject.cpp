@@ -5,15 +5,14 @@
 #include <engine/DebugPrint.h>
 
 
-GameObject::GameObject(std::string _name, Vec2f _position, Vec2_ui32 _size)
+GameObject::GameObject(std::string _name, Vec2f _position, Vec2_ui32 _size, b2BodyType _bodyType, bool _fixedRotation)
 {
     name = _name;
-    position = _position;
-    previousPosition = _position;
     size = _size;
     type = GameObjectType::GAME_OBJECT;
 
-    graphicsComponent = std::make_shared<GraphicsComponent>();
+    physicsComponent = std::make_shared<PhysicsComponent>(_name, _position, _size, _bodyType, _fixedRotation);
+    graphicsComponent = std::make_shared<GraphicsComponent>(name, physicsComponent);
 }
 
 GameObject::~GameObject()
@@ -46,6 +45,11 @@ std::shared_ptr<GraphicsComponent> GameObject::getGraphicsComponent()
     return graphicsComponent;
 }
 
+std::shared_ptr<PhysicsComponent> GameObject::getPhysicsComponent()
+{
+    return physicsComponent;
+}
+
 Vec2_ui32 GameObject::getSize() const
 {
     return size;
@@ -54,34 +58,6 @@ Vec2_ui32 GameObject::getSize() const
 GameObjectType GameObject::getType() const
 {
     return type;
-}
-
-Vec2f GameObject::getPosition() const
-{
-    return position;
-}
-
-Vec2f GameObject::getPreviousPosition() const
-{
-    return previousPosition;
-}
-
-void GameObject::setPosition(Vec2f _position)
-{
-    previousPosition = position;
-    position = _position;
-}
-
-void GameObject::setPositionX(float _x)
-{
-    previousPosition.x = position.x;
-    position.x = _x;
-}
-
-void GameObject::setPositionY(float _y)
-{
-    previousPosition.y = position.y;
-    position.y = _y;
 }
 
 bool GameObject::operator==(const GameObject &rhs) const

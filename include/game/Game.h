@@ -8,7 +8,6 @@
 #include <game/levels/GameLevel.h>
 #include <engine/sound/SoundSystem.h>
 
-
 class Game : public System
 {
     public:

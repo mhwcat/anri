@@ -2,12 +2,13 @@
 #include <game/objects/MovableGameObject.h>
 #include <engine/DebugPrint.h>
 #include <math.h>
+#include <Box2D/Box2D.h>
 
 
-MovableGameObject::MovableGameObject(std::string _name, Vec2f _position, Vec2_ui32 _size,
+MovableGameObject::MovableGameObject(std::string _name, Vec2f _position, Vec2_ui32 _size, b2BodyType _bodyType, bool _fixedRotation,
                                      float _xVelocity, float _yVelocity, float _xAcceleration,
                                      float _yAcceleration) 
-    : GameObject(_name, _position, _size)
+    : GameObject(_name, _position, _size, _bodyType, _fixedRotation)
 {
     xVelocity = _xVelocity;
     yVelocity = _yVelocity;
@@ -15,51 +16,48 @@ MovableGameObject::MovableGameObject(std::string _name, Vec2f _position, Vec2_ui
     yAcceleration = _yAcceleration;
 
     type = GameObjectType::MOVABLE_GAME_OBJECT;
+    physicsComponent->setBodyType(b2_dynamicBody);
 }
 
-void MovableGameObject::update(float deltaTime) {
-    if(xAcceleration == 0.f)
-    {
-        if(xVelocity > 0.f) {
-            xVelocity -= 50.f * deltaTime;
-            if(xVelocity < 0.f) xVelocity = 0.f;
-        } else if(xVelocity < 0.f)
-        {
-            xVelocity += 50.f * deltaTime;
-            if(xVelocity > 0.f) xVelocity = 0.f;
-        }
-    }
+void MovableGameObject::update(float deltaTime) 
+{
 
-    xVelocity += xAcceleration * deltaTime;
-    yVelocity += (yAcceleration + Y_ACCELERATION_GRAVITY) * deltaTime;
+    // if(type == PLAYER_GAME_OBJECT) 
+    // {
+    //     if(xAcceleration == 0.f)
+    //     {
+    //         if(xVelocity > 0.f) {
+    //             xVelocity -= 50.f * deltaTime;
+    //             if(xVelocity < 0.f) xVelocity = 0.f;
+    //         } else if(xVelocity < 0.f)
+    //         {
+    //             xVelocity += 50.f * deltaTime;
+    //             if(xVelocity > 0.f) xVelocity = 0.f;
+    //         }
+    //     }
 
-    if(xVelocity > MAX_VELOCITY_X)
-    {
-        xVelocity = MAX_VELOCITY_X;
-    }
-    if(xVelocity < -MAX_VELOCITY_X)
-    {
-        xVelocity = -MAX_VELOCITY_X;
-    }
+    //     xVelocity += xAcceleration * deltaTime;
+    //     yVelocity += (yAcceleration + 9.81f) * deltaTime;
 
-    if((position.y + size.y) >= 510.f)
-    {
-        yAcceleration = 0.f;
-        yVelocity = 0.f;
-        setPositionY(510.f - size.y);
-    }
+    //     physicsComponent->setLinearVelocity(Vec2f{(xVelocity), (yVelocity)});
 
-    setPositionX(position.x + (xVelocity * deltaTime));
-    setPositionY(position.y + (yVelocity * deltaTime));
+    // } else
+    // {
+
+    Vec2f vel{xAcceleration, yAcceleration};
+    physicsComponent->applyForce(vel, deltaTime);
 
     GameObject::update(deltaTime);
 }
 
 void MovableGameObject::move(float directionDegrees, float acceleration)
 {
-    float rad = 180.f / M_PI * directionDegrees;
+    float rad = M_PI / 180.f * directionDegrees;
+
     xAcceleration = acceleration * cos(rad);
     yAcceleration = acceleration * sin(rad);
+
+    //debugPrint("[%.5f, %.5f]", xAcceleration, yAcceleration);
 }
 
 void MovableGameObject::stopMoving()

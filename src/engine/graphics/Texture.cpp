@@ -105,13 +105,13 @@ void Texture::nextSprite()
     }
 }
 
-void Texture::draw(int drawX, int drawY, int width, int height, SDL_Renderer *renderer)
+void Texture::draw(int drawX, int drawY, int width, int height, double angle, SDL_Renderer *renderer)
 {
     SDL_Rect renderQuad = { drawX, drawY, width, height };
     SDL_Rect clip = { currentSpritesInRows[currentSheet] * offsets[currentSheet].x, (currentRows[currentSheet] - 1) * offsets[currentSheet].y, width, height };
 
     SDL_SetTextureAlphaMod(textureSheets[currentSheet], alpha);
-    SDL_RenderCopyEx(renderer, textureSheets[currentSheet], &clip, &renderQuad, NULL, NULL, flipHorizontal ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+    SDL_RenderCopyEx(renderer, textureSheets[currentSheet], &clip, &renderQuad, angle, NULL, flipHorizontal ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 
 void Texture::unloadAllSheets()

@@ -95,6 +95,8 @@ void Game::mainLoop()
         while(accumulator >= dt)
         {
             update(dt / 1000000.f); // update with deltaTime in seconds
+            World::getInstance().getWorld()->Step(dt / 1000000.f, 8, 3);
+
             timeElapsed += dt;
             accumulator -= dt;
         }
@@ -182,14 +184,14 @@ void Game::handleEngineMessages()
                 if(!currentLevel->getPlayer()->isInAction())
                 {
                     //currentLevel->getPlayer()->getTexture()->setTextureByName("player_walk", true, false);
-                    currentLevel->getPlayer()->move(-180.f, 190.f);
+                    currentLevel->getPlayer()->move(180.f, .8f);
                 }
                 break;
             case PLAYER_WALK_RIGHT:
                 if(!currentLevel->getPlayer()->isInAction())
                 {
                     //currentLevel->getPlayer()->getTexture()->setTextureByName("player_walk", false, false);
-                    currentLevel->getPlayer()->move(180.f, -190.f);
+                    currentLevel->getPlayer()->move(0.f, .8f);
                 }
                 break;
             case PLAYER_STOP_WALKING:
