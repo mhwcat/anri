@@ -84,6 +84,8 @@ void TextureResourceManager::remove(std::string _key)
         return;
     }
 
+    ANRI_DE debugPrint("Removing texture resource %s.", _key.c_str());
+
     SDL_DestroyTexture(resources[_key]);
     resources.erase(_key);
 }
