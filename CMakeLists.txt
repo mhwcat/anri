@@ -43,6 +43,7 @@ set(SOURCE_FILES
 		include/engine/messaging/MessageSystem.h
 		include/engine/resource/ResourceManager.h
 		include/engine/resource/TextureResourceManager.h
+		include/engine/resource/SoundResourceManager.h
 		include/engine/physics/World.h
 		include/engine/MemoryUsage.h
 		include/engine/SimpleTimer.h
@@ -72,6 +73,7 @@ set(SOURCE_FILES
 		src/engine/messaging/MessageSystem.cpp
 		src/engine/physics/World.cpp
 		src/engine/resource/TextureResourceManager.cpp
+		src/engine/resource/SoundResourceManager.cpp
 		src/engine/MemoryUsage.cpp
 		src/engine/SimpleTimer.cpp
 		src/engine/Config.cpp

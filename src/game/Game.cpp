@@ -206,18 +206,22 @@ void Game::handleEngineMessages()
                 break;
             case PLAYER_ACTION:
                 break;
+            case PLAY_AMBIENT_MUSIC: 
+                soundSystem->playMusic(std::string((char *) message->data), 255.f, 0);
+                break;
             case GAME_SHUTDOWN:
                 running = false;
                 break;
-             default:
-                 break;
+            default:
+                break;
         }
 
         // if(message->data != nullptr)
         // {
         //     free(message->data);
         // }
-        //free(message);
+
+        // free(message);
     }
 }
 

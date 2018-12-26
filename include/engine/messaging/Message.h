@@ -21,6 +21,8 @@ enum MessageType
     PLAYER_SWITCH_TEXTURE,      // switch texture
 
     PARTICLE_SYSTEM_ADD,
+
+    PLAY_AMBIENT_MUSIC,
     
 };
 

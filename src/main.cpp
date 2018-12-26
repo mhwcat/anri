@@ -8,6 +8,7 @@
 #include <engine/Config.h>
 #include <engine/Allocator.h>
 #include <engine/resource/TextureResourceManager.h>
+#include <engine/resource/SoundResourceManager.h>
 #include <Box2D/Box2D.h>
 
 int main(int argc, char* args[])

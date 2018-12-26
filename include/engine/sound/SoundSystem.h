@@ -16,18 +16,9 @@ class SoundSystem
         void stopMusic(int fadeOutMs);
         void playSound(std::string id, int volume, int loops);
 
-        void loadSound(std::string id, std::string path);
-        void loadMusic(std::string id, std::string path);
-        void unloadSound(std::string id);
-        void unloadMusic(std::string id);
-        void unloadAll();
-
         bool isMusicPlaying();
 
     private:
-        std::map<std::string, Mix_Chunk*> sounds;
-        std::map<std::string, Mix_Music*> musicTracks;
-
         std::string nowPlayingMusicTrackId;
 
         void clearNowPlaying();
