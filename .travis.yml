@@ -37,9 +37,7 @@ matrix:
             - libsdl2-ttf-dev
             - libsdl2-mixer-dev
             - libsdl2-image-dev
-            - automake
-            - autoconf
-            - autotools-dev
+            - libsdl2-gfx-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
@@ -49,8 +47,6 @@ before_install:
 install:
   - chmod +x install-box2d.sh
   - ./install-box2d.sh
-  - chmod +x install-sdl2gfx.sh
-  - ./install-sdl2gfx.sh
 
 before_script:
   - export CMAKE_OPTIONS=${CMAKE_OPTIONS}" "${ENV_CMAKE_OPTIONS}
