@@ -1,6 +1,8 @@
 #include <SDL_image.h>
 #include <engine/DebugPrint.h>
 #include <engine/graphics/Texture.h>
+#include <engine/resource/TextureResourceManager.h>
+
 
 Texture::Texture()
 {
@@ -13,29 +15,16 @@ Texture::~Texture()
     unloadAllSheets();
 }
 
-void Texture::loadSheet(std::string _name, std::string _path, Vec2f _offset, int _spritesInRow, int _spriteCount, SDL_Renderer *renderer)
+void Texture::loadSheet(std::string _name, std::string _resourceName, Vec2f _offset, int _spritesInRow, int _spriteCount)
 {
-    //The final texture
-    SDL_Texture* newTexture = NULL;
-
-    //Load image at specified path
-    SDL_Surface* loadedSurface = IMG_Load(_path.c_str());
-    if(loadedSurface == NULL)
+    SDL_Texture* newTexture = TextureResourceManager::getInstance()->get(_resourceName);
+    
+    if(newTexture == nullptr) 
     {
-        printf( "Unable to load image %s! SDL_image Error: %s\n", _path.c_str(), IMG_GetError() );
+        ANRI_DE debugPrint("Cannot load sheet, resource %s not found!", _resourceName.c_str());
         return;
     }
 
-    //Create texture from surface pixels
-    newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-    if(newTexture == NULL)
-    {
-        printf( "Unable to create texture from %s! SDL Error: %s\n", _path.c_str(), SDL_GetError() );
-    }
-
-    //Get rid of old loaded surface
-    SDL_FreeSurface(loadedSurface);
-    
     unsigned int sheetId = ++lastId;
 
     nameToIdMap[_name] = sheetId;
@@ -116,10 +105,10 @@ void Texture::draw(int drawX, int drawY, int width, int height, double angle, SD
 
 void Texture::unloadAllSheets()
 {
-    for(auto const& textureSheet : textureSheets)
-    {
-        SDL_DestroyTexture(textureSheet.second);
-    }
+    // for(auto const& textureSheet : textureSheets)
+    // {
+    //     SDL_DestroyTexture(textureSheet.second);
+    // }
 
    textureSheets.clear();
    offsets.clear();

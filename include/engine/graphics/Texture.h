@@ -12,7 +12,7 @@ class Texture
         Texture();
         virtual ~Texture();
 
-        void loadSheet(std::string _name, std::string _path, Vec2f _offset, int _spritesInRow, int _spriteCount, SDL_Renderer *renderer);
+        void loadSheet(std::string _name, std::string _resourceName, Vec2f _offset, int _spritesInRow, int _spriteCount);
         void setTextureByName(std::string _sheetName, bool _flipHorizontal, bool _playOnce);
         void setTextureById(unsigned int _sheetId, bool _flipHorizontal, bool _playOnce);
         void draw(int drawX, int drawY, int width, int height, double angle, SDL_Renderer *renderer);

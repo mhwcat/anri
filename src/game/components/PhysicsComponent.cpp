@@ -99,7 +99,6 @@ b2Vec2* PhysicsComponent::getBodyVertices()
 
 void PhysicsComponent::applyLinearImpulse(Vec2f impulse)
 {
-    debugPrint("APPLY LINEAR! [%.5f, %.5f]", impulse.x, impulse.y);
     b2Vec2 b2imp(impulse.x, impulse.y * body->GetMass());
 
     body->ApplyLinearImpulseToCenter(b2imp, true);

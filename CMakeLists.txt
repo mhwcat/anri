@@ -41,6 +41,8 @@ set(SOURCE_FILES
 		include/engine/graphics/ParticleSystem.h
 		include/engine/messaging/Message.h
 		include/engine/messaging/MessageSystem.h
+		include/engine/resource/ResourceManager.h
+		include/engine/resource/TextureResourceManager.h
 		include/engine/physics/World.h
 		include/engine/MemoryUsage.h
 		include/engine/SimpleTimer.h
@@ -69,6 +71,7 @@ set(SOURCE_FILES
 		src/engine/messaging/Message.cpp
 		src/engine/messaging/MessageSystem.cpp
 		src/engine/physics/World.cpp
+		src/engine/resource/TextureResourceManager.cpp
 		src/engine/MemoryUsage.cpp
 		src/engine/SimpleTimer.cpp
 		src/engine/Config.cpp
