@@ -46,7 +46,8 @@ void PhysicsComponent::initBody()
     b2FixtureDef myFixtureDef;
     myFixtureDef.shape = &polygonShape; //this is a pointer to the shape above
     myFixtureDef.density = 1.f;
-    myFixtureDef.friction = 0.8f;
+    myFixtureDef.friction = 0.1f;
+    myFixtureDef.restitution = 0.8f;
     
     body = world->CreateBody(&myBodyDef);
     char* ud = new char[10];

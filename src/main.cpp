@@ -26,13 +26,18 @@ int main(int argc, char* args[])
     std::unique_ptr<GameLevel> gl = std::make_unique<GameLevel>();
 
     TextureResourceManager::getInstance()->add("block-tex", "assets/sprites/block.png", g->getMainRenderer());
+    TextureResourceManager::getInstance()->add("ball-tex", "assets/sprites/ball.png", g->getMainRenderer());
     TextureResourceManager::getInstance()->add("player-block-tex", "assets/sprites/player-block.png", g->getMainRenderer());
 
     std::unique_ptr<GameObject> blockObject = std::make_unique<GameObject>("block", Vec2f{200.f, 200.f}, Vec2_ui32{80, 50}, b2_staticBody, true);
     blockObject->getGraphicsComponent()->getTexture()->loadSheet("block", "block-tex", Vec2f{0.f, 0.f}, 1, 1);
     gl->addGameObject(std::move(blockObject));
 
-    gl->setPlayer(std::make_shared<PlayerGameObject>("player", Vec2f {300.f, 500.f}, Vec2_ui32{74, 24}, b2_dynamicBody, true, 0.f, 0.f, 0.f, 0.f));
+    std::unique_ptr<MovableGameObject> ballObject = std::make_unique<MovableGameObject>("ball", Vec2f{300.f, 150.f}, Vec2_ui32{40, 40}, b2_dynamicBody, true, 0.f, 0.f, 0.f, 1.f);
+    ballObject->getGraphicsComponent()->getTexture()->loadSheet("ball", "ball-tex", Vec2f{0.f, 0.f}, 1, 1);
+    gl->addGameObject(std::move(ballObject));
+
+    gl->setPlayer(std::make_shared<PlayerGameObject>("player", Vec2f {300.f, 500.f}, Vec2_ui32{74, 24}, b2_staticBody, true, 0.f, 0.f, 0.f, 0.f));
     gl->getPlayer()->getGraphicsComponent()->getTexture()->loadSheet("block", "player-block-tex", Vec2f{0.f, 0.f}, 1, 1);
     g->loadLevel(std::move(gl));
 

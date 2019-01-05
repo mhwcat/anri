@@ -3,7 +3,7 @@
 
 World::World()
 {
-    b2Vec2 gravity(0, 59.8f);
+    b2Vec2 gravity(0, 0.f);
 
     world = std::make_shared<b2World>(gravity);
 }
